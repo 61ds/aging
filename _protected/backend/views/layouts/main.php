@@ -5,8 +5,7 @@ use yii\web\View;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-$this->registerJs("var current_url = ".json_encode(Yii::$app->request->absoluteUrl).";var admin_url = ".json_encode(Yii::$app->view->theme->baseUrl).";var baseurl = ".json_encode(Yii::$app->request->baseUrl).";var imageurl = ".json_encode(Yii::getAlias('@uploads')).";", View::POS_END);
-
+$this->registerJs("var current_url = ".json_encode(Yii::$app->request->absoluteUrl).";var controller =".json_encode(Yii::$app->controller->id).";var baseurl = ".json_encode(Yii::$app->request->baseUrl).";var imageurl = ".json_encode(Yii::getAlias('@uploads')).";var admin_url = ".json_encode(Yii::$app->view->theme->baseUrl).";", View::POS_END);
 if (Yii::$app->controller->action->id === 'login') { 
 /**
  * Do not use this code in your template. Remove it. 

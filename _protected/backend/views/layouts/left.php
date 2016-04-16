@@ -49,6 +49,16 @@
                             ['label' => 'Add New Ambassador', 'icon' => 'fa fa-dashboard', 'url' => ['/user/create-ambassador'],],
                         ],
                     ],
+                    [
+                        'label' => 'Startups Management',
+                        'icon' => 'fa fa-university',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => '', 'icon' => 'fa fa-angle-right', 'url' => ['chapters/index'],'active' => ($this->context->route == 'chapters/index')],
+                            ['label' => 'Startup Stages', 'icon' => 'fa fa-angle-right', 'url' => ['company-stage/index']],
+                            ['label' => 'Startup Categories', 'icon' => 'fa fa-angle-right', 'url' => ['company-category/index']],
+                        ],
+                    ],
 
 					/*['label' => 'Menu Management', 'icon' => 'fa fa-bars', 'url' => ['/menu'],'active' => ($this->context->route == 'admin/menu/index'),],
 
