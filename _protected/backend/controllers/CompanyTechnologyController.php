@@ -5,14 +5,13 @@ namespace backend\controllers;
 use Yii;
 use common\models\CompanyTechnology;
 use common\models\CompanyTechnologySearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * CompanyTechnologyController implements the CRUD actions for CompanyTechnology model.
  */
-class CompanyTechnologyController extends Controller
+class CompanyTechnologyController extends BackendController
 {
     public function behaviors()
     {
@@ -63,7 +62,7 @@ class CompanyTechnologyController extends Controller
         $model = new CompanyTechnology();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -82,7 +81,7 @@ class CompanyTechnologyController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         } else {
             return $this->render('update', [
                 'model' => $model,

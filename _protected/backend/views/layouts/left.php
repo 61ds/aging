@@ -56,9 +56,9 @@
                         'items' => [
                             ['label' => '', 'icon' => 'fa fa-angle-right', 'url' => ['chapters/index'],'active' => ($this->context->route == 'chapters/index')],
                             ['label' => 'Startup Stages', 'icon' => 'fa fa-angle-right', 'url' => ['company-stage/index']],
-                            ['label' => 'Startup Categories', 'icon' => 'fa fa-angle-right', 'url' => ['company-category/index'],'active' => ($this->context->route == ('company-category/index' ||'company-category/create' ||'company-category/update' || '/category-choices/index' || '/category-choices/create' || '/category-choices/update'))],
-                            ['label' => 'Startup Technology', 'icon' => 'fa fa-angle-right', 'url' => ['company-technology/index']],
-                            ['label' => 'Startup Strategies', 'icon' => 'fa fa-angle-right', 'url' => ['company-strategic/index']],
+                            ['label' => 'Startup Categories', 'icon' => 'fa fa-angle-right', 'url' => ['company-category/index'] ,'active' => ($this->context->route == 'company-category/index' || $this->context->route == 'company-category/create' || $this->context->route == 'company-category/update' || $this->context->route == 'category-choices/index' || $this->context->route ==  'category-choices/create' || $this->context->route == 'category-choices/update')],
+                            ['label' => 'Startup Technology', 'icon' => 'fa fa-angle-right', 'url' => ['company-technology/index'] ,'active' => ($this->context->route == 'company-technology/index' || $this->context->route == 'company-technology/create' || $this->context->route == 'company-technology/update')],
+                            ['label' => 'Startup Strategies', 'icon' => 'fa fa-angle-right', 'url' => ['company-strategic/index'] ,'active' => ($this->context->route == 'company-strategic/index' || $this->context->route == 'company-strategic/create' || $this->context->route == 'company-strategic/update')],
                         ],
                     ],
 

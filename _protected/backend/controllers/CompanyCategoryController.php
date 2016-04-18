@@ -5,7 +5,6 @@ namespace backend\controllers;
 use Yii;
 use common\models\CompanyCategory;
 use common\models\CompanyCategorySearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 

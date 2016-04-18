@@ -5,14 +5,13 @@ namespace backend\controllers;
 use Yii;
 use common\models\CompanyStrategic;
 use common\models\CompanyStrategicSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * CompanyStrategicController implements the CRUD actions for CompanyStrategic model.
  */
-class CompanyStrategicController extends Controller
+class CompanyStrategicController extends BackendController
 {
     public function behaviors()
     {
@@ -63,7 +62,7 @@ class CompanyStrategicController extends Controller
         $model = new CompanyStrategic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect('index');
         } else {
             return $this->render('create', [
                 'model' => $model,
