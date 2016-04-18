@@ -10,13 +10,6 @@ use yii\web\Controller;
 class BackendController extends Controller
 {
 
-
-
-
-
-
-
-
     /**
      * Returns a list of behaviors that this component should behave as.
      * Here we use RBAC in combination with AccessControl filter.

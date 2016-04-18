@@ -11,11 +11,11 @@ $this->title = 'Company Technologies';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="company-technology-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body table-responsive">
+                    <p>
         <?= Html::a('Create Company Technology', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
@@ -32,5 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
