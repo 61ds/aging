@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use common\models\LoginForm;
 use common\models\User;
+use common\models\StartupForm;
 use frontend\models\AccountActivation;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
@@ -392,4 +393,16 @@ class SiteController extends Controller
 
         return $this->redirect('login');
     }
+
+    /**
+     * Displays the about static page.
+     *
+     * @return string
+     */
+    public function actionStartup()
+    {
+        $model = new StartupForm();
+        return $this->render('startup',['model' => $model]);
+    }
+
 }
