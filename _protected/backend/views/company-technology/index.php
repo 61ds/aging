@@ -21,13 +21,32 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
             'name',
-            'status',
+            [
+                'attribute' => 'status',
+                'value' => function ($model) {
+                    if ($model->status) {
+                        return Html::a(Yii::t('app', 'Active'), null, [
+                            'class' => 'btn btn-success status',
+                            'data-id' => $model->id,
+                            'href' => 'javascript:void(0);',
+                        ]);
+                    } else {
+                        return Html::a(Yii::t('app', 'Inactive'), null, [
+                            'class' => 'btn btn-danger status',
+                            'data-id' => $model->id,
+                            'href' => 'javascript:void(0);',
+                        ]);
+                    }
+                },
+                'contentOptions' => ['style' => 'width:160px;text-align:center'],
+                'format' => 'raw',
+                'filter'=>array("1"=>"Active","0"=>"Inactive"),
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

@@ -4,19 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\CompanyStrategicSearch */
+/* @var $searchModel common\models\HearAboutSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Company Strategics';
+$this->title = 'Hear Abouts';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="company-strategic-index">
+<div class="hear-about-index">
     <div class="row">
         <div class="col-md-12">
             <div class="box">
                 <div class="box-body table-responsive">
                     <p>
-                        <?= Html::a('Create Company Strategic', ['create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Create Hear About', ['create'], ['class' => 'btn btn-success']) ?>
                     </p>
 
                     <?= GridView::widget([
@@ -26,6 +26,15 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['class' => 'yii\grid\SerialColumn'],
 
                             'name',
+                            [
+                                'attribute' => 'isdescription',
+                                'value' => function($model) {
+                                    if ($model->isdescription)
+                                        return "Yes";
+                                    else
+                                        return "No";
+                                }
+                            ],
                             [
                                 'attribute' => 'status',
                                 'value' => function ($model) {

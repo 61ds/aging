@@ -5,20 +5,21 @@ namespace common\models;
 use Yii;
 
 /**
- * This is the model class for table "company_technology".
+ * This is the model class for table "hear_about".
  *
  * @property integer $id
  * @property string $name
+ * @property integer $isdescription
  * @property integer $status
  */
-class CompanyTechnology extends \yii\db\ActiveRecord
+class HearAbout extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'company_technology';
+        return 'hear_about';
     }
 
     /**
@@ -28,7 +29,7 @@ class CompanyTechnology extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['status'], 'integer'],
+            [['isdescription', 'status'], 'integer'],
             [['name'], 'string', 'max' => 250]
         ];
     }
@@ -41,16 +42,17 @@ class CompanyTechnology extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'isdescription' => 'Description Required?',
             'status' => 'Status',
         ];
     }
 
     /**
      * @inheritdoc
-     * @return CompanyTechnologyQuery the active query used by this AR class.
+     * @return HearAboutQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new CompanyTechnologyQuery(get_called_class());
+        return new HearAboutQuery(get_called_class());
     }
 }
