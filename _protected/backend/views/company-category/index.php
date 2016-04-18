@@ -29,6 +29,31 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             'name',
                             [
+                                'attribute' => 'isdescription',
+                                'value' => function($model) {
+                                    if ($model->isdescription)
+                                        return "Yes";
+                                    else
+                                        return "No";
+                                }
+                            ],
+                            [
+                                'attribute'=>'has_choices',
+                                'label' => 'Manage Choices',
+                                'value' => function ($model) {
+                                    if($model->has_choices){
+                                        return Html::a(Yii::t('app', 'View Choices'), ['/category-choices', 'id' => $model->id], [
+                                            'class' => 'btn btn-primary',
+                                            'data-method' => 'post',
+                                        ]);
+                                    }else{
+                                        return "No";
+                                    }
+                                },
+                                'format'=>'raw',
+                                'contentOptions' => ['style' => 'text-align:center'],
+                            ],
+                            [
                                 'attribute' => 'status',
                                 'value' => function ($model) {
                                     if ($model->status) {

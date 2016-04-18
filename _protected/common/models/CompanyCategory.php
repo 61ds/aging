@@ -9,6 +9,7 @@ use Yii;
  *
  * @property integer $id
  * @property string $name
+ * @property integer $isdescription
  * @property integer $status
  */
 class CompanyCategory extends \yii\db\ActiveRecord
@@ -28,7 +29,7 @@ class CompanyCategory extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['status'], 'integer'],
+            [['isdescription', 'has_choices', 'status'], 'integer'],
             [['name'], 'string', 'max' => 250]
         ];
     }
@@ -41,6 +42,8 @@ class CompanyCategory extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Name',
+            'isdescription' => 'Description Required?',
+            'has_choices' => 'Want to Enter Choices?',
             'status' => 'Status',
         ];
     }
@@ -52,5 +55,9 @@ class CompanyCategory extends \yii\db\ActiveRecord
     public static function find()
     {
         return new CompanyCategoryQuery(get_called_class());
+    }
+    public function getCategoryChoices()
+    {
+        return $this->hasMany(CategoryChoices::className(), ['category_id' => 'id']);
     }
 }

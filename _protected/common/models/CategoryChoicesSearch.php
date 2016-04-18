@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\CompanyCategory;
+use common\models\CategoryChoices;
 
 /**
- * CompanyCategorySearch represents the model behind the search form about `common\models\CompanyCategory`.
+ * CategoryChoicesSearch represents the model behind the search form about `common\models\CategoryChoices`.
  */
-class CompanyCategorySearch extends CompanyCategory
+class CategoryChoicesSearch extends CategoryChoices
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class CompanyCategorySearch extends CompanyCategory
     public function rules()
     {
         return [
-            [['id', 'isdescription', 'status'], 'integer'],
+            [['id', 'category_id', 'status'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -39,10 +39,12 @@ class CompanyCategorySearch extends CompanyCategory
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($id, $params)
     {
-        $query = CompanyCategory::find();
-
+        $query = CategoryChoices::find();
+        if($id){
+            $query->where(['category_id'=>$id]);
+        }
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -57,7 +59,7 @@ class CompanyCategorySearch extends CompanyCategory
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'isdescription' => $this->isdescription,
+            'category_id' => $this->category_id,
             'status' => $this->status,
         ]);
 
