@@ -3,17 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\CategoryChoices;
-use common\models\CompanyCategory;
-use common\models\CategoryChoicesSearch;
+use common\models\CompanyTechnology;
+use common\models\CompanyTechnologySearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CategoryChoicesController implements the CRUD actions for CategoryChoices model.
+ * CompanyTechnologyController implements the CRUD actions for CompanyTechnology model.
  */
-class CategoryChoicesController extends Controller
+class CompanyTechnologyController extends Controller
 {
     public function behaviors()
     {
@@ -28,24 +27,22 @@ class CategoryChoicesController extends Controller
     }
 
     /**
-     * Lists all CategoryChoices models.
+     * Lists all CompanyTechnology models.
      * @return mixed
      */
-    public function actionIndex($id=0)
+    public function actionIndex()
     {
-        $searchModel = new CategoryChoicesSearch();
-        $category = CompanyCategory::findOne($id);
-        $dataProvider = $searchModel->search($id,Yii::$app->request->queryParams);
+        $searchModel = new CompanyTechnologySearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'category'=>  $category,
         ]);
     }
 
     /**
-     * Displays a single CategoryChoices model.
+     * Displays a single CompanyTechnology model.
      * @param integer $id
      * @return mixed
      */
@@ -57,17 +54,16 @@ class CategoryChoicesController extends Controller
     }
 
     /**
-     * Creates a new CategoryChoices model.
+     * Creates a new CompanyTechnology model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($category_id)
+    public function actionCreate()
     {
-        $model = new CategoryChoices();
-        $model->category_id = $category_id;
+        $model = new CompanyTechnology();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index', 'id' => $category_id]);
+            return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -76,7 +72,7 @@ class CategoryChoicesController extends Controller
     }
 
     /**
-     * Updates an existing CategoryChoices model.
+     * Updates an existing CompanyTechnology model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -95,7 +91,7 @@ class CategoryChoicesController extends Controller
     }
 
     /**
-     * Deletes an existing CategoryChoices model.
+     * Deletes an existing CompanyTechnology model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -108,15 +104,15 @@ class CategoryChoicesController extends Controller
     }
 
     /**
-     * Finds the CategoryChoices model based on its primary key value.
+     * Finds the CompanyTechnology model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CategoryChoices the loaded model
+     * @return CompanyTechnology the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CategoryChoices::findOne($id)) !== null) {
+        if (($model = CompanyTechnology::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
