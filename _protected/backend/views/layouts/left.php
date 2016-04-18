@@ -56,7 +56,9 @@
                         'items' => [
                             ['label' => '', 'icon' => 'fa fa-angle-right', 'url' => ['chapters/index'],'active' => ($this->context->route == 'chapters/index')],
                             ['label' => 'Startup Stages', 'icon' => 'fa fa-angle-right', 'url' => ['company-stage/index']],
-                            ['label' => 'Startup Categories', 'icon' => 'fa fa-angle-right', 'url' => ['company-category/index']],
+                            ['label' => 'Startup Categories', 'icon' => 'fa fa-angle-right', 'url' => ['company-category/index'],'active' => ($this->context->route == ('company-category/index' ||'company-category/create' ||'company-category/update' || '/category-choices/index' || '/category-choices/create' || '/category-choices/update'))],
+                            ['label' => 'Startup Technology', 'icon' => 'fa fa-angle-right', 'url' => ['company-technology/index']],
+                            ['label' => 'Startup Strategies', 'icon' => 'fa fa-angle-right', 'url' => ['company-strategic/index']],
                         ],
                     ],
 

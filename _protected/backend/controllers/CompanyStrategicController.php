@@ -3,17 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\CategoryChoices;
-use common\models\CompanyCategory;
-use common\models\CategoryChoicesSearch;
+use common\models\CompanyStrategic;
+use common\models\CompanyStrategicSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * CategoryChoicesController implements the CRUD actions for CategoryChoices model.
+ * CompanyStrategicController implements the CRUD actions for CompanyStrategic model.
  */
-class CategoryChoicesController extends BackendController
+class CompanyStrategicController extends Controller
 {
     public function behaviors()
     {
@@ -28,24 +27,22 @@ class CategoryChoicesController extends BackendController
     }
 
     /**
-     * Lists all CategoryChoices models.
+     * Lists all CompanyStrategic models.
      * @return mixed
      */
-    public function actionIndex($id=0)
+    public function actionIndex()
     {
-        $searchModel = new CategoryChoicesSearch();
-        $category = CompanyCategory::findOne($id);
-        $dataProvider = $searchModel->search($id,Yii::$app->request->queryParams);
+        $searchModel = new CompanyStrategicSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
-            'category'=>  $category,
         ]);
     }
 
     /**
-     * Displays a single CategoryChoices model.
+     * Displays a single CompanyStrategic model.
      * @param integer $id
      * @return mixed
      */
@@ -57,14 +54,13 @@ class CategoryChoicesController extends BackendController
     }
 
     /**
-     * Creates a new CategoryChoices model.
+     * Creates a new CompanyStrategic model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($category_id)
+    public function actionCreate()
     {
-        $model = new CategoryChoices();
-        $model->category_id = $category_id;
+        $model = new CompanyStrategic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -76,7 +72,7 @@ class CategoryChoicesController extends BackendController
     }
 
     /**
-     * Updates an existing CategoryChoices model.
+     * Updates an existing CompanyStrategic model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -95,7 +91,7 @@ class CategoryChoicesController extends BackendController
     }
 
     /**
-     * Deletes an existing CategoryChoices model.
+     * Deletes an existing CompanyStrategic model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -108,15 +104,15 @@ class CategoryChoicesController extends BackendController
     }
 
     /**
-     * Finds the CategoryChoices model based on its primary key value.
+     * Finds the CompanyStrategic model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CategoryChoices the loaded model
+     * @return CompanyStrategic the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CategoryChoices::findOne($id)) !== null) {
+        if (($model = CompanyStrategic::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
