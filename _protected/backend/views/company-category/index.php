@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel common\models\CompanyCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Company Categories';
+$this->title = 'Startup Company Categories';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="company-category-index">
@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
                     <p>
-                        <?= Html::a('Create Company Category', ['create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Create New Category', ['create'], ['class' => 'btn btn-success']) ?>
                     </p>
 
                     <?= GridView::widget([
