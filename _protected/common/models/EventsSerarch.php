@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\CompanyCapital;
+use common\models\Events;
 
 /**
- * CompanyCapitalSearch represents the model behind the search form about `common\models\CompanyCapital`.
+ * EventsSerarch represents the model behind the search form about `common\models\Events`.
  */
-class CompanyCapitalSearch extends CompanyCapital
+class EventsSerarch extends Events
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class CompanyCapitalSearch extends CompanyCapital
     public function rules()
     {
         return [
-            [['id', 'status'], 'integer'],
-            [['name'], 'safe'],
+            [['id', 'country_id', 'state_id', 'city_id', 'status'], 'integer'],
+            [['name', 'event_date'], 'safe'],
         ];
     }
 
@@ -41,11 +41,10 @@ class CompanyCapitalSearch extends CompanyCapital
      */
     public function search($params)
     {
-        $query = CompanyCapital::find();
+        $query = Events::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => false,
         ]);
 
         $this->load($params);
@@ -58,6 +57,10 @@ class CompanyCapitalSearch extends CompanyCapital
 
         $query->andFilterWhere([
             'id' => $this->id,
+            'country_id' => $this->country_id,
+            'state_id' => $this->state_id,
+            'city_id' => $this->city_id,
+            'event_date' => $this->event_date,
             'status' => $this->status,
         ]);
 

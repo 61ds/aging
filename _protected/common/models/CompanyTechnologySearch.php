@@ -44,6 +44,7 @@ class CompanyTechnologySearch extends CompanyTechnology
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => false,
         ]);
 
         $this->load($params);

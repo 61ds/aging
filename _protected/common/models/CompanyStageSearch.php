@@ -45,6 +45,7 @@ class CompanyStageSearch extends CompanyStage
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => false,
         ]);
 
         $this->load($params);

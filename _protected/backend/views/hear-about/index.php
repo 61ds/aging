@@ -16,14 +16,14 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="box">
                 <div class="box-body table-responsive">
                     <p>
-                        <?= Html::a('Create Hear About', ['create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Create New Option', ['create'], ['class' => 'btn btn-success']) ?>
                     </p>
 
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         //'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn'],
+                            ['class' => 'yii\grid\SerialColumn','header' => 'S.No.'],
 
                             'name',
                             [
@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'filter'=>array("1"=>"Active","0"=>"Inactive"),
                             ],
 
-                            ['class' => 'yii\grid\ActionColumn'],
+                            ['class' => 'yii\grid\ActionColumn','header' => 'Action'],
                         ],
                     ]); ?>
                 </div>

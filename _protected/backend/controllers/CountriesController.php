@@ -468,7 +468,18 @@ class CountriesController extends Controller
         $states = $model->getStates();
         Yii::$app->response->format = Response::FORMAT_JSON;
         return [
-            $states
+            'states' => $states,
+            'cities' => '<option value="">- Select City -</option>',
+        ];
+    }
+    public function actionActiveCities($id)
+    {
+        $model = new Cities();
+        $model->state_id = $id;
+        $cities = $model->getCities();
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return [
+            $cities
         ];
     }
 }

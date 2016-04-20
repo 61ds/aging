@@ -61,6 +61,7 @@
                             ['label' => 'Startup Technology', 'icon' => 'fa fa-angle-right', 'url' => ['company-technology/index'] ,'active' => ($this->context->route == 'company-technology/index' || $this->context->route == 'company-technology/create' || $this->context->route == 'company-technology/update')],
                             ['label' => 'Startup Strategies', 'icon' => 'fa fa-angle-right', 'url' => ['company-strategic/index'] ,'active' => ($this->context->route == 'company-strategic/index' || $this->context->route == 'company-strategic/create' || $this->context->route == 'company-strategic/update')],
                             ['label' => 'Hear about Options', 'icon' => 'fa fa-angle-right', 'url' => ['hear-about/index'] ,'active' => ($this->context->route == 'hear-about/index' || $this->context->route == 'hear-about/create' || $this->context->route == 'hear-about/update')],
+                            ['label' => 'Events List', 'icon' => 'fa fa-angle-right', 'url' => ['events/index'] ,'active' => ($this->context->route == 'events/index' || $this->context->route == 'events/create' || $this->context->route == 'events/update')],
                         ],
                     ],
 
