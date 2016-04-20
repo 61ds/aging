@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "cities".
@@ -67,6 +68,11 @@ class Cities extends \yii\db\ActiveRecord
             $html .= '<option value="'.$city->id.'">'.$city->name.'</option>';
         }
         return $html;
+    }
+
+    public function getCitiesArray(){
+        $cities = $this->find()->where(['state_id' => $this->state_id, 'status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($cities,'id','name');
     }
 
     public static function find()

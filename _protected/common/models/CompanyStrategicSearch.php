@@ -45,6 +45,7 @@ class CompanyStrategicSearch extends CompanyStrategic
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => false,
         ]);
 
         $this->load($params);

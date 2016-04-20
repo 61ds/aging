@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn','header' => 'S.No.'],
 
-                            'name',
+                            ['attribute' =>'name', 'enableSorting' => false],
                             [
                                 'attribute' => 'isdescription',
                                 'value' => function($model) {
@@ -35,7 +35,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return "Yes";
                                     else
                                         return "No";
-                                }
+                                },
+                                'enableSorting' => false,
                             ],
                             [
                                 'attribute'=>'has_choices',
@@ -51,6 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     }
                                 },
                                 'format'=>'raw',
+                                'enableSorting' => false,
                                 'contentOptions' => ['style' => 'text-align:center'],
                             ],
                             [
@@ -72,6 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 },
                                 'contentOptions' => ['style' => 'width:160px;text-align:center'],
                                 'format' => 'raw',
+                                'enableSorting' => false,
                                 'filter'=>array("1"=>"Active","0"=>"Inactive"),
                             ],
 
