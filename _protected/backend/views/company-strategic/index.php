@@ -48,7 +48,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'filter'=>array("1"=>"Active","0"=>"Inactive"),
                             ],
 
-                            ['class' => 'yii\grid\ActionColumn'],
+                            ['class' => 'yii\grid\ActionColumn',
+                                'header'=>'Actions',
+                                'template' => '{update}',
+
+                                'contentOptions' => ['style' => 'width:160px;letter-spacing:10px;text-align:center'],
+                            ],
                         ],
                     ]); ?>
                 </div>

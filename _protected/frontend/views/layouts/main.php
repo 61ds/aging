@@ -65,7 +65,9 @@ AppAsset::register($this);
                     'linkOptions' => ['data-method' => 'post']
                 ];
             }
-           
+            // everyone can see Home page
+            $menuItems[] = ['label' => Yii::t('app', 'Startup'), 'url' => ['/site/startup']];
+
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => $menuItems,
