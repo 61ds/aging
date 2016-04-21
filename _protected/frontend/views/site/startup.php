@@ -307,6 +307,7 @@ $this->registerJs("
                         <?= $form->field($model, 'pitch_city')->dropDownList(
                             $model->eventsList,
                             [
+                                'multiple'=>'multiple',
                                 'prompt'=>'- Select option -',
                                 'class'=>'form-control select2',
                             ]
