@@ -4,21 +4,19 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\CompanyCategorySearch */
+/* @var $searchModel common\models\ChapterRolesSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Startup Company Categories';
+$this->title = 'Chapter Roles';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="company-category-index">
+<div class="chapter-roles-index">
     <div class="row">
         <div class="col-md-12">
             <div class="box">
                 <div class="box-body table-responsive">
-                    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
                     <p>
-                        <?= Html::a('Create New Category', ['create'], ['class' => 'btn btn-success']) ?>
+                        <?= Html::a('Create New Chapter Role', ['create'], ['class' => 'btn btn-success']) ?>
                     </p>
 
                     <?= GridView::widget([
@@ -27,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn','header' => 'S.No.'],
 
-                            ['attribute' =>'name', 'enableSorting' => false],
+                            'name',
                             [
                                 'attribute' => 'isdescription',
                                 'value' => function($model) {
@@ -37,23 +35,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return "No";
                                 },
                                 'enableSorting' => false,
-                            ],
-                            [
-                                'attribute'=>'has_choices',
-                                'label' => 'Manage Choices',
-                                'value' => function ($model) {
-                                    if($model->has_choices){
-                                        return Html::a(Yii::t('app', 'View Choices'), ['/category-choices', 'id' => $model->id], [
-                                            'class' => 'btn btn-primary',
-                                            'data-method' => 'post',
-                                        ]);
-                                    }else{
-                                        return "No";
-                                    }
-                                },
-                                'format'=>'raw',
-                                'enableSorting' => false,
-                                'contentOptions' => ['style' => 'text-align:center'],
                             ],
                             [
                                 'attribute' => 'status',

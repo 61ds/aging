@@ -95,7 +95,7 @@ class BackendController extends Controller
             $model = Yii::$app->request->post('model');
 
             if($model){
-                $model = 'app\modules\admin\models\\'.$model;
+                $model = 'common\models\\'.$model;
                 $model = $model::findOne($id);
             }else{
                 $model = $this->findModel($id);
