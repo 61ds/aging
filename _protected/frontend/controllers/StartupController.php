@@ -4,6 +4,9 @@ namespace frontend\controllers;
 
 use common\models\AllcountriesSearch;
 use common\models\Attributes;
+use common\models\CategoryChoices;
+use common\models\HearAbout;
+use common\models\CompanyCategory;
 use common\models\AttributesSearch;
 use common\models\AttributeValues;
 use common\models\Cities;
@@ -27,7 +30,7 @@ use yii\web\UploadedFile;
 /**
  * CountryController implements the CRUD actions for Countries model.
  */
-class CountriesController extends FrontendController
+class StartupController extends FrontendController
 {
 
 	public $entity_id = 1;
@@ -52,5 +55,35 @@ class CountriesController extends FrontendController
         return [
             $cities
         ];
+    }
+
+    public function actionCategoryChoices($id)
+    {
+        $model = new CategoryChoices();
+        $model->category_id = $id;
+        $cat =  CompanyCategory::findOne($id);
+        $choices = $model->getActiveChoices();
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return [
+            'choices' => $choices,
+            'isdescr' => $cat->isdescription,
+        ];
+    }
+
+    public function actionHearAbout($id)
+    {
+        if (($model = CompanyCategory::findOne($id)) !== null) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                'isdescr' => $model->isdescription,
+            ];
+        }else{
+
+            return [
+                'isdescr' => 0,
+            ];
+        }
+
     }
 }

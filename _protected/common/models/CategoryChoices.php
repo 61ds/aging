@@ -65,4 +65,17 @@ class CategoryChoices extends \yii\db\ActiveRecord
     {
         return new CategoryChoicesQuery(get_called_class());
     }
+
+    //get all cities related to this state model
+    public function getActiveChoices()
+    {
+        $choices = $this->find()->where(['category_id'=> $this->category_id, 'status' => 1])->orderBy('name')->all();
+
+        $html = '';
+        foreach($choices as $choice){
+
+            $html .= ' <label><input type="checkbox" value="'.$choice->id.'" name="StartupForm[technology][]"> '.$choice->name.'</label>';
+        }
+        return $html;
+    }
 }

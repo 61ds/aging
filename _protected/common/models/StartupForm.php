@@ -83,7 +83,7 @@ class StartupForm extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'job_title', 'email', 'phone', 'linkedin', 'twitter', 'name', 'website', 'address', 'street_address', 'address_zip', 'address_city', 'address_state', 'address_country', 'descr', 'logo', 'angel_list', 'stage', 'summary', 'video', 'category', 'category_other', 'category_choice', 'target_customer', 'business_model', 'competitors', 'capital_raised', 'revenue', 'strategic_priority', 'like_to_apply', 'first_choice', 'second_choice', 'third_choice', 'like_to_host', 'pitch_events', 'pitch_city', 'pitch_winner', 'why_pitch', 'newsletter', 'hear', 'hear_other', 'technology'], 'required'],
+            [['first_name', 'job_title', 'email', 'phone', 'name', 'website','interested_in_joining', 'address', 'street_address', 'address_zip', 'address_city', 'address_state', 'address_country', 'descr', 'logo', 'stage', 'category', 'like_to_apply', 'first_choice', 'pitch_events', 'pitch_city', 'pitch_winner', 'why_pitch', 'newsletter'], 'required'],
             [['address_zip', 'address_city', 'address_state', 'address_country', 'stage', 'category', 'capital_raised', 'revenue', 'like_to_apply', 'first_choice', 'second_choice', 'third_choice', 'like_to_host', 'pitch_winner', 'newsletter', 'hear', 'created_at', 'updated_at'], 'integer'],
             [['descr', 'category_other', 'competitors', 'why_pitch', 'hear_other'], 'string'],
             [['first_name', 'last_name', 'job_title', 'linkedin', 'twitter', 'name', 'website', 'address', 'street_address', 'logo', 'angel_list', 'summary', 'video', 'category_choice', 'strategic_priority', 'pitch_city', 'technology'], 'string', 'max' => 100],
@@ -118,46 +118,47 @@ class StartupForm extends \yii\db\ActiveRecord
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'job_title' => 'Job Title',
-            'email' => 'Email',
-            'phone' => 'Phone',
-            'linkedin' => 'Linkedin',
-            'twitter' => 'Twitter',
+            'email' => 'E-mail',
+            'phone' => 'Phone Number',
+            'linkedin' => 'LinkedIn URL ',
+            'twitter' => 'Twitter handle',
             'name' => 'Company name',
             'website' => 'Company website',
-            'address' => 'Company Address',
+            'address' => 'Company address',
             'street_address' => 'Street Address',
-            'address_zip' => 'Address Zip',
-            'address_city' => 'Address City',
-            'address_state' => 'Address State',
+            'address_zip' => 'Postal / Zip Code',
+            'address_city' => 'City',
+            'address_state' => 'State / Province',
             'address_country' => 'Address Country',
-            'descr' => 'Company description',
-            'logo' => 'Logo',
+            'descr' => 'Company description (25 word maximum) ',
+            'logo' => 'Company Logo',
             'angel_list' => 'Angel List profile URL (if available)',
             'stage' => 'What stage is your company?',
-            'summary' => 'Summary',
+            'summary' => 'Pitch deck / Executive Summary ',
             'video' => 'Video',
-            'category' => 'Category',
-            'category_other' => 'Category Other',
-            'category_choice' => 'Category Choice',
+            'category' => 'Which category best fits your company?',
+            'category_other' => 'Define Other',
+            'category_choice' => 'Please tick up to two choices',
             'target_customer' => 'Target Customer',
-            'business_model' => 'Business Model',
-            'competitors' => 'Competitors',
-            'capital_raised' => 'Capital Raised',
-            'revenue' => 'Revenue',
-            'strategic_priority' => 'Strategic Priority',
-            'like_to_apply' => 'Like To Apply',
+            'business_model' => 'Channel / business model',
+            'competitors' => 'Competition (Who are your main competitors?)',
+            'capital_raised' => 'Capital Raised (USD)',
+            'revenue' => 'Annual Revenues (USD)',
+            'strategic_priority' => 'Strategic priority (max 2:)',
+            'like_to_apply' => 'Would you like to apply for the Aging2.0 2016 Global Startup Search?',
             'first_choice' => 'First Choice',
             'second_choice' => 'Second Choice',
             'third_choice' => 'Third Choice',
-            'like_to_host' => 'Like To Host',
-            'pitch_events' => 'Pitch Events',
-            'pitch_city' => 'Pitch City',
-            'pitch_winner' => 'Pitch Winner',
-            'why_pitch' => 'Why Pitch',
-            'newsletter' => 'Newsletter',
-            'hear' => 'Hear',
-            'hear_other' => 'Hear Other',
-            'technology' => 'Technology',
+            'like_to_host' => 'If your city is not listed would you like to host / help organize a local event? ',
+            'pitch_events' => 'Did you pitch at one of the 2015 Aging2.0 #30in30in30 Pitch Events?',
+            'pitch_city' => 'Which city / cities?',
+            'pitch_winner' => 'Were you the winner of an event?',
+            'why_pitch' => 'The Last Word: Why should you be selected to pitch?',
+            'newsletter' => 'Would you like to receive the Aging2.0 CoverAGE newsletter?',
+            'hear' => 'How did you hear about Aging2.0?',
+            'hear_other' => 'Please Describe',
+            'technology' => 'Type of technology used (pick up to 3)',
+            'interested_in_joining' => 'Are you interested in joining the Aging2.0 Alliance? (www.aging2.com/alliance)',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -284,4 +285,51 @@ class StartupForm extends \yii\db\ActiveRecord
         return ArrayHelper::map($stages,'id','name');
     }
 
+    //get all company categories
+    public function getCategories(){
+        $categories = CompanyCategory::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($categories,'id','name');
+    }
+
+    //get all company technologies
+    public function getTechnologies(){
+        $tech = CompanyTechnology::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($tech,'id','name');
+    }
+
+    //get all company capitals
+    public function getCapitals(){
+        $capital = CompanyCapital::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($capital,'id','name');
+    }
+
+    //get all company revenues
+    public function getRevenues(){
+        $revenues = CompanyRevenue::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($revenues,'id','name');
+    }
+
+    //get all company strategics
+    public function getStrategicPriorities(){
+        $strategics = CompanyStrategic::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($strategics,'id','name');
+    }
+
+    //get all company chapters
+    public function getChapters(){
+        $chapters = Chapters::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($chapters,'id','name');
+    }
+
+    //get all company events
+    public function getEventsList(){
+        $events = Events::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($events,'id','name');
+    }
+
+    //get all company chapters
+    public function getHearAbout(){
+        $hears = HearAbout::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($hears,'id','name');
+    }
 }

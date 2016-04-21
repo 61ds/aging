@@ -5,6 +5,9 @@ use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
 
 $this->registerJs("
+    $( '.category_choice_1','.like_to_host_div','category_choice_2','.like_to_apply_div','pitch_div').hide();
+    $('.hear_div').hide();
+
 	$('#characterLeft').text('25 words left');
 	$('#descr').keyup(function () {
 	    var len = $(this).val().split(' ').length;
@@ -81,7 +84,7 @@ $this->registerJs("
                             'prompt'=>'- Select Country -',
                             'class'=>'form-control select2',
                             'id'=>'country',
-                            'onchange'=> '$.post( "'.Yii::$app->urlManager->createUrl('countries/active-states?id=').'"+$(this).val(), function( data ) {
+                            'onchange'=> '$.post( "'.Yii::$app->urlManager->createUrl('startup/active-states?id=').'"+$(this).val(), function( data ) {
                                 $( "select#state" ).empty();
                                 $( "select#city" ).html(data.cities);
                                 $( "select#state" ).html( data.states );
@@ -96,7 +99,7 @@ $this->registerJs("
                             'prompt'=>'- Select State -',
                             'class'=>'form-control select2',
                             'id'=>'state',
-                            'onchange'=> '$.post( "'.Yii::$app->urlManager->createUrl('countries/active-cities?id=').'"+$(this).val(), function( data ) {
+                            'onchange'=> '$.post( "'.Yii::$app->urlManager->createUrl('startup/active-cities?id=').'"+$(this).val(), function( data ) {
                                 $( "select#city" ).empty();
                                 $( "select#city" ).html( data );
                             });'
@@ -135,64 +138,238 @@ $this->registerJs("
                         [
                             'prompt'=>'- Select Company Stages -',
                             'class'=>'form-control select2',
+
                         ]
                     )
                     ?>
 
-                    <?= $form->field($model, 'summary')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'summary')->widget(FileInput::classname(),
+                        [
+                            'options' => ['accept' => '*', 'value' => $model->summary],
+                            'pluginOptions' => [
+                                'showCaption' => false,
+                                'showRemove' => false,
+                                'showUpload' => false,
+                            ]
+                        ]);
+                    ?>
 
-                    <?= $form->field($model, 'video')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'video')->textInput(['placeholder'=>'http://www.vimeo.com...','maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'category')->textInput() ?>
+                    <?= $form->field($model, 'category')->dropDownList(
+                        $model->categories,
+                        [
+                            'prompt'=>'- Select category -',
+                            'class'=>'form-control select2',
+                            'onchange'=> '$.post( "'.Yii::$app->urlManager->createUrl('startup/category-choices?id=').'"+$(this).val(), function( data ) {
+                                if(data.isdescr){
+                                    $( ".category_choice_1" ).hide();
+                                    $( ".category_choice_2" ).show();
+                                }else{
+                                    $( ".category_choice_2" ).hide();
+                                    $( "#category_choice" ).html( data.choices );
+                                    $( ".category_choice_1" ).show();
 
-                    <?= $form->field($model, 'category_other')->textarea(['rows' => 6]) ?>
+                                }
+                            });'
+                        ]
+                    )
+                    ?>
+                    <div class="category_choice_1">
+                        <?= $form->field($model, 'category_choice[]')->checkboxList(array(),['id'=>'category_choice']) ?>
+                    </div>
+                    <div class="category_choice_2">
+                        <?= $form->field($model, 'category_other')->textarea(['rows' => 6]) ?>
+                    </div>
 
-                    <?= $form->field($model, 'category_choice')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'technology[]')->checkboxList($model->technologies) ?>
 
-                    <?= $form->field($model, 'target_customer')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'target_customer')->textInput(['placeholder'=>'Senior, Family Caregiver, Senior Care (AL, IL, SNF)...','maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'business_model')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'business_model')->textInput(['placeholder'=>'B2B, B2C, B2B2C, other (please explain)','maxlength' => true]) ?>
 
                     <?= $form->field($model, 'competitors')->textarea(['rows' => 6]) ?>
 
-                    <?= $form->field($model, 'capital_raised')->textInput() ?>
+                    <?= $form->field($model, 'capital_raised')->dropDownList(
+                        $model->capitals,
+                        [
+                            'prompt'=>'- Select option -',
+                            'class'=>'form-control select2',
+                        ]
+                    )
+                    ?>
 
-                    <?= $form->field($model, 'revenue')->textInput() ?>
+                    <?= $form->field($model, 'revenue')->dropDownList(
+                        $model->revenues,
+                        [
+                            'prompt'=>'- Select revenue -',
+                            'class'=>'form-control select2',
+                        ]
+                    )
+                    ?>
 
-                    <?= $form->field($model, 'strategic_priority')->textInput(['maxlength' => true]) ?>
+                    <p>
+                        Please note: The 2016 Global Startup Search is aimed primarily at startups with less
+                        than $3m in funding and annual revenues, although exceptions will be made
+                        in certain circumstances. For more information, contact <a href="mailto:info@aging2.com">info@aging2.com</a>.
+                    </p>
+
+                <?= $form->field($model, 'strategic_priority[]')->checkboxList($model->strategicPriorities) ?>
 
                     <h2>2016 Global Startup Search</h2>
 
-                    <?= $form->field($model, 'like_to_apply')->textInput() ?>
+                    <p>Aging2.0's 2016 Global Startup Search is a competition for aging-focused startups to showcase their
+                        company to an international audience, be part of a global community and win prizes.
+                        Startups can select up to 3 cities in order of preference to apply to pitch at, and the
+                        local chapters / organizing cities will be notified of their interest. Please list your city
+                        choices below. See more information, and a list of participating cities / countries here: <a target="_blank" href="http://aging2.com/gss">aging2.com/gss</a>.
+                    </p>
 
-                    <?= $form->field($model, 'first_choice')->textInput() ?>
+                    <?= $form->field($model, 'like_to_apply')->dropDownList(
+                        ['1'=>'Yes, I would like to be part of the 2016 Search','0'=>' No thank you, I\'d just like to submit my company to the Aging2.0 Startup Database at this time '],
+                        [
+                            'prompt'=>'- Select option -',
+                            'class'=>'form-control select2',
+                            'onchange'=> '
+                                if($(this).val() == 1){
+                                    $(".like_to_apply_div").show();
+                                }else{
+                                    $(".like_to_apply_div").hide();
+                                }
+                            '
+                        ]
+                    )
+                    ?>
+                    <div class="like_to_apply_div">
+                        <?= $form->field($model, 'first_choice')->dropDownList(
+                            $model->chapters,
+                            [
+                                'prompt'=>'- Select choice -',
+                                'class'=>'form-control select2',
+                            ]
+                        )
+                        ?>
+                        <?= $form->field($model, 'second_choice')->dropDownList(
+                            $model->chapters,
+                            [
+                                'prompt'=>'- Select choice -',
+                                'class'=>'form-control select2',
+                            ]
+                        )
+                        ?>
 
-                    <?= $form->field($model, 'second_choice')->textInput() ?>
+                        <?= $form->field($model, 'third_choice')->dropDownList(
+                            $model->chapters,
+                            [
+                                'prompt'=>'- Select choice -',
+                                'class'=>'form-control select2',
+                            ]
+                        )
+                        ?>
+                    </div>
+                    <?= $form->field($model, 'like_to_host')->dropDownList(
+                        ['1'=>'Yes, I would be interested to host / co-organize a local event near me','0'=>'No thanks, I\'ll just check the website for city updates '],
+                        [
+                            'prompt'=>'- Select option -',
+                            'class'=>'form-control select2',
+                            'onchange'=> '
+                                if($(this).val() == 1){
+                                    $(".like_to_host_div").show();
+                                }else{
+                                    $(".like_to_host_div").hide();
+                                }'
+                        ]
+                    )
+                    ?>
+                    <div class="like_to_host_div">
+                        Please complete <a href="https://form.jotform.com/60397719381970" target="_blank">this form</a> to offer to host an event near you.
+                    </div>
+                    <p>
+                        Local event hosts will contact you in the coming weeks if you're chosen to pitch at their event.
+                        See more information at <a href="http://www.aging2.com/gss" target="_blank">www.aging2.com/gss</a>.
+                    </p>
 
-                    <?= $form->field($model, 'third_choice')->textInput() ?>
+                    <?= $form->field($model, 'pitch_events')->dropDownList(
+                        ['1'=>'Yes','0'=>'No'],
+                        [
+                            'prompt'=>'- Select option -',
+                            'class'=>'form-control select2',
+                            'onchange'=> '
+                                if($(this).val() == 1){
+                                    $(".pitch_div").show();
+                                }else{
+                                    $(".pitch_div").hide();
+                            }'
+                        ]
+                    )
+                    ?>
+                    <div class="pitch_div">
+                        <?= $form->field($model, 'pitch_city')->dropDownList(
+                            $model->eventsList,
+                            [
+                                'prompt'=>'- Select option -',
+                                'class'=>'form-control select2',
+                            ]
+                        )
+                        ?>
 
-                    <?= $form->field($model, 'like_to_host')->textInput() ?>
-
-                    <?= $form->field($model, 'pitch_events')->textInput(['maxlength' => true]) ?>
-
-                    <?= $form->field($model, 'pitch_city')->textInput(['maxlength' => true]) ?>
-
-                    <?= $form->field($model, 'pitch_winner')->textInput() ?>
+                        <?= $form->field($model, 'pitch_winner')->dropDownList(
+                            ['1'=>'Yes','0'=>'No'],
+                            [
+                                'prompt'=>'- Select option -',
+                                'class'=>'form-control select2',
+                            ]
+                        )
+                        ?>
+                    </div>
 
                     <?= $form->field($model, 'why_pitch')->textarea(['rows' => 6]) ?>
 
                     <h2>Additional Opportunities</h2>
 
-                    <?= $form->field($model, 'newsletter')->textInput() ?>
+                    <?= $form->field($model, 'newsletter')->radioList(['1'=>'Yes, sign me up! ','0'=>'No, not at this time']) ?>
 
-                    <?= $form->field($model, 'hear')->textInput() ?>
+                    <?= $form->field($model, 'interested_in_joining')->radioList(['1'=>'Yes, send more more information! ','0'=>'No, not at this time']) ?>
 
-                    <?= $form->field($model, 'hear_other')->textarea(['rows' => 6]) ?>
+                    <p>
+                        <a href="http://www.aging2.com/blog/aarp-foundation-aging2-collaborate-2016-aging-in-place-50k-challenge/" target="_blank">2016 Aging in Place $50K Challenge</a>
+                    </p>
+                    <p>
+                        The AARP Foundation, in collaboration with Aging 2.0, invites startups from across
+                        the United States to apply for the 2016 Aging in Place $50K Challenge.
+                        Competitors will have a chance to win a $50,000 cash prize for the most innovative
+                        solution that will help low-income adults 50 and older continue to live safely,
+                        independently and comfortably in their own homes as they age.
+                    </p>
+                    <p>
+                        Applications for the 2016 Aging in Place $50K Challenge are now open and will close on May 2, 2016.
+                        The winner will be announced in July 2016.
+                    </p>
+                    <p>
+                        To apply, <a href="https://app.reviewr.com/aarp/site/AARPfoundation" target="_blank">CLICK HERE</a> and follow the instructions to complete your application.
+                    </p>
 
-                    <?= $form->field($model, 'technology')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'hear')->dropDownList(
+                        $model->hearAbout,
+                        [
+                            'prompt'=>'- Select option -',
+                            'class'=>'form-control select2',
+                            'onchange'=> '$.post( "'.Yii::$app->urlManager->createUrl('startup/hear-about?id=').'"+$(this).val(), function( data ) {
+                                if(data.isdescr){
+                                    $(".hear_div").show();
+                                }else{
+                                    $(".hear_div").hide();
+                                }
+                            });'
+                        ]
+                    )
+                    ?>
+                    <div class="hear_div">
+                        <?= $form->field($model, 'hear_other')->textarea(['rows' => 6]) ?>
+                    </div>
 
                     <div class="form-group">
-                        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                        <?= Html::submitButton('Submit', ['class' => 'btn btn-success']) ?>
                     </div>
 
             <?php ActiveForm::end(); ?>

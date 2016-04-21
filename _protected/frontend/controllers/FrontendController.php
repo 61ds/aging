@@ -26,8 +26,8 @@ class FrontendController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'controllers' => ['countries'],
-                        'actions' => ['active-states', 'active-cities'],
+                        'controllers' => ['startup'],
+                        'actions' => ['active-states', 'active-cities','category-choices','hear-about'],
                         'allow' => true,
                     ],
 
