@@ -18,7 +18,7 @@ if (Yii::$app->controller->action->id === 'login') {
         ['content' => $content]
     );
 } else {
-    backend\assets\AdminAsset::register($this);
+    backend\assetBundles\AdminAsset::register($this);
 
     $directoryAsset = Yii::$app->view->theme->baseUrl;
     ?>
