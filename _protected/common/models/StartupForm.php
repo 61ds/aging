@@ -164,6 +164,7 @@ class StartupForm extends \yii\db\ActiveRecord
         ];
     }
 
+
     /**
      * @return \yii\db\ActiveQuery
      */
