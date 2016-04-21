@@ -37,9 +37,9 @@ class Events extends ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'country_id', 'state_id', 'city_id', 'event_date'], 'required'],
+            [['name', 'country_id', 'state_id', 'city_id'], 'required'],
             [['country_id', 'state_id', 'city_id', 'status'], 'integer'],
-            [['event_date'], 'safe'],
+            [['event_date', 'event_end_date'], 'safe'],
             [['name'], 'string', 'max' => 250]
         ];
     }
@@ -55,7 +55,8 @@ class Events extends ActiveRecord
             'country_id' => 'Country',
             'state_id' => 'State',
             'city_id' => 'City',
-            'event_date' => 'Event Date',
+            'event_date' => 'Event Start Date',
+            'event_end_date' => 'Event End Date',
             'status' => 'Status',
         ];
     }

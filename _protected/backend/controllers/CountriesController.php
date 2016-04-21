@@ -27,7 +27,7 @@ use yii\web\UploadedFile;
 /**
  * CountryController implements the CRUD actions for Countries model.
  */
-class CountriesController extends Controller
+class CountriesController extends BackendController
 {
 	use StatusChangeTrait;
 	use AjaxStatusTrait;

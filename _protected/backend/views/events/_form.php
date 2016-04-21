@@ -12,7 +12,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'name')->textInput(['maxlength' => true,'value' => 'Aging2.0 Global Startup Search']) ?>
 
     <?= $form->field($model, 'country_id')->dropDownList(
         $model->countries,
@@ -50,6 +50,11 @@ use yii\widgets\ActiveForm;
         //'language' => 'ru',
         //'dateFormat' => 'yyyy-MM-dd',
     ]) ?>
+    <?= $form->field($model, 'event_end_date')->widget(\yii\jui\DatePicker::classname(), [
+        'options' =>['class'=> 'form-control'],
+        //'language' => 'ru',
+        //'dateFormat' => 'yyyy-MM-dd',
+    ])->label('Event End Date (Optional)') ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

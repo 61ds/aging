@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Events;
+use common\models\WebExperience;
 
 /**
- * EventsSerarch represents the model behind the search form about `common\models\Events`.
+ * WebExperienceSearch represents the model behind the search form about `common\models\WebExperience`.
  */
-class EventsSerarch extends Events
+class WebExperienceSearch extends WebExperience
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class EventsSerarch extends Events
     public function rules()
     {
         return [
-            [['id', 'country_id', 'state_id', 'city_id', 'status'], 'integer'],
-            [['name', 'event_date', 'event_end_date'], 'safe'],
+            [['id', 'status'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -41,12 +41,10 @@ class EventsSerarch extends Events
      */
     public function search($params)
     {
-        $query = Events::find();
+        $query = WebExperience::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => false,
-            'pagination' => ['pageSize' => 50],
         ]);
 
         $this->load($params);
@@ -59,16 +57,10 @@ class EventsSerarch extends Events
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'country_id' => $this->country_id,
-            'state_id' => $this->state_id,
-            'city_id' => $this->city_id,
-
             'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
-        $query->andFilterWhere(['like', 'event_date', $this->event_date]);
-        $query->andFilterWhere(['like', 'event_end_date', $this->event_end_date]);
 
         return $dataProvider;
     }

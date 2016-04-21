@@ -3,19 +3,15 @@
 namespace backend\controllers;
 
 use Yii;
-use common\models\Events;
-use common\models\EventsSerarch;
-use common\models\States;
-use backend\helpers\Setup;
-use common\models\Cities;
-use yii\web\Controller;
+use common\models\WebExperience;
+use common\models\WebExperienceSearch;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EventsController implements the CRUD actions for Events model.
+ * WebExperienceController implements the CRUD actions for WebExperience model.
  */
-class EventsController extends Controller
+class WebExperienceController extends BackendController
 {
     public function behaviors()
     {
@@ -30,12 +26,12 @@ class EventsController extends Controller
     }
 
     /**
-     * Lists all Events models.
+     * Lists all WebExperience models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new EventsSerarch();
+        $searchModel = new WebExperienceSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +41,7 @@ class EventsController extends Controller
     }
 
     /**
-     * Displays a single Events model.
+     * Displays a single WebExperience model.
      * @param integer $id
      * @return mixed
      */
@@ -57,26 +53,16 @@ class EventsController extends Controller
     }
 
     /**
-     * Creates a new Events model.
+     * Creates a new WebExperience model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
+        $model = new WebExperience();
 
-        $model = new Events();
-        if(Yii::$app->request->isPost){
-           $data = Yii::$app->request->post();
-           $data['Events']['event_date'] = Setup::convert($data['Events']['event_date']);
-            if( $data['Events']['event_end_date']){
-                $data['Events']['event_end_date'] = Setup::convert($data['Events']['event_end_date']);
-            } else {
-                $data['Events']['event_end_date'] = null;
-            }
-
-            if ($model->load($data) && $model->save()) {
-                return $this->redirect(['index']);
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect('index');
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -85,7 +71,7 @@ class EventsController extends Controller
     }
 
     /**
-     * Updates an existing Events model.
+     * Updates an existing WebExperience model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -93,25 +79,18 @@ class EventsController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $states = new States();
-        $states->country_id = $model->country_id;
-        $statesArray = $states->statesArray;
-        $cities = new Cities();
-        $cities->state_id = $model->state_id;
-        $citiesArray = $cities->citiesArray;
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
-                'states' => $statesArray ,
-                'cities' => $citiesArray ,
             ]);
         }
     }
 
     /**
-     * Deletes an existing Events model.
+     * Deletes an existing WebExperience model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -124,15 +103,15 @@ class EventsController extends Controller
     }
 
     /**
-     * Finds the Events model based on its primary key value.
+     * Finds the WebExperience model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Events the loaded model
+     * @return WebExperience the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Events::findOne($id)) !== null) {
+        if (($model = WebExperience::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

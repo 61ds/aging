@@ -36,6 +36,8 @@
                         'items' => [
                             ['label' => 'All Chapters', 'icon' => 'fa fa-angle-right', 'url' => ['chapters/index'],'active' => ($this->context->route == 'chapters/index')],
                             ['label' => 'Add New Chapter', 'icon' => 'fa fa-angle-right', 'url' => ['chapters/create']],
+                            ['label' => 'Chapter Roles', 'icon' => 'fa fa-angle-right', 'url' => ['chapter-roles/index'] ,'active' => ($this->context->route == 'chapter-roles/index' || $this->context->route == 'chapter-roles/create' || $this->context->route == 'chapter-roles/update')],
+                            ['label' => 'Web Experience Levels', 'icon' => 'fa fa-angle-right', 'url' => ['web-experience/index'] ,'active' => ($this->context->route == 'web-experience/index' || $this->context->route == 'web-experience/create' || $this->context->route == 'web-experience/update')],
                         ],
                     ],
 

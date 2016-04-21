@@ -5,12 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\Events;
+use common\models\ChapterRoles;
 
 /**
- * EventsSerarch represents the model behind the search form about `common\models\Events`.
+ * ChapterRolesSearch represents the model behind the search form about `common\models\ChapterRoles`.
  */
-class EventsSerarch extends Events
+class ChapterRolesSearch extends ChapterRoles
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class EventsSerarch extends Events
     public function rules()
     {
         return [
-            [['id', 'country_id', 'state_id', 'city_id', 'status'], 'integer'],
-            [['name', 'event_date', 'event_end_date'], 'safe'],
+            [['id', 'isdescription', 'status'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -41,12 +41,11 @@ class EventsSerarch extends Events
      */
     public function search($params)
     {
-        $query = Events::find();
+        $query = ChapterRoles::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => false,
-            'pagination' => ['pageSize' => 50],
         ]);
 
         $this->load($params);
@@ -59,16 +58,11 @@ class EventsSerarch extends Events
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'country_id' => $this->country_id,
-            'state_id' => $this->state_id,
-            'city_id' => $this->city_id,
-
+            'isdescription' => $this->isdescription,
             'status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);
-        $query->andFilterWhere(['like', 'event_date', $this->event_date]);
-        $query->andFilterWhere(['like', 'event_end_date', $this->event_end_date]);
 
         return $dataProvider;
     }

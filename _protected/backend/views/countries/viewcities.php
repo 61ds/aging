@@ -39,12 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
 										return Html::a(Yii::t('app', 'Active'), null, [
 											'class' => 'btn btn-success status',
 											'data-id' =>  $model->id,
+											'model' =>  'Cities',
 											'href' => 'javascript:void(0);',
 										]);
 									} else {
 										return Html::a(Yii::t('app', 'Inactive'), null, [
 											'class' => 'btn btn-danger status',
 											'data-id' =>  $model->id,
+											'model' =>  'Cities',
 											'href' => 'javascript:void(0);',
 										]);
 									}
