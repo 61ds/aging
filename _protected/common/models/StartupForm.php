@@ -3,7 +3,7 @@
 namespace common\models;
 
 use Yii;
-use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "startup_form".
@@ -20,8 +20,10 @@ use yii\db\ActiveRecord;
  * @property string $website
  * @property string $address
  * @property string $street_address
+ * @property integer $address_zip
  * @property integer $address_city
  * @property integer $address_state
+ * @property integer $address_country
  * @property string $descr
  * @property string $logo
  * @property string $angel_list
@@ -55,6 +57,7 @@ use yii\db\ActiveRecord;
  *
  * @property Cities $addressCity
  * @property Chapters $thirdChoice
+ * @property Countries $addressCountry
  * @property States $addressState
  * @property CompanyStage $stage0
  * @property CompanyCategory $category0
@@ -64,7 +67,7 @@ use yii\db\ActiveRecord;
  * @property Chapters $firstChoice
  * @property Chapters $secondChoice
  */
-class StartupForm extends ActiveRecord
+class StartupForm extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
@@ -80,30 +83,31 @@ class StartupForm extends ActiveRecord
     public function rules()
     {
         return [
-            [['first_name', 'last_name', 'job_title', 'email', 'phone', 'linkedin', 'twitter', 'name', 'website', 'address', 'street_address', 'address_city', 'address_state', 'descr', 'logo', 'angel_list', 'stage', 'summary', 'video', 'category', 'category_other', 'category_choice', 'target_customer', 'business_model', 'competitors', 'capital_raised', 'revenue', 'strategic_priority', 'like_to_apply', 'first_choice', 'second_choice', 'third_choice', 'like_to_host', 'pitch_events', 'pitch_city', 'pitch_winner', 'why_pitch', 'newsletter', 'hear', 'hear_other', 'technology', 'created_at', 'updated_at'], 'required'],
-            [['address_city', 'address_state', 'stage', 'category', 'capital_raised', 'revenue', 'like_to_apply', 'first_choice', 'second_choice', 'third_choice', 'like_to_host', 'pitch_winner', 'newsletter', 'hear', 'created_at', 'updated_at'], 'integer'],
+            [['first_name', 'last_name', 'job_title', 'email', 'phone', 'linkedin', 'twitter', 'name', 'website', 'address', 'street_address', 'address_zip', 'address_city', 'address_state', 'address_country', 'descr', 'logo', 'angel_list', 'stage', 'summary', 'video', 'category', 'category_other', 'category_choice', 'target_customer', 'business_model', 'competitors', 'capital_raised', 'revenue', 'strategic_priority', 'like_to_apply', 'first_choice', 'second_choice', 'third_choice', 'like_to_host', 'pitch_events', 'pitch_city', 'pitch_winner', 'why_pitch', 'newsletter', 'hear', 'hear_other', 'technology'], 'required'],
+            [['address_zip', 'address_city', 'address_state', 'address_country', 'stage', 'category', 'capital_raised', 'revenue', 'like_to_apply', 'first_choice', 'second_choice', 'third_choice', 'like_to_host', 'pitch_winner', 'newsletter', 'hear', 'created_at', 'updated_at'], 'integer'],
             [['descr', 'category_other', 'competitors', 'why_pitch', 'hear_other'], 'string'],
             [['first_name', 'last_name', 'job_title', 'linkedin', 'twitter', 'name', 'website', 'address', 'street_address', 'logo', 'angel_list', 'summary', 'video', 'category_choice', 'strategic_priority', 'pitch_city', 'technology'], 'string', 'max' => 100],
             [['email'], 'string', 'max' => 50],
-            [['phone'], 'string', 'max' => 12],
+            ['phone', 'match', 'pattern' => '/^[\*0-9]{10,13}$/','message'=>'Phone number must be numeric between 10-13 digits'],
+            ['address_zip', 'match', 'pattern' => '/^[\*0-9]{4,8}$/','message'=>'Zip number must be numeric'],
+            ['email', 'email'],
+            [['linkedin','website'], 'url'],
             [['target_customer', 'business_model'], 'string', 'max' => 300],
-            [['pitch_events'], 'string', 'max' => 150]
+            [['pitch_events'], 'string', 'max' => 150],
+            [['address_city'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['address_city' => 'id']],
+            [['third_choice'], 'exist', 'skipOnError' => true, 'targetClass' => Chapters::className(), 'targetAttribute' => ['third_choice' => 'id']],
+            [['address_country'], 'exist', 'skipOnError' => true, 'targetClass' => Countries::className(), 'targetAttribute' => ['address_country' => 'id']],
+            [['address_state'], 'exist', 'skipOnError' => true, 'targetClass' => States::className(), 'targetAttribute' => ['address_state' => 'id']],
+            [['stage'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyStage::className(), 'targetAttribute' => ['stage' => 'id']],
+            [['category'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyCategory::className(), 'targetAttribute' => ['category' => 'id']],
+            [['capital_raised'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyCapital::className(), 'targetAttribute' => ['capital_raised' => 'id']],
+            [['revenue'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyRevenue::className(), 'targetAttribute' => ['revenue' => 'id']],
+            [['hear'], 'exist', 'skipOnError' => true, 'targetClass' => HearAbout::className(), 'targetAttribute' => ['hear' => 'id']],
+            [['first_choice'], 'exist', 'skipOnError' => true, 'targetClass' => Chapters::className(), 'targetAttribute' => ['first_choice' => 'id']],
+            [['second_choice'], 'exist', 'skipOnError' => true, 'targetClass' => Chapters::className(), 'targetAttribute' => ['second_choice' => 'id']],
         ];
     }
 
-
-    public function behaviors()
-    {
-        return [
-            'timestamp' => [
-                'class' => 'yii\behaviors\TimestampBehavior',
-                'attributes' => [
-                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
-                ],
-            ],
-        ];
-    }
     /**
      * @inheritdoc
      */
@@ -118,16 +122,18 @@ class StartupForm extends ActiveRecord
             'phone' => 'Phone',
             'linkedin' => 'Linkedin',
             'twitter' => 'Twitter',
-            'name' => 'Name',
-            'website' => 'Website',
-            'address' => 'Address',
+            'name' => 'Company name',
+            'website' => 'Company website',
+            'address' => 'Company Address',
             'street_address' => 'Street Address',
+            'address_zip' => 'Address Zip',
             'address_city' => 'Address City',
             'address_state' => 'Address State',
-            'descr' => 'Descr',
+            'address_country' => 'Address Country',
+            'descr' => 'Company description',
             'logo' => 'Logo',
-            'angel_list' => 'Angel List',
-            'stage' => 'Stage',
+            'angel_list' => 'Angel List profile URL (if available)',
+            'stage' => 'What stage is your company?',
             'summary' => 'Summary',
             'video' => 'Video',
             'category' => 'Category',
@@ -171,6 +177,14 @@ class StartupForm extends ActiveRecord
     public function getThirdChoice()
     {
         return $this->hasOne(Chapters::className(), ['id' => 'third_choice']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAddressCountry()
+    {
+        return $this->hasOne(Countries::className(), ['id' => 'address_country']);
     }
 
     /**
@@ -246,7 +260,28 @@ class StartupForm extends ActiveRecord
         return new StartupFormQuery(get_called_class());
     }
 
+    //get all city
+    public function getCities(){
+        $cities = Cities::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($cities,'id','name');
+    }
 
+    //get all states
+    public function getStates(){
+        $states = States::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($states,'id','name');
+    }
 
+    //get all countries
+    public function getCountries(){
+        $countries = Countries::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($countries,'id','name');
+    }
+
+    //get all company stage
+    public function getStages(){
+        $stages = CompanyStage::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($stages,'id','name');
+    }
 
 }

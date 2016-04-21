@@ -26,22 +26,11 @@ class FrontendController extends Controller
                 'class' => AccessControl::className(),
                 'rules' => [
                     [
-                        'controllers' => ['article'],
-                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'admin'],
+                        'controllers' => ['countries'],
+                        'actions' => ['active-states', 'active-cities'],
                         'allow' => true,
-                        'roles' => ['admin'],
                     ],
-                    [
-                        'controllers' => ['article'],
-                        'actions' => ['create', 'update', 'admin'],
-                        'allow' => true,
-                        'roles' => ['editor'],
-                    ],
-                    [
-                        'controllers' => ['article'],
-                        'actions' => ['index', 'view'],
-                        'allow' => true
-                    ],
+
                     [
                         // other rules
                     ],
