@@ -1,9 +1,11 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\CompanyCategory;
 use common\models\LoginForm;
 use common\models\User;
 use common\models\StartupForm;
+use common\models\HearAbout;
 use frontend\models\AccountActivation;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
@@ -17,6 +19,10 @@ use yii\helpers\Html;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 
+use yii\web\UploadedFile;
+
+use common\traits\ImageUploadTrait;
+
 /**
  * Site controller.
  * It is responsible for displaying static pages, logging users in and out,
@@ -24,6 +30,7 @@ use yii\web\Controller;
  */
 class SiteController extends Controller
 {
+    use ImageUploadTrait;
     /**
      * Returns a list of behaviors that this component should behave as.
      *
@@ -402,7 +409,68 @@ class SiteController extends Controller
     public function actionStartup()
     {
         $model = new StartupForm();
-        return $this->render('startup',['model' => $model]);
+        if(Yii::$app->request->post() && $model->load(Yii::$app->request->post())) {
+            $logo = UploadedFile::getInstance($model, 'logo');
+            $summary = UploadedFile::getInstance($model, 'summary');
+
+            if($logo)
+            {
+                $name = time();
+                $size = Yii::$app->params['folders']['size'];
+                $main_folder = "startup/images";
+                $image_name= $this->uploadImage($logo,$name,$main_folder,$size);
+                $model->logo =  $image_name;
+            }
+            if($summary != '')
+            {
+                $name = time();
+                $main_folder = 'startup/docs';
+                $file_name= $this->uploadFile($summary,$name,$main_folder);
+                $model->summary = $file_name;
+            }
+
+            if (($cat_model = CompanyCategory::findOne($model->category)) !== null) {
+                if($cat_model->isdescription != 1){
+                    $model->category_other = 'empty';
+                }
+            }
+            if (($hear_model = HearAbout::findOne($model->hear)) !== null) {
+                if($hear_model->isdescription != 1){
+                    $model->hear_other = 'empty';
+                }
+            }
+
+            if($model->like_to_apply != 1){
+               $model->first_choice = 0;
+               $model->second_choice = 0;
+               $model->third_choice = 0;
+            }
+
+            if ($model->pitch_events != 1){
+               $model->pitch_city = 0;
+               $model->pitch_winner = 0;
+            }
+
+            $model->technology = serialize($model->technology);
+            $model->strategic_priority = serialize($model->strategic_priority);
+            $model->pitch_city = serialize($model->pitch_city);
+            $model->category_choice = serialize($model->category_choice);
+
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Page has been updated successfully!'));
+                return $this->redirect(['index']);
+            }
+
+        }else {
+
+            $model->category_other = "other categories";
+            $model->first_choice = 1;
+            $model->pitch_city = 2;
+            $model->hear_other = "please define";
+            $model->pitch_winner = 1;
+
+            return $this->render('startup', ['model' => $model]);
+        }
     }
 
 }

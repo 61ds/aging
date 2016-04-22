@@ -57,7 +57,6 @@
                         'url' => '#',
                         'items' => [
                             ['label' => 'All Startups', 'icon' => 'fa fa-angle-right', 'url' => ['startup-form/index'],'active' => ($this->context->route == 'startup-form/index')],
-                            ['label' => 'Create new Startup', 'icon' => 'fa fa-angle-right', 'url' => ['startup-form/create'],'active' => ($this->context->route == 'startup-form/create')],
                             ['label' => 'Startup Stages', 'icon' => 'fa fa-angle-right', 'url' => ['company-stage/index']],
                             ['label' => 'Startup Categories', 'icon' => 'fa fa-angle-right', 'url' => ['company-category/index'] ,'active' => ($this->context->route == 'company-category/index' || $this->context->route == 'company-category/create' || $this->context->route == 'company-category/update' || $this->context->route == 'category-choices/index' || $this->context->route ==  'category-choices/create' || $this->context->route == 'category-choices/update')],
                             ['label' => 'Startup Technology', 'icon' => 'fa fa-angle-right', 'url' => ['company-technology/index'] ,'active' => ($this->context->route == 'company-technology/index' || $this->context->route == 'company-technology/create' || $this->context->route == 'company-technology/update')],
