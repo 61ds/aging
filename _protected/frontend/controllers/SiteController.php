@@ -3,7 +3,9 @@ namespace frontend\controllers;
 
 use common\models\LoginForm;
 use common\models\User;
+use common\models\SponsorshipForm;
 use common\models\StartupForm;
+use common\models\ChapterForm;
 use frontend\models\AccountActivation;
 use frontend\models\ContactForm;
 use frontend\models\PasswordResetRequestForm;
@@ -403,6 +405,17 @@ class SiteController extends Controller
     {
         $model = new StartupForm();
         return $this->render('startup',['model' => $model]);
+    }
+    public function actionSponsorship()
+    {
+        $model = new SponsorshipForm();
+        return $this->render('Sponsorship-form',['model' => $model]);
+    }
+    public function actionChapter()
+    {
+
+        $model = new ChapterForm();
+        return $this->render('chapter-form',['model' => $model]);
     }
 
 }

@@ -31,6 +31,7 @@ $this->registerJs("
 
         <div class="row">
             <div class="col-lg-12 well bs-component">
+
                 <h1>Startup Submission</h1>
                 <p>
                     Please fill out this form to submit your company into the Aging2.0 Startup Database.
@@ -51,7 +52,7 @@ $this->registerJs("
             <div class="col-lg-12 well bs-component">
                 <?php $form = ActiveForm::begin(); ?>
                     <h2>Personal Information </h2>
-
+                    <hr/>
                     <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'last_name')->textInput(['maxlength' => true]) ?>
@@ -65,8 +66,9 @@ $this->registerJs("
                     <?= $form->field($model, 'linkedin')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'twitter')->textInput(['placeholder'=>'@Aging20','maxlength' => true]) ?>
-
+                     <hr/>
                     <h2>Startup Information</h2>
+                    <hr/>
 
                     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -324,9 +326,9 @@ $this->registerJs("
                     </div>
 
                     <?= $form->field($model, 'why_pitch')->textarea(['rows' => 6]) ?>
-
+                    <hr/>
                     <h2>Additional Opportunities</h2>
-
+                     <hr/>
                     <?= $form->field($model, 'newsletter')->radioList(['1'=>'Yes, sign me up! ','0'=>'No, not at this time']) ?>
 
                     <?= $form->field($model, 'interested_in_joining')->radioList(['1'=>'Yes, send more more information! ','0'=>'No, not at this time']) ?>
