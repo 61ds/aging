@@ -10,7 +10,7 @@ use yii\filters\VerbFilter;
  * Site controller.
  * It is responsible for displaying static pages, and logging users in and out.
  */
-class SiteController extends BackendController
+class SiteController extends AmbassadorController
 {
     /**
      * Returns a list of behaviors that this component should behave as.

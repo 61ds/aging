@@ -36,7 +36,7 @@ class settings implements BootstrapInterface {
 		}
 		Yii::$app->params['adminEmail'] = Yii::$app->params['settings']['admin_mail'];
 		Yii::$app->params['siteName'] = Yii::$app->params['settings']['site_meta_title'];
-		Yii::$app->params['baseurl'] = str_replace('/backend','',\Yii::$app->request->baseUrl);
+
 
 		//thumb,medium,large image path
 		Yii::$app->params['uploadThumbs'] = 'uploads/thumbs/';
