@@ -103,7 +103,7 @@ $this->registerJs("
 
                 <?= $form->field($model, 'address_zip')->textInput(['maxlength' => true]) ?>
                 <hr/>
-                    <h1>Marketing Info</h1>
+                    <h2>Marketing Info</h2>
                 <hr/>
 
                 <?= $form->field($model, 'logo')->widget(FileInput::classname(),
@@ -131,7 +131,7 @@ $this->registerJs("
                 )
                 ?>
                     <hr/>
-                    <h1>Sponsorship info</h1>
+                    <h2>Sponsorship info</h2>
                     <hr/>
                 <?= $form->field($model, 'agreed_amount')->textInput(['placeholder'=>'$$.$$','maxlength' => true]) ?>
                 <?= $form->field($model, 'event_date')->widget(\yii\jui\DatePicker::classname(), [

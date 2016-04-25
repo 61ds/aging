@@ -441,7 +441,40 @@ class SiteController extends Controller
     public function actionChapter()
     {
         $model = new ChapterForm();
-        return $this->render('chapter-form', ['model' => $model]);
+        if(Yii::$app->request->post() && $model->load(Yii::$app->request->post())) {
+            $headshot = UploadedFile::getInstance($model, 'headshot');
+            $resume = UploadedFile::getInstance($model, 'resume');
+            if($headshot)
+            {
+                $name = time();
+                $size = Yii::$app->params['folders']['size'];
+                $main_folder = "chapter/images";
+                $image_name= $this->uploadImage($headshot,$name,$main_folder,$size);
+                $model->headshot =  $image_name;
+
+            }
+            if($resume)
+            {
+                $name = time();
+                $size = Yii::$app->params['folders']['size'];
+                $main_folder = "chapter/images";
+                $image_name= $this->uploadImage($resume,$name,$main_folder,$size);
+                $model->resume =  $image_name;
+
+            }
+            $model->how_involved = serialize($model->how_involved);
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Form has been Submitted successfully!'));
+                return $this->redirect(['index']);
+            }else{
+                echo"<pre>";
+                print_r($model->getErrors());
+                print_r( $model);die;
+            }
+
+        }else {
+            return $this->render('chapter-form', ['model' => $model]);
+        }
     }
     public function actionStartup()
     {
