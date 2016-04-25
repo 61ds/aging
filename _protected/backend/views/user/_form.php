@@ -24,10 +24,9 @@ use yii\widgets\ActiveForm;
             ?>       
         <?php endif ?>
 
+        <?= $form->field($role, 'item_name')->dropDownList($user->roleList) ?>
+
         <?= $form->field($user, 'status')->dropDownList($user->statusList) ?>
-
-
-        <?= $form->field($role, 'item_name')->hiddenInput(['value'=> "admin"])->label(false) ?>
 
 
     <div class="form-group">     

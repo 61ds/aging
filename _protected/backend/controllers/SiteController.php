@@ -88,7 +88,7 @@ class SiteController extends BackendController
         $lwe ? $model = new LoginForm(['scenario' => 'lwe']) : $model = new LoginForm() ;
 
         // everything went fine, log in the user
-        if ($model->load(Yii::$app->request->post()) && $model->login()) 
+        if ($model->load(Yii::$app->request->post()) && $model->login('admin'))
         {
             return $this->goBack();
         } 

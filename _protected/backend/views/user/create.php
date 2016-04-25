@@ -4,7 +4,7 @@
 /* @var $user common\models\User */
 /* @var $role common\rbac\models\Role */
 
-$this->title = Yii::t('app', 'Create New Admin');
+$this->title = Yii::t('app', 'Create New Account');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

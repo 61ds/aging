@@ -6,6 +6,7 @@ use nenad\passwordStrength\StrengthValidator;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
+use common\rbac\models\AuthItem;
 
 /**
  * This is the user model class extending UserIdentity.
@@ -322,5 +323,17 @@ class User extends UserIdentity
     public function removeAccountActivationToken()
     {
         $this->account_activation_token = null;
+    }
+
+    public function getRoleList()
+    {
+        $roles = [];
+
+        foreach (AuthItem::getRoles() as $item_name)
+        {
+            $roles[$item_name->name] = $item_name->name;
+        }
+
+        return $roles;
     }
 }
