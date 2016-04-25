@@ -73,8 +73,9 @@ class StartupController extends FrontendController
 
     public function actionHearAbout($id)
     {
-        if (($model = CompanyCategory::findOne($id)) !== null) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if (($model = HearAbout::findOne($id)) !== null) {
+
             return [
                 'isdescr' => $model->isdescription,
             ];

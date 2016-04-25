@@ -5,14 +5,11 @@ use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
 
 $this->registerJs("
-    $( '.category_choice_1','.like_to_host_div','category_choice_2','.like_to_apply_div','pitch_div').hide();
-    $('.hear_div').hide();
-
 	$('#characterLeft').text('25 words left');
 	$('#descr').keyup(function () {
 	    var len = $(this).val().split(' ').length;
 	    var count = $(this).val().length;
-		var max = 3;
+		var max = 25;
 		if (len > max) {
 		    $(this).val( $(this).val().substring(0, count-1));
 			$('#characterLeft').text(' you have reached the limit');
@@ -22,6 +19,40 @@ $this->registerJs("
 			$('#characterLeft').text(ch + ' words left');
 		}
 	});
+
+    $('#startupform-strategic_priority input').change(function () {
+        var maxAllowed = 2;
+
+        var cnt = $('#startupform-strategic_priority input:checked').length;
+
+        if (cnt > maxAllowed)
+        {
+         $(this).prop('checked', false);
+        }
+    });
+
+    $('#startupform-technology input').change(function () {
+      var maxAllowed = 3;
+
+      var cnt = $('#startupform-technology input:checked').length;
+
+      if (cnt > maxAllowed)
+      {
+         $(this).prop('checked', false);
+     }
+    });
+
+    $('#category_choice input').change(function () {
+      var maxAllowed = 3;
+
+      var cnt = $('#category_choice input:checked').length;
+
+      if (cnt > maxAllowed)
+      {
+         $(this).prop('checked', false);
+     }
+    });
+
 ");
 
 ?>
@@ -50,7 +81,7 @@ $this->registerJs("
             </div>
 
             <div class="col-lg-12 well bs-component">
-                <?php $form = ActiveForm::begin(); ?>
+                <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
                     <h2>Personal Information </h2>
                     <hr/>
                     <?= $form->field($model, 'first_name')->textInput(['maxlength' => true]) ?>
@@ -165,9 +196,11 @@ $this->registerJs("
                             'class'=>'form-control select2',
                             'onchange'=> '$.post( "'.Yii::$app->urlManager->createUrl('startup/category-choices?id=').'"+$(this).val(), function( data ) {
                                 if(data.isdescr){
+                                    $( "#startupform-category_other" ).val("");
                                     $( ".category_choice_1" ).hide();
                                     $( ".category_choice_2" ).show();
                                 }else{
+                                     $( "#startupform-category_other" ).val("please define");
                                     $( ".category_choice_2" ).hide();
                                     $( "#category_choice" ).html( data.choices );
                                     $( ".category_choice_1" ).show();
@@ -309,6 +342,7 @@ $this->registerJs("
                         <?= $form->field($model, 'pitch_city')->dropDownList(
                             $model->eventsList,
                             [
+                                'multiple'=>'multiple',
                                 'prompt'=>'- Select option -',
                                 'class'=>'form-control select2',
                             ]
@@ -357,9 +391,12 @@ $this->registerJs("
                             'prompt'=>'- Select option -',
                             'class'=>'form-control select2',
                             'onchange'=> '$.post( "'.Yii::$app->urlManager->createUrl('startup/hear-about?id=').'"+$(this).val(), function( data ) {
-                                if(data.isdescr){
+
+                                if(data.isdescr == 1){
+                                    $("#startupform-hear_other").val("");
                                     $(".hear_div").show();
                                 }else{
+                                    $("#startupform-hear_other").val("Please define");
                                     $(".hear_div").hide();
                                 }
                             });'

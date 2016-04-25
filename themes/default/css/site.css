@@ -189,3 +189,12 @@ hr.article-devider {
 .nz-meter-container {
     display: none;
 }
+
+.category_choice_1,
+.like_to_host_div,
+.category_choice_2,
+.like_to_apply_div,
+.pitch_div,
+.hear_div{
+    display:none;
+}

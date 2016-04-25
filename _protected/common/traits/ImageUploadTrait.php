@@ -50,6 +50,20 @@ trait ImageUploadTrait
 			return false;
 		}
     }
+
+	public function uploadFile($file,$name,$main_folder)
+	{
+		$filename =  $name.'.'. $file->extension;
+		$uploadPath = "uploads/" . $main_folder .'/'. $filename;
+		if (!file_exists("uploads/" . $main_folder )) {
+			mkdir("uploads/". $main_folder , 0777, true);
+		}
+		if($file->saveAs($uploadPath)){
+			return $filename;
+		}else{
+			return false;
+		}
+	}
 }
 
 
