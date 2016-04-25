@@ -5,6 +5,8 @@ use common\models\CompanyCategory;
 use common\models\LoginForm;
 use common\models\User;
 use common\models\StartupForm;
+use common\models\SponsorshipForm;
+use common\models\ChapterForm;
 use common\models\HearAbout;
 use frontend\models\AccountActivation;
 use frontend\models\ContactForm;
@@ -406,6 +408,41 @@ class SiteController extends Controller
      *
      * @return string
      */
+    public function actionSponsorship()
+    {
+        $model = new SponsorshipForm();
+        if(Yii::$app->request->post() && $model->load(Yii::$app->request->post())) {
+            $logo = UploadedFile::getInstance($model, 'logo');
+
+            if($logo)
+            {
+                $name = time();
+                $size = Yii::$app->params['folders']['size'];
+                $main_folder = "sponsor/images";
+                $image_name= $this->uploadImage($logo,$name,$main_folder,$size);
+                $model->logo =  $image_name;
+
+            }
+            $model->event_date =  $timestamp = strtotime($model->event_date);
+            if ($model->save()) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Form has been Submitted successfully!'));
+                return $this->redirect(['index']);
+            }else{
+                echo"<pre>";
+                print_r($model->getErrors());
+                print_r( $model);die;
+            }
+
+        }else{
+            return $this->render('sponsorship-form', ['model' => $model]);
+        }
+
+    }
+    public function actionChapter()
+    {
+        $model = new ChapterForm();
+        return $this->render('chapter-form', ['model' => $model]);
+    }
     public function actionStartup()
     {
         $model = new StartupForm();

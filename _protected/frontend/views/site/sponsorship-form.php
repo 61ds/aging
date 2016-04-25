@@ -53,11 +53,10 @@ $this->registerJs("
                 <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
                 <?= $form->field($model, 'email')->textInput(['placeholder'=>'ex: myname@example.com','maxlength' => true]) ?>
-
-                <?= $form->field($model, 'phone_country_code')->textInput(['maxlength' => true]) ?>
-
-                <?= $form->field($model, 'phone_area_code')->textInput(['maxlength' => true]) ?>
-                <?= $form->field($model, 'phone_number')->textInput(['maxlength' => true]) ?>
+                <h3>Contact telephone</h3>
+                <?= $form->field($model, 'phone_country_code')->textInput(['placeholder'=>'Country Code','maxlength' => true])->label(false); ?>
+                <?= $form->field($model, 'phone_area_code')->textInput(['placeholder'=>'Area Code','maxlength' => true])->label(false) ?>
+                <?= $form->field($model, 'phone_number')->textInput(['placeholder'=>'Phone Number','maxlength' => true])->label(false) ?>
                 <hr>
                 <h3>Address</h3>
                 <hr/>
@@ -122,7 +121,6 @@ $this->registerJs("
                 <?= $form->field($model, 'twitter')->textInput(['maxlength' => true]) ?>
                 <?= $form->field($model, 'facebook')->textInput(['placeholder'=>'www.facebook.com/','maxlength' => true]) ?>
                 <?= $form->field($model, 'summary')->textarea(['id'=>'summary','rows' => 6])?>
-                <?= $form->field($model, 'sponsoring')->textInput(['maxlength' => true]) ?>
                 <?= $form->field($model, 'sponsoring')->dropDownList(
                     $model->sponsor,
                     [
@@ -135,13 +133,12 @@ $this->registerJs("
                     <hr/>
                     <h1>Sponsorship info</h1>
                     <hr/>
-                <?= $form->field($model, 'sponsoring')->textInput(['maxlength' => true]) ?>
                 <?= $form->field($model, 'agreed_amount')->textInput(['placeholder'=>'$$.$$','maxlength' => true]) ?>
                 <?= $form->field($model, 'event_date')->widget(\yii\jui\DatePicker::classname(), [
                     'options' =>['class'=> 'form-control'],
                     //'language' => 'ru',
-                    //'dateFormat' => 'yyyy-MM-dd',
-                ])->label('Event End Date (Optional)') ?>
+                    'dateFormat' => 'dd-MM-yyyy',
+                ]) ?>
                 <?= $form->field($model, 'notes')->textarea(['id'=>'notes','rows' => 6])?>
                 <?= $form->field($model, 'preferred_payment')->dropDownList(
                     $model->sponsorpayment,
@@ -151,7 +148,7 @@ $this->registerJs("
                         'class'=>'form-control select2'
 
                     ]
-                )->label(false)
+                )
                 ?>
                 <div class="form-group">
                     <?= Html::submitButton('Submit', ['class' => 'btn btn-success']) ?>

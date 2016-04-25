@@ -4,6 +4,8 @@ namespace common\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
 use common\models\SponsorPayment;
 use common\models\Sponsor;
 /**
@@ -58,8 +60,8 @@ class SponsorshipForm extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['organization', 'first_name', 'last_name', 'title', 'email', 'phone_country_code', 'phone_area_code', 'phone_number', 'address', 'street_address', 'address_city', 'address_state', 'address_country', 'address_zip', 'logo', 'website', 'twitter', 'facebook', 'summary', 'sponsoring', 'agreed_amount', 'event_date', 'notes', 'preferred_payment', 'created_at', 'updated_at', 'sponsoring_other'], 'required'],
-            [['address_city', 'address_state', 'address_country', 'address_zip', 'sponsoring', 'event_date', 'preferred_payment', 'created_at', 'updated_at'], 'integer'],
+            [['organization', 'first_name', 'last_name', 'title', 'email', 'phone_number', 'address', 'address_zip', 'logo', 'website', 'twitter', 'facebook', 'summary', 'sponsoring', 'agreed_amount', 'event_date', 'preferred_payment'], 'required'],
+            [['address_city', 'address_state', 'address_country', 'address_zip', 'sponsoring',  'preferred_payment', 'created_at', 'updated_at'], 'integer'],
             [['summary', 'notes'], 'string'],
             [['agreed_amount'], 'number'],
             [['organization', 'first_name', 'last_name', 'title', 'email', 'address', 'street_address', 'logo', 'website', 'twitter', 'facebook', 'sponsoring_other'], 'string', 'max' => 100],
@@ -70,7 +72,18 @@ class SponsorshipForm extends \yii\db\ActiveRecord
             [['phone_number'], 'string', 'max' => 12]
         ];
     }
-
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
     /**
      * @inheritdoc
      */

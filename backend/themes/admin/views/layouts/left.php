@@ -65,6 +65,16 @@
                             ['label' => 'Events List', 'icon' => 'fa fa-angle-right', 'url' => ['events/index'] ,'active' => ($this->context->route == 'events/index' || $this->context->route == 'events/create' || $this->context->route == 'events/update')],
                         ],
                     ],
+                    [
+                        'label' => 'SponsorShip Management',
+                        'icon' => 'fa fa-university',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'All SponsorShip', 'icon' => 'fa fa-angle-right', 'url' => ['sponsorship-form/index'],'active' => ($this->context->route == 'startup-form/index')],
+                            ['label' => 'Sponsoring', 'icon' => 'fa fa-angle-right', 'url' => ['sponsor/index']],
+                            ['label' => 'Payment Type', 'icon' => 'fa fa-angle-right', 'url' => ['sponsor-payment/index'] ,'active' => ($this->context->route == 'company-category/index' || $this->context->route == 'company-category/create' || $this->context->route == 'company-category/update' || $this->context->route == 'category-choices/index' || $this->context->route ==  'category-choices/create' || $this->context->route == 'category-choices/update')],
+                           ],
+                    ],
 
                     /*['label' => 'Menu Management', 'icon' => 'fa fa-bars', 'url' => ['/menu'],'active' => ($this->context->route == 'admin/menu/index'),],
 
