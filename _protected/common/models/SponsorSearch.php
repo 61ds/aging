@@ -5,13 +5,12 @@ namespace common\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\CompanyTechnology;
-
+use common\models\Sponsor;
 
 /**
- * CompanyTechnologySearch represents the model behind the search form about `common\models\CompanyTechnology`.
+ * SponsorSearch represents the model behind the search form about `common\models\Sponsor`.
  */
-class CompanyTechnologySearch extends CompanyTechnology
+class SponsorSearch extends Sponsor
 {
     /**
      * @inheritdoc
@@ -19,7 +18,8 @@ class CompanyTechnologySearch extends CompanyTechnology
     public function rules()
     {
         return [
-            [['id', 'name', 'status'], 'integer'],
+            [['id', 'status'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -41,11 +41,10 @@ class CompanyTechnologySearch extends CompanyTechnology
      */
     public function search($params)
     {
-        $query = CompanyTechnology::find();
+        $query = Sponsor::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort' => false,
         ]);
 
         $this->load($params);
@@ -58,9 +57,10 @@ class CompanyTechnologySearch extends CompanyTechnology
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'name' => $this->name,
             'status' => $this->status,
         ]);
+
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }
