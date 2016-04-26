@@ -32,7 +32,12 @@ class AmbassadorController extends Controller
                         'allow' => true,
                         'roles' => ['ambassador'],
                     ],
-					
+                    [
+                        'controllers' => ['profile'],
+                        'actions' => ['index','update','change-password'],
+                        'allow' => true,
+                        'roles' => ['ambassador'],
+                    ],
                     [
                         // other rules
                     ],

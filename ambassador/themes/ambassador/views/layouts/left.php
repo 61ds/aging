@@ -26,8 +26,8 @@
 
                     ['label' => 'All Revenues', 'icon' => 'fa fa-angle-right', 'url' => ['revenues/index'],'active' => ($this->context->route == 'startup-form/index')],
 
-                    ['label' => 'My profile', 'icon' => 'fa fa-angle-right', 'url' => ['startup-form/index'],'active' => ($this->context->route == 'startup-form/index')],
-                    ['label' => 'Change password', 'icon' => 'fa fa-angle-right', 'url' => ['company-stage/index']],
+                    ['label' => 'My profile', 'icon' => 'fa fa-angle-right', 'url' => ['profile/index'],'active' => ($this->context->route == 'startup-form/index')],
+                    ['label' => 'Change password', 'icon' => 'fa fa-angle-right', 'url' => ['profile/change-password']],
                     ['label' => 'Export Startups', 'icon' => 'fa fa-angle-right', 'url' => ['company-stage/index']],
                     ['label' => 'Export Financials', 'icon' => 'fa fa-angle-right', 'url' => ['company-stage/index']],
 
