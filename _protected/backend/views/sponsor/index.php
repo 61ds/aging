@@ -10,11 +10,11 @@ use yii\grid\GridView;
 $this->title = 'Sponsors';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sponsor-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+<div class="startup-form-index">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body table-responsive">
     <p>
         <?= Html::a('Create Sponsor', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
@@ -41,4 +41,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]); ?>
 
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

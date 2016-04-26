@@ -268,6 +268,7 @@ class StartupForm extends ActiveRecord
     }
     public function getPitchCity($cities)
     {
+        if($cities != ""){
         $arr_data = unserialize($cities);
         $joincitie = "";
         foreach($arr_data as $arr_datas){
@@ -277,6 +278,9 @@ class StartupForm extends ActiveRecord
 
         }
         return $joincitie;
+        }else{
+            return "-";
+        }
     }
 
     /**
@@ -342,6 +346,7 @@ class StartupForm extends ActiveRecord
         return ArrayHelper::map($strategics,'id','name');
     }
     public function getStrategicPriority($data){
+        if($data != "") {
         $get = unserialize($data);
         $join ="";
         foreach($get as $gets){
@@ -350,16 +355,43 @@ class StartupForm extends ActiveRecord
             $join .=  $strategics->name." , ";
         }
         return $join;
+        }else{
+            return "-";
+        }
     }
-    public function getTechnology($data){
+    public function getCategoryChoice($data){
+
+        if($data != "") {
         $get = unserialize($data);
         $join ="";
-        foreach($get as $gets){
-            $id = $gets;
-            $strategics = CompanyTechnology::findOne($id);
-            $join .=  $strategics->name." , ";
+            if($get != "") {
+                foreach ($get as $gets) {
+                    $id = $gets;
+                    $strategics = CompanyCategory::findOne($id);
+                    $join .= $strategics->name . " , ";
+                }
+                return $join;
+            }else{
+                return "-";
+            }
+
+        }else{
+            return "-";
         }
-        return $join;
+}
+    public function getTechnology($data){
+        if($data != "") {
+            $get = unserialize($data);
+            $join = "";
+            foreach ($get as $gets) {
+                $id = $gets;
+                $strategics = CompanyTechnology::findOne($id);
+                $join .= $strategics->name . " , ";
+            }
+            return $join;
+        }else{
+            return "-";
+        }
     }
     //get all company chapters
     public function getChapters(){

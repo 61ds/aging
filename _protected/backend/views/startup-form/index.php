@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             ['class' => 'yii\grid\ActionColumn',
                                 'header'=>'Actions',
-                                'template' => '{update}',
+                                'template' => '{view}',
 
                                 'contentOptions' => ['style' => 'width:160px;letter-spacing:10px;text-align:center'],
                             ],

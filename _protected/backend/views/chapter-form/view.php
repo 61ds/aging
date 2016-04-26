@@ -10,9 +10,11 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Chapter Forms', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="chapter-form-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="startup-form-index">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body table-responsive">
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -63,7 +65,11 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'value'=> Html::img(Yii::$app->params['baseurl'].'/uploads/thumbs/chapter/images/'.$model->headshot),
             ],
-            'resume',
+            [
+                'attribute'=>'resume',
+                'format' => 'html',
+                'value'=> "<a href='".Yii::$app->params['baseurl'].'/uploads/thumbs/chapter/images/'.$model->resume."' target='_blank' >Resume</a>",
+            ],
             'events_attended:ntext',
             [
                 'attribute'=>'chapter_city',
@@ -79,25 +85,33 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'location_notes:ntext',
             'why_get_involved:ntext',
-            'help_event',
+            [
+                'attribute'=>'help_event',
+                'value' => ($model->help_event)? "Yes" : 'No'
+            ],
             'activities_work:ntext',
             [
                 'attribute'=>'how_involved',
                 'value' => $model->getHowInvolve($model->how_involved)
             ],
-            'experience_web',
             [
                 'attribute'=>'experience_web',
-                'value' => $model->getHowInvolve($model->experience_web)
+                'value' => $model->getExperienceWebs($model->experience_web)
             ],
             'organization_affliation:ntext',
             'ideas_speaker:ntext',
             'biggest_challenge:ntext',
             'other_info:ntext',
             'how_involved_other',
-            'created_at',
-            'updated_at',
+            'created_at:date',
+            'updated_at:date',
         ],
     ]) ?>
 
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+

@@ -8,6 +8,7 @@ use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use common\models\SponsorPayment;
 use common\models\Sponsor;
+use common\models\Chapters;
 /**
  * This is the model class for table "sponsorship_form".
  *
@@ -62,7 +63,7 @@ class SponsorshipForm extends \yii\db\ActiveRecord
         return [
             [['organization', 'first_name', 'last_name', 'title', 'email', 'phone_number', 'address', 'address_zip', 'logo', 'website', 'twitter', 'facebook', 'summary', 'sponsoring', 'agreed_amount', 'event_date', 'preferred_payment'], 'required'],
             [['address_city', 'address_state', 'address_country', 'address_zip', 'sponsoring',  'preferred_payment', 'created_at', 'updated_at'], 'integer'],
-            [['summary', 'notes'], 'string'],
+            [['summary', 'item_description', 'notes'], 'string'],
             [['agreed_amount'], 'number'],
             [['organization', 'first_name', 'last_name', 'title', 'email', 'address', 'street_address', 'logo', 'website', 'twitter', 'facebook', 'sponsoring_other'], 'string', 'max' => 100],
             [['phone_country_code', 'phone_area_code'], 'string', 'max' => 5],
@@ -118,6 +119,7 @@ class SponsorshipForm extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'sponsoring_other' => 'Sponsoring Other',
+            'item_description' => 'Item Description',
         ];
     }
 
@@ -181,9 +183,38 @@ class SponsorshipForm extends \yii\db\ActiveRecord
         $sponsor = Sponsor::find()->where(['status' => 1])->orderBy('name')->all();
         return ArrayHelper::map($sponsor,'id','name');
     }
+    public function getSponsoring($id){
+        $strategics = Sponsor::findOne($id);
+        if( $strategics){
+            return $strategics->name;
+        }else{
+            return "-";
+        }
+    }
+    public function getSponsoringOther($id){
+        $strategics = Chapters::findOne($id);
+        if( $strategics){
+            return $strategics->name;
+        }else{
+            return "-";
+        }
+    }
+    public function getPaymentMethod($id){
+        $strategics = SponsorPayment::findOne($id);
+        if( $strategics){
+            return $strategics->name;
+        }else{
+            return "-";
+        }
+    }
     public function getSponsorpayment()
     {
         $spo_pay = SponsorPayment::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($spo_pay,'id','name');
+    }
+    public function getChapters()
+    {
+        $spo_pay = Chapters::find()->where(['status' => 1])->orderBy('name')->all();
         return ArrayHelper::map($spo_pay,'id','name');
     }
 }
