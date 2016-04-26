@@ -7,7 +7,7 @@ use yii\helpers\Html;
 
 <header class="main-header">
 
-    <?= Html::a('<span class="logo-mini">Drish</span><span class="logo-lg">'.Yii::$app->params['settings']['site_meta_title'] .'</span>', Yii::$app->homeUrl, ['class' => 'logo' ,'target'=>'_blank']) ?>
+    <?= Html::a('<span class="logo-mini">Aging</span><span class="logo-lg">'.Yii::$app->params['settings']['site_meta_title'] .'</span>', Yii::$app->homeUrl, ['class' => 'logo' ,'target'=>'_blank']) ?>
     <nav class="navbar navbar-static-top" role="navigation">
 
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -21,7 +21,7 @@ use yii\helpers\Html;
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="<?= $directoryAsset ?>/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
-                        <span class="hidden-xs">Admin</span>
+                        <span class="hidden-xs"><?= Yii::$app->user->identity->username ?></span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -30,20 +30,17 @@ use yii\helpers\Html;
                                  alt="User Image"/>
 
                             <p>
-                                Admin
+                                <?= Yii::$app->user->identity->username ?>
                                 <small>Member since Jan. 2016</small>
                             </p>
                         </li>
                         <!-- Menu Body -->
                         <li class="user-body">
                             <div class="col-xs-4 text-center">
-                                <a href="#">Followers</a>
+                                <a href="#">Export Startups</a>
                             </div>
                             <div class="col-xs-4 text-center">
-                                <a href="#">Sales</a>
-                            </div>
-                            <div class="col-xs-4 text-center">
-                                <a href="#">Friends</a>
+                                <a href="#">Export Financials</a>
                             </div>
                         </li>
                         <!-- Menu Footer-->

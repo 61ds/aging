@@ -80,11 +80,29 @@ class LoginForm extends Model
      *
      * @return bool Whether the user is logged in successfully.
      */
-    public function login()
+    public function login($rolename = 'member')
     {
-        if ($this->validate()) 
+
+        if ($this->validate())
         {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            $found = 0;
+            $user = $this->getUser();
+            $roles = \Yii::$app->authManager->getRolesByUser($user->id);
+
+            foreach($roles as $role){
+                if ($role->name == $rolename || $role->name == 'theCreator')
+                {
+                    $found = 1;
+                }
+            }
+            if($found == 1){
+                return Yii::$app->user->login($user, $this->rememberMe ? 3600 * 24 * 30 : 0);
+            }else{
+                $this->addError('password', 'Incorrect username or password.');
+                return false;
+            }
+
+
         } 
         else 
         {
