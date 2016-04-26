@@ -67,6 +67,8 @@ AppAsset::register($this);
             }
             // everyone can see Home page
             $menuItems[] = ['label' => Yii::t('app', 'Startup'), 'url' => ['/site/startup']];
+            $menuItems[] = ['label' => Yii::t('app', 'Sponsorship'), 'url' => ['/site/sponsorship']];
+            $menuItems[] = ['label' => Yii::t('app', 'Chapter'), 'url' => ['/site/chapter']];
 
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],

@@ -266,6 +266,18 @@ class StartupForm extends ActiveRecord
     {
         return $this->hasOne(Chapters::className(), ['id' => 'second_choice']);
     }
+    public function getPitchCity($cities)
+    {
+        $arr_data = unserialize($cities);
+        $joincitie = "";
+        foreach($arr_data as $arr_datas){
+            $id = $arr_datas;
+            $event = Events::findOne($id);
+            $joincitie .= $event->country->name .'-'. $event->state->name .'-'. \Yii::$app->formatter->asDatetime($event->event_date, "php:M d") . " , ";
+
+        }
+        return $joincitie;
+    }
 
     /**
      * @inheritdoc
@@ -329,7 +341,26 @@ class StartupForm extends ActiveRecord
         $strategics = CompanyStrategic::find()->where(['status' => 1])->orderBy('id')->all();
         return ArrayHelper::map($strategics,'id','name');
     }
-
+    public function getStrategicPriority($data){
+        $get = unserialize($data);
+        $join ="";
+        foreach($get as $gets){
+            $id = $gets;
+            $strategics = CompanyStrategic::findOne($id);
+            $join .=  $strategics->name." , ";
+        }
+        return $join;
+    }
+    public function getTechnology($data){
+        $get = unserialize($data);
+        $join ="";
+        foreach($get as $gets){
+            $id = $gets;
+            $strategics = CompanyTechnology::findOne($id);
+            $join .=  $strategics->name." , ";
+        }
+        return $join;
+    }
     //get all company chapters
     public function getChapters(){
         $chapters = Chapters::find()->where(['status' => 1])->orderBy('id')->all();
@@ -340,7 +371,7 @@ class StartupForm extends ActiveRecord
     public function getEventsList(){
         $events = Events::find()->where(['status' => 1])->orderBy('id')->all();
         foreach($events as $event){
-            $name = $event->country->name .'-'. $event->state->name .'-'. \Yii::$app->formatter->asDatetime($event->event_date, "php:M d");;
+            $name = $event->country->name .'-'. $event->state->name .'-'. \Yii::$app->formatter->asDatetime($event->event_date, "php:M d");
             $eventLists[] = array('id'=>$event->id,'name'=>$name );
         }
         return ArrayHelper::map($eventLists,'id', 'name');
