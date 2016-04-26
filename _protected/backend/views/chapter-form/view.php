@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'first_name',
             'last_name',
             'title',
@@ -36,10 +35,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'address',
             'street_address',
-            'address_city',
-            'address_state',
             'address_zip',
-            'address_country',
+            [
+                'attribute'=>'address_city',
+                'value'=>$model->addressCity->name,
+            ],
+            [
+                'attribute'=>'address_state',
+                'value'=>$model->addressState->name,
+            ],
+            [
+                'attribute'=>'address_country',
+                'value'=>$model->addressCountry->name,
+            ],
             'phone',
             'personal_twitter',
             'work_twitter',
@@ -50,18 +58,38 @@ $this->params['breadcrumbs'][] = $this->title;
             'personal_website',
             'summary_bio:ntext',
             'skills',
-            'headshot',
+            [
+                'attribute'=>'headshot',
+                'format' => 'html',
+                'value'=> Html::img(Yii::$app->params['baseurl'].'/uploads/thumbs/chapter/images/'.$model->headshot),
+            ],
             'resume',
             'events_attended:ntext',
-            'chapter_city',
-            'chapter_state',
-            'chapter_country',
+            [
+                'attribute'=>'chapter_city',
+                'value'=>$model->addressCity->name,
+            ],
+            [
+                'attribute'=>'chapter_state',
+                'value'=>$model->addressState->name,
+            ],
+            [
+                'attribute'=>'chapter_country',
+                'value'=>$model->addressCountry->name,
+            ],
             'location_notes:ntext',
             'why_get_involved:ntext',
             'help_event',
             'activities_work:ntext',
-            'how_involved',
+            [
+                'attribute'=>'how_involved',
+                'value' => $model->getHowInvolve($model->how_involved)
+            ],
             'experience_web',
+            [
+                'attribute'=>'experience_web',
+                'value' => $model->getHowInvolve($model->experience_web)
+            ],
             'organization_affliation:ntext',
             'ideas_speaker:ntext',
             'biggest_challenge:ntext',

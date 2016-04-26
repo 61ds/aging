@@ -158,6 +158,21 @@ class ChapterForm extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Cities::className(), ['id' => 'chapter_city']);
     }
+    public function getCity($id)
+    {
+        $data =  Cities::findOne($id);
+        return $data->name;
+    }
+    public function getCountry($id)
+    {
+        $data =  Countries::findOne($id);
+        return $data->name;
+    }
+    public function getState($id)
+    {
+        $data =  States::findOne($id);
+        return $data->name;
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -232,6 +247,16 @@ class ChapterForm extends \yii\db\ActiveRecord
     {
         $countries = Countries::find()->where(['status' => 1])->orderBy('name')->all();
         return ArrayHelper::map($countries,'id','name');
+    }
+    public function getHowInvolve($data){
+        $get = unserialize($data);
+        $join ="";
+        foreach($get as $gets){
+            $id = $gets;
+            $strategics = ChapterRoles::findOne($id);
+            $join .=  $strategics->name." , ";
+        }
+        return $join;
     }
     public function getHowInvolved(){
         $strategics = ChapterRoles::find()->where(['status' => 1])->orderBy('id')->all();
