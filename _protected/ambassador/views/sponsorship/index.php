@@ -3,13 +3,38 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use kartik\export\ExportMenu;
+
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\SponsorshipFormSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Sponsorship Forms';
 $this->params['breadcrumbs'][] = $this->title;
+$gridColumns = [
+    ['class' => 'kartik\grid\SerialColumn',
+        'header' => 'S.No.'],
+    'name',
+];
+
 ?>
+<div class="row">
+    <div class="col-md-12">
+        <div class="pull-left">
+            <?php echo ExportMenu::widget([
+                'dataProvider' => $dataProvider,
+                'columns' => $gridColumns,
+                'fontAwesome' => true,
+                'exportConfig' => [
+                    ExportMenu::FORMAT_PDF => false,
+                    ExportMenu::FORMAT_EXCEL_X => false,
+                    ExportMenu::FORMAT_EXCEL => false,
+                ]
+            ]);?>
+        </div>
+    </div>
+</div>
+
 <div class="sponsorship-form-index">
 
     <div class="row">

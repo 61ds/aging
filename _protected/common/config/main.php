@@ -67,7 +67,15 @@ return [
 		'treemanager' =>  [
 			'class' => '\kartik\tree\Module',
 			// other module settings, refer detailed documentation
-		]		
+		],
+        'gridview' =>  [
+            'class' => '\kartik\grid\Module'
+            // enter optional module parameters below - only if you need to
+            // use your own export download action or custom translation
+            // message source
+            // 'downloadAction' => 'gridview/export/download',
+            // 'i18n' => []
+        ]
 	],
     // set allias for our uploads folder so it can be shared by both frontend and backend applications
     // @appRoot alias is definded in common/config/bootstrap.php file
