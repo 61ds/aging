@@ -249,14 +249,30 @@ class ChapterForm extends \yii\db\ActiveRecord
         return ArrayHelper::map($countries,'id','name');
     }
     public function getHowInvolve($data){
-        $get = unserialize($data);
-        $join ="";
-        foreach($get as $gets){
-            $id = $gets;
-            $strategics = ChapterRoles::findOne($id);
-            $join .=  $strategics->name." , ";
+        if($data != ""){
+            $get = unserialize($data);
+            $join ="";
+            foreach($get as $gets){
+                $id = $gets;
+                $strategics = ChapterRoles::findOne($id);
+                $join .=  $strategics->name." , ";
+            }
+            return $join;
+        }else{
+            return "-";
         }
-        return $join;
+
+    }
+    public function getExperienceWebs($id){
+
+        $strategics = WebExperience::findOne($id);
+
+        if( $strategics){
+            return $strategics->name;
+        }else{
+            return "-";
+        }
+
     }
     public function getHowInvolved(){
         $strategics = ChapterRoles::find()->where(['status' => 1])->orderBy('id')->all();

@@ -10,14 +10,11 @@ use yii\grid\GridView;
 $this->title = 'Sponsorship Forms';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sponsorship-form-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <p>
-        <?= Html::a('Create Sponsorship Form', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+<div class="startup-form-index">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body table-responsive">
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -56,11 +53,15 @@ $this->params['breadcrumbs'][] = $this->title;
 
             ['class' => 'yii\grid\ActionColumn',
                 'header'=>'Actions',
-                'template' => '{update}',
+                'template' => '{view}',
 
                 'contentOptions' => ['style' => 'width:160px;letter-spacing:10px;text-align:center'],
             ],
         ],
     ]); ?>
 
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -10,9 +10,11 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Startup Forms', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="startup-form-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<div class="startup-form-index">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body table-responsive">
 
     <p>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
@@ -53,7 +55,6 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
 
             'descr:ntext',
-            'logo',
             'angel_list',
             [
                 'attribute'=>'stage',
@@ -71,7 +72,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>$model->category0->name,
             ],
             'category_other:ntext',
-            'category_choice',
+            [
+                'attribute'=>'category_choice',
+                'value' => $model->getCategoryChoice($model->category_choice)
+            ],
             'target_customer',
             'business_model',
             'competitors:ntext',
@@ -135,4 +139,10 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+
 </div>
+</div>
+</div>
+</div>
+</div>
+

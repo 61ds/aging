@@ -1,8 +1,8 @@
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
+
 
 $this->registerJs("
     $( '.category_choice_1','.like_to_host_div','category_choice_2','.like_to_apply_div','pitch_div').hide();
@@ -130,6 +130,17 @@ $this->registerJs("
                     ]
                 )
                 ?>
+
+                <?= $form->field($model, 'sponsoring_other')->dropDownList(
+                    $model->chapters,
+                    [
+                        'prompt'=>'- Select Chapter -',
+                        'class'=>'form-control select2'
+
+                    ]
+                )
+                ?>
+                <?= $form->field($model, 'item_description')->textarea(['id'=>'item_description','rows' => 6])?>
                     <hr/>
                     <h2>Sponsorship info</h2>
                     <hr/>
