@@ -4,6 +4,9 @@ namespace common\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+use yii\behaviors\TimestampBehavior;
+use yii\db\ActiveRecord;
+
 /**
  * This is the model class for table "chapter_form".
  *
@@ -73,13 +76,28 @@ class ChapterForm extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'first_name', 'last_name', 'email', 'phone', 'summary_bio', 'skills', 'headshot', 'chapter_city', 'chapter_state', 'chapter_country', 'why_get_involved', 'help_event', 'how_involved', 'experience_web', 'organization_affliation', 'ideas_speaker', 'biggest_challenge', 'how_involved_other', 'created_at', 'updated_at'], 'required'],
-            [['id', 'address_city', 'address_state', 'address_zip', 'address_country', 'chapter_city', 'chapter_state', 'chapter_country', 'help_event', 'experience_web', 'created_at', 'updated_at'], 'integer'],
+            [[ 'first_name', 'last_name', 'email', 'phone', 'summary_bio', 'skills', 'headshot',  'chapter_state', 'chapter_country', 'why_get_involved', 'help_event',], 'required'],
+            [['id', 'address_zip',  'chapter_city', 'chapter_state', 'chapter_country', 'help_event', 'experience_web', 'created_at', 'updated_at'], 'integer'],
             [['organization_descr', 'summary_bio', 'events_attended', 'location_notes', 'why_get_involved', 'activities_work', 'organization_affliation', 'ideas_speaker', 'biggest_challenge', 'other_info'], 'string'],
             [['first_name', 'last_name', 'title', 'organization', 'email', 'address', 'street_address', 'personal_twitter', 'work_twitter', 'linkedin', 'organization_website', 'personal_website', 'how_involved', 'how_involved_other'], 'string', 'max' => 100],
             [['phone'], 'string', 'max' => 12],
             [['skype', 'headshot', 'resume'], 'string', 'max' => 50],
+            [['address_city'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['address_city' => 'id']],
+            [['address_country'], 'exist', 'skipOnError' => true, 'targetClass' => Countries::className(), 'targetAttribute' => ['address_country' => 'id']],
+            [['address_state'], 'exist', 'skipOnError' => true, 'targetClass' => States::className(), 'targetAttribute' => ['address_state' => 'id']],
             [['skills'], 'string', 'max' => 200]
+        ];
+    }
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
         ];
     }
 
@@ -101,32 +119,32 @@ class ChapterForm extends \yii\db\ActiveRecord
             'address_state' => 'Address State',
             'address_zip' => 'Address Zip',
             'address_country' => 'Address Country',
-            'phone' => 'Phone',
+            'phone' => 'Phone number (International format) ',
             'personal_twitter' => 'Personal Twitter',
             'work_twitter' => 'Work Twitter',
-            'linkedin' => 'Linkedin',
-            'skype' => 'Skype',
+            'linkedin' => 'LinkedIn Profile URL:',
+            'skype' => 'Skype ID',
             'organization_website' => 'Organization Website',
-            'organization_descr' => 'Organization Descr',
-            'personal_website' => 'Personal Website',
-            'summary_bio' => 'Summary Bio',
-            'skills' => 'Skills',
-            'headshot' => 'Headshot',
-            'resume' => 'Resume',
-            'events_attended' => 'Events Attended',
-            'chapter_city' => 'Chapter City',
+            'organization_descr' => 'Organization description',
+            'personal_website' => 'Personal website / blog',
+            'summary_bio' => 'Summary bio (50 words) ',
+            'skills' => 'Your skills and expertise (up to 10 comma separated keywords)',
+            'headshot' => 'Picture (headshot)',
+            'resume' => 'Resume / bio',
+            'events_attended' => 'Have you attended an Aging2.0 event/s in the past? Which ones?',
+            'chapter_city' => 'What CITY would you like to start / join an Aging2.0 Chapter ',
             'chapter_state' => 'Chapter State',
             'chapter_country' => 'Chapter Country',
-            'location_notes' => 'Location Notes',
-            'why_get_involved' => 'Why Get Involved',
-            'help_event' => 'Help Event',
-            'activities_work' => 'Activities Work',
-            'how_involved' => 'How Involved',
-            'experience_web' => 'Experience Web',
-            'organization_affliation' => 'Organization Affliation',
-            'ideas_speaker' => 'Ideas Speaker',
-            'biggest_challenge' => 'Biggest Challenge',
-            'other_info' => 'Other Info',
+            'location_notes' => 'Additional notes about location',
+            'why_get_involved' => 'Why do you want to get involved with Aging2.0?',
+            'help_event' => 'Would you be willing to help organize event/s? ',
+            'activities_work' => 'What specific activities would you most like to work on?',
+            'how_involved' => 'How would you like to be involved? ',
+            'experience_web' => 'How much experience in using web-based community tools (such as Eventbrite, Wordpress etc)',
+            'organization_affliation' => 'What organization affiliations will you draw upon for the organization of events and the development of the local Aging2.0 network? ',
+            'ideas_speaker' => 'What are some ideas you have for speakers at future events?',
+            'biggest_challenge' => 'What do you see as the biggest challenge in growing the Aging2.0 community in your area? ',
+            'other_info' => 'Any other information that would be helpful for us to review your application?',
             'how_involved_other' => 'How Involved Other',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -139,6 +157,21 @@ class ChapterForm extends \yii\db\ActiveRecord
     public function getChapterCity()
     {
         return $this->hasOne(Cities::className(), ['id' => 'chapter_city']);
+    }
+    public function getCity($id)
+    {
+        $data =  Cities::findOne($id);
+        return $data->name;
+    }
+    public function getCountry($id)
+    {
+        $data =  Countries::findOne($id);
+        return $data->name;
+    }
+    public function getState($id)
+    {
+        $data =  States::findOne($id);
+        return $data->name;
     }
 
     /**
@@ -196,5 +229,41 @@ class ChapterForm extends \yii\db\ActiveRecord
     public static function find()
     {
         return new ChapterFormQuery(get_called_class());
+    }
+    public function getCities(){
+        $cities = Cities::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($cities,'id','name');
+    }
+
+    //get all states
+    public function getStates()
+    {
+        $states = States::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($states,'id','name');
+    }
+
+    //get all countries
+    public function getCountries()
+    {
+        $countries = Countries::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($countries,'id','name');
+    }
+    public function getHowInvolve($data){
+        $get = unserialize($data);
+        $join ="";
+        foreach($get as $gets){
+            $id = $gets;
+            $strategics = ChapterRoles::findOne($id);
+            $join .=  $strategics->name." , ";
+        }
+        return $join;
+    }
+    public function getHowInvolved(){
+        $strategics = ChapterRoles::find()->where(['status' => 1])->orderBy('id')->all();
+        return ArrayHelper::map($strategics,'id','name');
+    }
+    public function getWebExp(){
+        $strategics = WebExperience::find()->where(['status' => 1])->orderBy('id')->all();
+        return ArrayHelper::map($strategics,'id','name');
     }
 }

@@ -128,7 +128,21 @@ class SponsorshipForm extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Cities::className(), ['id' => 'address_city']);
     }
-
+    public function getCity($id)
+    {
+        $data =  Cities::findOne($id);
+        return $data->name;
+    }
+    public function getCountry($id)
+    {
+        $data =  Countries::findOne($id);
+        return $data->name;
+    }
+    public function getState($id)
+    {
+        $data =  States::findOne($id);
+        return $data->name;
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

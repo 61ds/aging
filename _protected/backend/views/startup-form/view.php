@@ -28,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'first_name',
             'last_name',
             'job_title',
@@ -40,38 +39,99 @@ $this->params['breadcrumbs'][] = $this->title;
             'website',
             'address',
             'street_address',
-            'address_city',
-            'address_state',
+            [
+                'attribute'=>'address_city',
+                'value'=>$model->addressCity->name,
+            ],
+            [
+                'attribute'=>'address_state',
+                'value'=>$model->addressState->name,
+            ],
+            [
+                'attribute'=>'address_country',
+                'value'=>$model->addressCountry->name,
+            ],
+
             'descr:ntext',
             'logo',
             'angel_list',
-            'stage',
+            [
+                'attribute'=>'stage',
+                'value'=>$model->stage0->name,
+            ],
+            [
+                'attribute'=>'logo',
+                'format' => 'html',
+                'value'=> Html::img(Yii::$app->params['baseurl'].'/uploads/thumbs/startup/images/'.$model->logo),
+            ],
             'summary',
             'video',
-            'category',
+            [
+                'attribute'=>'category',
+                'value'=>$model->category0->name,
+            ],
             'category_other:ntext',
             'category_choice',
             'target_customer',
             'business_model',
             'competitors:ntext',
-            'capital_raised',
-            'revenue',
-            'strategic_priority',
-            'like_to_apply',
-            'first_choice',
-            'second_choice',
-            'third_choice',
-            'like_to_host',
-            'pitch_events',
-            'pitch_city',
-            'pitch_winner',
+            [
+                'attribute'=>'capital_raised',
+                'value'=>$model->capitalRaised->name,
+            ],
+            [
+                'attribute'=>'revenue',
+                'value'=>$model->revenue0->name,
+            ],
+            [
+                'attribute'=>'strategic_priority',
+                'value' => $model->getStrategicPriority($model->strategic_priority)
+            ],
+            [
+                'attribute'=>'like_to_apply',
+                'value' => ($model->like_to_apply)? "Yes" : 'No'
+            ],
+            [
+                'attribute'=>'first_choice',
+                'value' => ($model->first_choice)? $model->firstChoice->name : '-'
+            ],
+            [
+                'attribute'=>'second_choice',
+                'value' => ($model->second_choice)? $model->secondChoice->name : '-'
+            ],
+            [
+                'attribute'=>'third_choice',
+                'value' => ($model->third_choice)? $model->thirdChoice->name : '-'
+            ],
+            [
+                'attribute'=>'like_to_host',
+                'value' => ($model->like_to_host)? "Yes" : 'No'
+            ],
+            [
+                'attribute'=>'pitch_city',
+                'value' => $model->getPitchCity($model->pitch_city)
+            ],
+            [
+                'attribute'=>'pitch_events',
+                'value' => ($model->pitch_events)? "Yes" : 'No'
+            ],
+            [
+                'attribute'=>'pitch_winner',
+                'value' => ($model->pitch_winner)? "Yes" : 'No'
+            ],
             'why_pitch:ntext',
-            'newsletter',
-            'hear',
+            [
+                'attribute'=>'newsletter',
+                'value' => ($model->newsletter)? "Yes" : 'No'
+            ],
             'hear_other:ntext',
-            'technology',
-            'created_at',
-            'updated_at',
+            [
+                'attribute'=>'technology',
+                'value' => $model->getTechnology($model->technology)
+            ],
+            'created_at:date',
+            'updated_at:date',
+
         ],
     ]) ?>
 
