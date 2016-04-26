@@ -12,6 +12,8 @@ use common\models\StartupForm;
  */
 class StartupFormSearch extends StartupForm
 {
+    public $fullname;
+    public $choices;
     /**
      * @inheritdoc
      */
@@ -20,6 +22,7 @@ class StartupFormSearch extends StartupForm
         return [
             [['id', 'address_city', 'address_state', 'stage', 'category', 'capital_raised', 'revenue', 'like_to_apply', 'first_choice', 'second_choice', 'third_choice', 'like_to_host', 'pitch_winner', 'newsletter', 'hear', 'created_at', 'updated_at'], 'integer'],
             [['first_name', 'last_name', 'job_title', 'email', 'phone', 'linkedin', 'twitter', 'name', 'website', 'address', 'street_address', 'descr', 'logo', 'angel_list', 'summary', 'video', 'category_other', 'category_choice', 'target_customer', 'business_model', 'competitors', 'strategic_priority', 'pitch_events', 'pitch_city', 'why_pitch', 'hear_other', 'technology'], 'safe'],
+            [['fullname','choices'], 'safe']
         ];
     }
 

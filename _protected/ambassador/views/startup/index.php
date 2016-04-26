@@ -14,9 +14,99 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 $gridColumns = [
-    ['class' => 'kartik\grid\SerialColumn',
-        'header' => 'S.No.'],
+    ['class' => 'yii\grid\SerialColumn','header' => 'S.No.'],
+    [
+        'format' => 'raw',
+        'attribute' => 'choices',
+        'value' =>  function ($model) {
+            $choices = "";
+            if($model->first_name)
+                $choices .= '1st:&nbsp;&nbsp;&nbsp;'. $model->firstChoice->name;
+            if($model->second_choice)
+                $choices .= '<br>2nd:&nbsp;&nbsp;'. $model->secondChoice->name;
+            if($model->third_choice)
+                $choices .= '<br>3rd:&nbsp;&nbsp;&nbsp;'. $model->thirdChoice->name;
+            return $choices;
+        },
+    ],
     'name',
+    [
+        'attribute' => 'fullname',
+        'value' =>  function ($model) {
+            return $model->first_name ." ". $model->last_name;
+        },
+    ],
+    'email:email',
+    'phone',
+    'descr:ntext',
+    [
+        'attribute' => 'category',
+        'value' =>  function ($model) {
+            return $model->category0->name;
+        },
+    ],
+    [
+        'attribute' => 'stage',
+        'value' =>  function ($model) {
+            return $model->stage0->name;
+        },
+    ],
+    [
+        'attribute' => 'address_city',
+        'value' =>  function ($model) {
+            return $model->addressCity->name;
+        },
+    ],
+    [
+        'attribute' => 'address_state',
+        'value' =>  function ($model) {
+            return $model->addressState->name;
+        },
+    ],
+    [
+        'attribute' => 'address_country',
+        'value' =>  function ($model) {
+            return $model->addressCountry->name;
+        },
+    ],
+
+    'created_at:Date',
+    'job_title',
+     'linkedin',
+     'twitter',
+     'website',
+     'address',
+     'street_address',
+     'address_zip',
+
+     'logo',
+     'angel_list',
+
+     'summary',
+     'video',
+
+    // 'category_other:ntext',
+    // 'category_choice',
+     'technology',
+     'target_customer',
+     'business_model',
+     'capital_raised',
+     'revenue',
+     'strategic_priority',
+     'like_to_apply',
+
+     'like_to_host',
+     'pitch_events',
+    'pitch_city',
+     'pitch_winner',
+     'why_pitch:ntext',
+    // 'newsletter',
+    // 'interested_in_joining',
+    // 'hear',
+    // 'hear_other:ntext',
+
+
+
 ];
 
 ?>
@@ -48,13 +138,65 @@ $gridColumns = [
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
                         'columns' => [
-                            ['class' => 'yii\grid\SerialColumn',
-                                'header' => 'S.No.'],
-                            'first_name',
-                            'last_name',
-                            'job_title',
+                            ['class' => 'yii\grid\SerialColumn','header' => 'S.No.'],
+                            [
+                                'format' => 'raw',
+                                'attribute' => 'choices',
+                                'value' =>  function ($model) {
+                                    $choices = "";
+                                    if($model->first_name)
+                                        $choices .= '1st:&nbsp;&nbsp;&nbsp;'. $model->firstChoice->name;
+                                    if($model->second_choice)
+                                        $choices .= '<br>2nd:&nbsp;&nbsp;'. $model->secondChoice->name;
+                                    if($model->third_choice)
+                                        $choices .= '<br>3rd:&nbsp;&nbsp;&nbsp;'. $model->thirdChoice->name;
+                                    return $choices;
+                                },
+                            ],
+                            'name',
+                            [
+                                'attribute' => 'fullname',
+                                'value' =>  function ($model) {
+                                    return $model->first_name ." ". $model->last_name;
+                                },
+                            ],
                             'email:email',
-                            // 'phone',
+                            'phone',
+
+                            'descr:ntext',
+                            [
+                                'attribute' => 'category',
+                                'value' =>  function ($model) {
+                                    return $model->category0->name;
+                                },
+                            ],
+                            [
+                                'attribute' => 'stage',
+                                'value' =>  function ($model) {
+                                    return $model->stage0->name;
+                                },
+                            ],
+                            [
+                                'attribute' => 'address_city',
+                                'value' =>  function ($model) {
+                                    return $model->addressCity->name;
+                                },
+                            ],
+                            [
+                                'attribute' => 'address_state',
+                                'value' =>  function ($model) {
+                                    return $model->addressState->name;
+                                },
+                            ],
+                            [
+                                'attribute' => 'address_country',
+                                'value' =>  function ($model) {
+                                    return $model->addressCountry->name;
+                                },
+                            ],
+
+                            'created_at:Date',
+
                             // 'linkedin',
                             // 'twitter',
                             // 'name',
@@ -65,13 +207,13 @@ $gridColumns = [
                             // 'address_city',
                             // 'address_state',
                             // 'address_country',
-                            // 'descr:ntext',
+
                             // 'logo',
                             // 'angel_list',
-                            // 'stage',
+
                             // 'summary',
                             // 'video',
-                            // 'category',
+
                             // 'category_other:ntext',
                             // 'category_choice',
                             // 'target_customer',
@@ -81,9 +223,7 @@ $gridColumns = [
                             // 'revenue',
                             // 'strategic_priority',
                             // 'like_to_apply',
-                            // 'first_choice',
-                            // 'second_choice',
-                            // 'third_choice',
+
                             // 'like_to_host',
                             // 'pitch_events',
                             // 'pitch_city',

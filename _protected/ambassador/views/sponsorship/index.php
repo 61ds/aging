@@ -49,10 +49,15 @@ $gridColumns = [
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn',
                                 'header' => 'S.No.'],
-
+                            'sponsoring',
                             'organization',
-                            'first_name',
-                            'last_name',
+                            [
+                                'attribute' => 'fullname',
+                                'value' =>  function ($model) {
+                                    return $model->first_name ." ". $model->last_name;
+                                },
+                            ],
+
                             'title',
                             // 'email:email',
                             // 'phone_country_code',
@@ -69,7 +74,7 @@ $gridColumns = [
                             // 'twitter',
                             // 'facebook',
                             // 'summary:ntext',
-                            // 'sponsoring',
+
                             // 'agreed_amount',
                             // 'event_date',
                             // 'notes:ntext',

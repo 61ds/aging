@@ -12,6 +12,7 @@ use common\models\SponsorshipForm;
  */
 class SponsorshipFormSearch extends SponsorshipForm
 {
+    public $fullname;
     /**
      * @inheritdoc
      */
@@ -21,6 +22,7 @@ class SponsorshipFormSearch extends SponsorshipForm
             [['id', 'address_city', 'address_state', 'address_country', 'address_zip', 'sponsoring', 'event_date', 'preferred_payment', 'created_at', 'updated_at'], 'integer'],
             [['organization', 'first_name', 'last_name', 'title', 'email', 'phone_country_code', 'phone_area_code', 'phone_number', 'address', 'street_address', 'logo', 'website', 'twitter', 'facebook', 'summary', 'notes', 'sponsoring_other'], 'safe'],
             [['agreed_amount'], 'number'],
+            [['fullname'], 'safe']
         ];
     }
 

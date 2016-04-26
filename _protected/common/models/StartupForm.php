@@ -71,6 +71,8 @@ use yii\db\ActiveRecord;
  */
 class StartupForm extends ActiveRecord
 {
+    public $fullname;
+    public $choices;
     /**
      * @inheritdoc
      */
@@ -105,7 +107,7 @@ class StartupForm extends ActiveRecord
             [['capital_raised'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyCapital::className(), 'targetAttribute' => ['capital_raised' => 'id']],
             [['revenue'], 'exist', 'skipOnError' => true, 'targetClass' => CompanyRevenue::className(), 'targetAttribute' => ['revenue' => 'id']],
             [['hear'], 'exist', 'skipOnError' => true, 'targetClass' => HearAbout::className(), 'targetAttribute' => ['hear' => 'id']],
-
+            [['fullname','choices'], 'safe']
         ];
     }
 
