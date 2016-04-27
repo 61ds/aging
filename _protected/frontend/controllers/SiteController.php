@@ -6,6 +6,7 @@ use common\models\LoginForm;
 use common\models\User;
 use common\models\StartupForm;
 use common\models\SponsorshipForm;
+use common\models\AmbsOnboarding;
 use common\models\ChapterForm;
 use common\models\HearAbout;
 use frontend\models\AccountActivation;
@@ -408,6 +409,58 @@ class SiteController extends Controller
      *
      * @return string
      */
+    public function actionOnboarding()
+    {
+        $model = new AmbsOnboarding();
+        if(Yii::$app->request->post() && $model->load(Yii::$app->request->post())) {
+            $logo = UploadedFile::getInstance($model, 'file');
+
+            if($logo)
+            {
+                $name = time();
+                $size = Yii::$app->params['folders']['size'];
+                $main_folder = "onborading/images";
+                $image_name= $this->uploadImage($logo,$name,$main_folder,$size);
+                $model->file =  $image_name;
+
+            }
+                if( $model->preferred_payment == 3){
+                $model->account_name = "";
+                $model->bank_name = "";
+                $model->bank_account = "";
+                $model->aba_routing  = "";
+                $model->check_to = "";
+                $model->bank_address = "";
+                $model->bank_street_address = "";
+                $model->bank_country =  "";
+                $model->bank_state = "";
+                $model->bank_city = "";
+                $model->bank_zip = "";
+            }elseif($model->preferred_payment == 1){
+                $model->account_name = "";
+                $model->bank_name = "";
+                $model->bank_account = "";
+                $model->aba_routing = "";
+                $model->paypal_email = "";
+            }else{
+                $model->paypal_email = "";
+                $model->check_to = "";
+            }
+           // echo"<pre>";print_r($model);die;
+            if ($model->save(false)) {
+                Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Form has been Submitted successfully!'));
+                return $this->redirect(['index']);
+            }else{
+                echo"<pre>";
+                print_r($model->getErrors());
+                print_r( $model);die;
+            }
+
+        }else{
+            return $this->render('chapter-onbording', ['model' => $model]);
+        }
+
+    }
     public function actionSponsorship()
     {
         $model = new SponsorshipForm();

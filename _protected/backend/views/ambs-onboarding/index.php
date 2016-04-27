@@ -1,0 +1,70 @@
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+
+/* @var $this yii\web\View */
+/* @var $searchModel common\models\AmbsOnboardingSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = 'Ambs Onboardings';
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="startup-form-index">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body table-responsive">
+                    <p>
+                        <?= Html::a('Create Ambs Onboarding', ['create'], ['class' => 'btn btn-success']) ?>
+                    </p>
+                    <?= GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+
+                            'id',
+                            'first_name',
+                            'last_name',
+                            'email:email',
+                            'country_code',
+                            // 'area_code',
+                            // 'phone_number',
+                            // 'chapter',
+                            // 'chapter_city',
+                            // 'chapter_state',
+                            // 'chapter_country',
+                            // 'twitter_handle',
+                            // 'chapter_email:email',
+                            // 'address',
+                            // 'street_address',
+                            // 'address_city',
+                            // 'address_state',
+                            // 'address_country',
+                            // 'address_zip',
+                            // 'file',
+                            // 'notes:ntext',
+                            // 'preferred_payment',
+                            // 'account_name',
+                            // 'bank_name',
+                            // 'bank_account',
+                            // 'aba_routing',
+                            // 'bank_address',
+                            // 'bank_street_address',
+                            // 'bank_city',
+                            // 'bank_state',
+                            // 'bank_country',
+                            // 'bank_zip',
+                            // 'paypal_email:email',
+                            // 'check_to',
+
+                            ['class' => 'yii\grid\ActionColumn'],
+                        ],
+                    ]); ?>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
