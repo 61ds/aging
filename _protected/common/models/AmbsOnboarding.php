@@ -78,7 +78,8 @@ class AmbsOnboarding extends \yii\db\ActiveRecord
             [['address_city'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['address_city' => 'id']],
             [['address_state'], 'exist', 'skipOnError' => true, 'targetClass' => States::className(), 'targetAttribute' => ['address_state' => 'id']],
             [['address_country'], 'exist', 'skipOnError' => true, 'targetClass' => Countries::className(), 'targetAttribute' => ['address_country' => 'id']],
-            [['paypal_email','email', 'chapter_city','check_to','account_name', 'bank_name', 'bank_account', 'aba_routing', 'bank_address', 'bank_street_address', 'bank_state', 'bank_country', 'bank_zip',],\frontend\validations\ClientSideValidator::className()]
+            [['paypal_email', 'chapter_city','check_to','account_name', 'bank_name', 'bank_account', 'aba_routing', 'bank_address', 'bank_street_address', 'bank_state', 'bank_country', 'bank_zip',],\frontend\validations\ClientSideValidator::className()],
+            [['email'], \frontend\validations\ClientSideValidator::className() ],
         ];
     }
 
@@ -203,12 +204,6 @@ class AmbsOnboarding extends \yii\db\ActiveRecord
         $spo_pay = Chapters::find()->where(['status' => 1])->orderBy('name')->all();
         return ArrayHelper::map($spo_pay,'id','name');
     }
-    public function validateEmail()
-    {
-        $email = ChapterForm::find()->where(['email' => $this->email])->one();
 
-        if (!$email) {
-            $this->addError('email', 'Email not exist, please enter your previous email which you entered while submitting chapter form.If still facing issue contact Us');
-        }
-    }
+
 }
