@@ -1,6 +1,7 @@
 <?php
 namespace frontend\validations;
 
+use common\models\ChapterForm;
 use yii\validators\Validator;
 
 class ClientSideValidator extends Validator
@@ -19,7 +20,7 @@ class ClientSideValidator extends Validator
 
     public function clientValidateAttribute($model, $attribute, $view)
     {
-
+            $emails = json_encode(ChapterForm::find()->select('email')->asArray()->column());
             $message = json_encode($this->message, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
             return <<<JS
         var def = $.Deferred();
@@ -28,13 +29,11 @@ class ClientSideValidator extends Validator
             stopValidation = true;
             def.reject();
             }
-            if (value == '') {
-
-                    messages.push($message);
-                    def.resolve();
-
+            if (attribute.name=='email') {
+                if ($.inArray(value, $emails) === -1) {
+                    messages.push('Email not exist, please enter your previous email which you entered while submitting chapter form.If still facing issue contact Us');
+                }
             }
-
             if (value == '') {
 
                     messages.push($message);
