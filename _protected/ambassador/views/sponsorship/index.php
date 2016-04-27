@@ -12,9 +12,29 @@ use kartik\export\ExportMenu;
 $this->title = 'Sponsorship Forms';
 $this->params['breadcrumbs'][] = $this->title;
 $gridColumns = [
-    ['class' => 'kartik\grid\SerialColumn',
-        'header' => 'S.No.'],
-    'name',
+            ['class' => 'kartik\grid\SerialColumn',
+                'header' => 'S.No.'],
+            [
+                'attribute' => 'sponsoring',
+                'value' =>  function ($model) {
+                    return $model->sponsorings->name;
+                },
+            ],
+            'organization',
+            'item_description',
+            'agreed_amount',
+            [
+                'attribute' => 'fullname',
+                'value' =>  function ($model) {
+                    return $model->first_name ." ". $model->last_name;
+                },
+            ],
+            [
+                'attribute' => 'preferred_payment',
+                'value' =>  function ($model) {
+                    return $model->preferredPayment->name;
+                },
+            ],
 ];
 
 ?>
@@ -49,16 +69,30 @@ $gridColumns = [
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn',
                                 'header' => 'S.No.'],
-                            'sponsoring',
+                            [
+                                'attribute' => 'sponsoring',
+                                'value' =>  function ($model) {
+                                    return $model->sponsorings->name;
+                                },
+                            ],
                             'organization',
+                            'item_description',
+                            'agreed_amount',
                             [
                                 'attribute' => 'fullname',
                                 'value' =>  function ($model) {
                                     return $model->first_name ." ". $model->last_name;
                                 },
                             ],
+                            [
+                                'attribute' => 'preferred_payment',
+                                'value' =>  function ($model) {
+                                    return $model->preferredPayment->name;
+                                },
+                            ],
 
-                            'title',
+
+                            //'title',
                             // 'email:email',
                             // 'phone_country_code',
                             // 'phone_area_code',
@@ -75,10 +109,10 @@ $gridColumns = [
                             // 'facebook',
                             // 'summary:ntext',
 
-                            // 'agreed_amount',
+
                             // 'event_date',
                             // 'notes:ntext',
-                            // 'preferred_payment',
+
                             // 'created_at',
                             // 'updated_at',
                             // 'sponsoring_other',

@@ -62,6 +62,7 @@ use yii\db\ActiveRecord;
  */
 class ChapterForm extends \yii\db\ActiveRecord
 {
+    public $acceptance;
     /**
      * @inheritdoc
      */
@@ -76,7 +77,7 @@ class ChapterForm extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'first_name', 'last_name', 'email', 'phone', 'summary_bio', 'skills', 'headshot',  'chapter_state', 'chapter_country', 'why_get_involved', 'help_event',], 'required'],
+            [[ 'first_name', 'last_name','acceptance', 'email', 'phone', 'summary_bio', 'skills', 'headshot',  'chapter_state', 'chapter_country', 'why_get_involved', 'help_event',], 'required'],
             [['id', 'address_zip',  'chapter_city', 'chapter_state', 'chapter_country', 'help_event', 'experience_web', 'created_at', 'updated_at'], 'integer'],
             [['organization_descr', 'summary_bio', 'events_attended', 'location_notes', 'why_get_involved', 'activities_work', 'organization_affliation', 'ideas_speaker', 'biggest_challenge', 'other_info'], 'string'],
             [['first_name', 'last_name', 'title', 'organization', 'email', 'address', 'street_address', 'personal_twitter', 'work_twitter', 'linkedin', 'organization_website', 'personal_website', 'how_involved', 'how_involved_other'], 'string', 'max' => 100],
@@ -85,7 +86,9 @@ class ChapterForm extends \yii\db\ActiveRecord
             [['address_city'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['address_city' => 'id']],
             [['address_country'], 'exist', 'skipOnError' => true, 'targetClass' => Countries::className(), 'targetAttribute' => ['address_country' => 'id']],
             [['address_state'], 'exist', 'skipOnError' => true, 'targetClass' => States::className(), 'targetAttribute' => ['address_state' => 'id']],
-            [['skills'], 'string', 'max' => 200]
+            [['skills'], 'string', 'max' => 200],
+            [['acceptance'], 'safe'],
+
         ];
     }
     public function behaviors()
@@ -111,6 +114,7 @@ class ChapterForm extends \yii\db\ActiveRecord
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
             'title' => 'Title',
+            'acceptance' => 'Please confirm your acceptance of our Values and Policies',
             'organization' => 'Organization',
             'email' => 'Email',
             'address' => 'Address',

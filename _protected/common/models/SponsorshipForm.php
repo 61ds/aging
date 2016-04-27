@@ -47,6 +47,7 @@ use common\models\Chapters;
  */
 class SponsorshipForm extends \yii\db\ActiveRecord
 {
+    public $fullname;
     /**
      * @inheritdoc
      */
@@ -70,7 +71,8 @@ class SponsorshipForm extends \yii\db\ActiveRecord
             [['address_city'], 'exist', 'skipOnError' => true, 'targetClass' => Cities::className(), 'targetAttribute' => ['address_city' => 'id']],
             [['address_country'], 'exist', 'skipOnError' => true, 'targetClass' => Countries::className(), 'targetAttribute' => ['address_country' => 'id']],
             [['address_state'], 'exist', 'skipOnError' => true, 'targetClass' => States::className(), 'targetAttribute' => ['address_state' => 'id']],
-            [['phone_number'], 'string', 'max' => 12]
+            [['phone_number'], 'string', 'max' => 12],
+            [['fullname'], 'safe']
         ];
     }
     public function behaviors()
@@ -160,6 +162,17 @@ class SponsorshipForm extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Countries::className(), ['id' => 'address_country']);
     }
+
+    public function getPreferredPayment()
+    {
+        return $this->hasOne(SponsorPayment::className(), ['id' => 'preferred_payment']);
+    }
+
+    public function getSponsorings()
+    {
+        return $this->hasOne(Sponsor::className(), ['id' => 'sponsoring']);
+    }
+
     public function getCities(){
         $cities = Cities::find()->where(['status' => 1])->orderBy('name')->all();
         return ArrayHelper::map($cities,'id','name');

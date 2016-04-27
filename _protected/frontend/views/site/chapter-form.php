@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\file\FileInput;
+use kartik\checkbox\CheckboxX;
 
 $this->registerJs("
     $( '.category_choice_1','.like_to_host_div','category_choice_2','.like_to_apply_div','pitch_div').hide();
@@ -211,6 +212,11 @@ $this->registerJs("
                 <p>Values: the values of Aging2.0 are innovation, collaboration and respect for all ages. We expect all people applying for and working with Aging2.0 to uphold these values. </p>
                <p>Policies: please read all of the information at aging2.com/local and check the box below if you understand and agree to the policies outlined there. </p>
                <p>Subject to change: this program is subject to change. We will communicate with you updates about the program and your participation on a regular basis. </p>
+
+                    <?=  $form->field($model, 'acceptance',[
+                        'template' => '{label}{input}{error}',
+                    ])->widget(CheckboxX::classname(), ['pluginOptions'=>['threeState'=>false]]); ?>
+                    <label class="cbx-label" for="ChapterForm[acceptance]">Yes, I understand and am committed to the values and policies of Aging2.0</label>
                 </div>
                 <div class="form-group">
                     <?= Html::submitButton('Submit', ['class' => 'btn btn-success']) ?>
