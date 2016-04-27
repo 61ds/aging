@@ -8,6 +8,7 @@ use kartik\file\FileInput;
 /* @var $model common\models\AmbsOnboarding */
 /* @var $form yii\widgets\ActiveForm */
 $this->registerJs("
+            var stopValidation = false;
             $('#address_all').find('input').val('0');
             $('#check_transfer').find('input').val('0');
             $('#bank_transfer').find('input').val('0');

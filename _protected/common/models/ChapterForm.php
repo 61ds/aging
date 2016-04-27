@@ -78,7 +78,7 @@ class ChapterForm extends \yii\db\ActiveRecord
     {
         return [
             [[ 'first_name', 'last_name','acceptance', 'email', 'phone', 'summary_bio', 'skills', 'headshot',  'chapter_state', 'chapter_country', 'why_get_involved', 'help_event',], 'required'],
-            [['id', 'address_zip',  'chapter_city', 'chapter_state', 'chapter_country', 'help_event', 'experience_web', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'address_zip',  'chapter_city', 'chapter_state', 'chapter_country', 'help_event', 'experience_web', 'created_at', 'updated_at','onboarding_status'], 'integer'],
             [['organization_descr', 'summary_bio', 'events_attended', 'location_notes', 'why_get_involved', 'activities_work', 'organization_affliation', 'ideas_speaker', 'biggest_challenge', 'other_info'], 'string'],
             [['first_name', 'last_name', 'title', 'organization', 'email', 'address', 'street_address', 'personal_twitter', 'work_twitter', 'linkedin', 'organization_website', 'personal_website', 'how_involved', 'how_involved_other'], 'string', 'max' => 100],
             [['phone'], 'string', 'max' => 12],
@@ -117,6 +117,7 @@ class ChapterForm extends \yii\db\ActiveRecord
             'acceptance' => 'Please confirm your acceptance of our Values and Policies',
             'organization' => 'Organization',
             'email' => 'Email',
+            'onboarding_status' => 'Onboarding status',
             'address' => 'Address',
             'street_address' => 'Street Address',
             'address_city' => 'Address City',
@@ -286,4 +287,15 @@ class ChapterForm extends \yii\db\ActiveRecord
         $strategics = WebExperience::find()->where(['status' => 1])->orderBy('id')->all();
         return ArrayHelper::map($strategics,'id','name');
     }
+
+    public function contact($emailto,$body,$subject,$emailfrom,$name)
+    {
+        return Yii::$app->mailer->compose()
+            ->setTo($emailto)
+            ->setFrom([$emailfrom => $name])
+            ->setSubject($subject)
+            ->setTextBody($body)
+            ->send();
+    }
+
 }
