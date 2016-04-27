@@ -90,6 +90,25 @@ class ChapterFormController extends Controller
         }
     }
 
+    public function actionOnboarding($id)
+    {
+        $model = $this->findModel($id);
+        $model->onboarding_status = 1;
+        if ($model->save()) {
+            $body = 'Congratulations on being approved to run an Aging2.0 Chapter! Please complete this form which includes the License Agreement and financial information so that we can ensure that you receive Chapter revenues. Please review the Chapter rules here: http://j.mp/a2chapter-groundrules';
+            $subject = "Onboarding form Aging2.0 Chapter";
+            $name = 'Aging2.0 Chapter';
+            //if ($model->contact(Yii::$app->params['adminEmail'])) {
+            if ($model->contact($model->email,$body,$subject,Yii::$app->params['adminEmail'],$name)) {
+                Yii::$app->session->setFlash('success','Onboarding form link successfully sent!.');
+            }
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
+        }
+    }
     /**
      * Deletes an existing ChapterForm model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
