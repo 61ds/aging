@@ -62,7 +62,7 @@ class SponsorshipForm extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['organization', 'first_name', 'last_name', 'title', 'email', 'phone_number', 'address', 'address_zip', 'logo', 'website', 'twitter', 'facebook', 'summary', 'sponsoring', 'agreed_amount', 'event_date', 'preferred_payment'], 'required'],
+            [['organization', 'first_name', 'last_name', 'title', 'email', 'phone_number', 'address', 'logo', 'website', 'twitter', 'facebook', 'summary', 'sponsoring', 'agreed_amount', 'event_date', 'preferred_payment'], 'required'],
             [['address_city', 'address_state', 'address_country', 'address_zip', 'sponsoring',  'preferred_payment', 'created_at', 'updated_at'], 'integer'],
             [['summary', 'item_description', 'notes'], 'string'],
             [['agreed_amount'], 'number'],
@@ -72,7 +72,8 @@ class SponsorshipForm extends \yii\db\ActiveRecord
             [['address_country'], 'exist', 'skipOnError' => true, 'targetClass' => Countries::className(), 'targetAttribute' => ['address_country' => 'id']],
             [['address_state'], 'exist', 'skipOnError' => true, 'targetClass' => States::className(), 'targetAttribute' => ['address_state' => 'id']],
             [['phone_number'], 'string', 'max' => 12],
-            [['fullname'], 'safe']
+            [['fullname'], 'safe'],
+            [['address_zip'], \frontend\validations\ClientSideValidator::className()],
         ];
     }
     public function behaviors()

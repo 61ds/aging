@@ -15,17 +15,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-12">
             <div class="box">
                 <div class="box-body table-responsive">
-    <p>
-        <?= Html::a('Create Chapter Form', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            ['class' => 'yii\grid\SerialColumn','header' => 'S.No.'],
 
-            'id',
             'first_name',
             'last_name',
             'title',

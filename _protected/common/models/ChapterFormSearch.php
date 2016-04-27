@@ -18,7 +18,7 @@ class ChapterFormSearch extends ChapterForm
     public function rules()
     {
         return [
-            [['id', 'address_city', 'address_state', 'address_zip', 'address_country', 'chapter_city', 'chapter_state', 'chapter_country', 'help_event', 'experience_web', 'created_at', 'updated_at'], 'integer'],
+            [['id', 'address_city', 'address_state', 'address_zip', 'address_country', 'chapter_city', 'chapter_state', 'chapter_country', 'help_event', 'experience_web', 'created_at', 'updated_at','onboarding_status'], 'integer'],
             [['first_name', 'last_name', 'title', 'organization', 'email', 'address', 'street_address', 'phone', 'personal_twitter', 'work_twitter', 'linkedin', 'skype', 'organization_website', 'organization_descr', 'personal_website', 'summary_bio', 'skills', 'headshot', 'resume', 'events_attended', 'location_notes', 'why_get_involved', 'activities_work', 'how_involved', 'organization_affliation', 'ideas_speaker', 'biggest_challenge', 'other_info', 'how_involved_other'], 'safe'],
         ];
     }
@@ -60,6 +60,7 @@ class ChapterFormSearch extends ChapterForm
             'address_city' => $this->address_city,
             'address_state' => $this->address_state,
             'address_zip' => $this->address_zip,
+            'onboarding_status' => $this->onboarding_status,
             'address_country' => $this->address_country,
             'chapter_city' => $this->chapter_city,
             'chapter_state' => $this->chapter_state,

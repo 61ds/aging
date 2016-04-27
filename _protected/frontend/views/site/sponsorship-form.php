@@ -5,6 +5,7 @@ use kartik\file\FileInput;
 
 
 $this->registerJs("
+    var stopValidation = false;
     $( '.category_choice_1','.like_to_host_div','category_choice_2','.like_to_apply_div','pitch_div').hide();
     $('.hear_div').hide();
 

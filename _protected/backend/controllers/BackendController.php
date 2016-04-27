@@ -47,7 +47,7 @@ class BackendController extends Controller
                     ],
                     [
                         'controllers' => ['chapters','countries'],
-                        'actions' => ['index', 'create','active-states','active-cities'],
+                        'actions' => ['index', 'create','active-states','active-cities','onboarding'],
                         'allow' => true,
                         'roles' => ['admin','theCreator'],
                     ],
