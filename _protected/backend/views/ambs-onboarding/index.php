@@ -15,9 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-12">
             <div class="box">
                 <div class="box-body table-responsive">
-                    <p>
-                        <?= Html::a('Create Ambs Onboarding', ['create'], ['class' => 'btn btn-success']) ?>
-                    </p>
+
                     <?= GridView::widget([
                         'dataProvider' => $dataProvider,
                         'filterModel' => $searchModel,
@@ -59,7 +57,12 @@ $this->params['breadcrumbs'][] = $this->title;
                             // 'paypal_email:email',
                             // 'check_to',
 
-                            ['class' => 'yii\grid\ActionColumn'],
+                            ['class' => 'yii\grid\ActionColumn',
+                                'header'=>'Actions',
+                                'template' => '{view}',
+
+                                'contentOptions' => ['style' => 'width:160px;letter-spacing:10px;text-align:center'],
+                            ],
                         ],
                     ]); ?>
 

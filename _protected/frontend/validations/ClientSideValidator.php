@@ -9,7 +9,7 @@ class ClientSideValidator extends Validator
     public function init()
     {
         parent::init();
-        $this->message = 'On of the fields is required.';
+        $this->message = 'field is required.';
     }
 
     public function validateAttribute($model, $attribute)
@@ -19,7 +19,7 @@ class ClientSideValidator extends Validator
 
     public function clientValidateAttribute($model, $attribute, $view)
     {
-        if (empty($model->type) && empty($model->query)) {
+
             $message = json_encode($this->message, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
             return <<<JS
         var def = $.Deferred();
@@ -28,20 +28,23 @@ class ClientSideValidator extends Validator
             stopValidation = true;
             def.reject();
             }
-
-
             if (value == '') {
-                if(stopValidation == true){
-                    def.reject();
-                } else {
+
                     messages.push($message);
                     def.resolve();
-                }
+
+            }
+
+            if (value == '') {
+
+                    messages.push($message);
+                    def.resolve();
+
             }
 
             deferred.push(def);
 JS;
         }
-    }
+
 
 }

@@ -432,10 +432,9 @@ class SiteController extends Controller
                 $model->check_to = "";
                 $model->bank_address = "";
                 $model->bank_street_address = "";
-                $model->bank_country =  "";
-                $model->bank_state = "";
-                $model->bank_city = "";
-                $model->bank_zip = "";
+                $model->bank_country =  "0";
+                $model->bank_state = "0";
+                $model->bank_city = "0";
             }elseif($model->preferred_payment == 1){
                 $model->account_name = "";
                 $model->bank_name = "";
@@ -447,7 +446,7 @@ class SiteController extends Controller
                 $model->check_to = "";
             }
            // echo"<pre>";print_r($model);die;
-            if ($model->save(false)) {
+            if ($model->save()) {
                 Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Form has been Submitted successfully!'));
                 return $this->redirect(['index']);
             }else{

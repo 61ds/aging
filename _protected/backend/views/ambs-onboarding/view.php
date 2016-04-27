@@ -10,19 +10,15 @@ $this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Ambs Onboardings', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="ambs-onboarding-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
+<div class="startup-form-index">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body table-responsive">
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
+        <?php
+            echo Html::a('Create As ambassador', ['user/create-ambassador', 'id' => $model->id], ['class' => 'btn btn-primary']);
+        ?>
     </p>
 
     <?= DetailView::widget([
@@ -35,17 +31,34 @@ $this->params['breadcrumbs'][] = $this->title;
             'country_code',
             'area_code',
             'phone_number',
-            'chapter',
-            'chapter_city',
-            'chapter_state',
-            'chapter_country',
+            [
+                'attribute'=>'chapter_city',
+                'value'=>$model->addressCity->name,
+            ],
+            [
+                'attribute'=>'chapter_state',
+                'value'=>$model->addressState->name,
+            ],
+            [
+                'attribute'=>'chapter_country',
+                'value'=>$model->addressCountry->name,
+            ],
             'twitter_handle',
             'chapter_email:email',
             'address',
             'street_address',
-            'address_city',
-            'address_state',
-            'address_country',
+            [
+                'attribute'=>'address_city',
+                'value'=>$model->addressCity->name,
+            ],
+            [
+                'attribute'=>'address_state',
+                'value'=>$model->addressState->name,
+            ],
+            [
+                'attribute'=>'address_country',
+                'value'=>$model->addressCountry->name,
+            ],
             'address_zip',
             'file',
             'notes:ntext',
@@ -56,13 +69,26 @@ $this->params['breadcrumbs'][] = $this->title;
             'aba_routing',
             'bank_address',
             'bank_street_address',
-            'bank_city',
-            'bank_state',
-            'bank_country',
+            [
+                'attribute'=>'bank_city',
+                'value'=>$model->addressCity->name,
+            ],
+            [
+                'attribute'=>'bank_state',
+                'value'=>$model->addressState->name,
+            ],
+            [
+                'attribute'=>'bank_country',
+                'value'=>$model->addressCountry->name,
+            ],
             'bank_zip',
             'paypal_email:email',
             'check_to',
         ],
     ]) ?>
 
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
