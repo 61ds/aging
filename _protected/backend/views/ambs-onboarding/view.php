@@ -44,6 +44,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'value'=>$model->addressCountry->name,
             ],
             'twitter_handle',
+            [
+                'attribute'=>'chapter',
+                'value'=>$model->chapter0->name,
+            ],
             'chapter_email:email',
             'address',
             'street_address',

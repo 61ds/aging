@@ -43,6 +43,16 @@ class AmbsOnboardingController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    public function actionApprove()
+    {
+        $searchModel = new AmbsOnboardingSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
 
     /**
      * Displays a single AmbsOnboarding model.

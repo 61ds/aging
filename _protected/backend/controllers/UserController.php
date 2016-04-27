@@ -3,6 +3,7 @@ namespace backend\controllers;
 
 use common\models\User;
 use common\models\UserSearch;
+use common\models\AmbsOnboarding;
 use common\rbac\models\Role;
 use Yii;
 use yii\base\Model;
@@ -79,8 +80,8 @@ class UserController extends BackendController
             ]);
         }
     }
-    public function actionCreateAmbassador()
-    {    $user = new User(['scenario' => 'create']);
+    public function actionCreateAmbassador($id = 0)
+    {   $user = new User(['scenario' => 'create']);
         $role = new Role();
 
         if ($user->load(Yii::$app->request->post()) &&
@@ -100,10 +101,23 @@ class UserController extends BackendController
         }
         else
         {
-            return $this->render('create-ambassador', [
-                'user' => $user,
-                'role' => $role,
-            ]);
+            if($id != 0){
+                $data = AmbsOnboarding::findOne($id);
+                $user->email =  $data->email;
+                $user->chapter_id =  $data->chapter;
+                return $this->render('create-ambassador', [
+                    'user' => $user,
+                    'role' => $role,
+                    'board' => $data,
+                ]);
+
+            }else{
+                return $this->render('create-ambassador', [
+                    'user' => $user,
+                    'role' => $role,
+                ]);
+            }
+
         }
     }
 

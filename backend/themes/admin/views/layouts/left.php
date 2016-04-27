@@ -85,6 +85,16 @@
                             ['label' => 'Experience In Web', 'icon' => 'fa fa-angle-right', 'url' => ['web-experience/index'] ,'active' => ($this->context->route == 'company-category/index' || $this->context->route == 'company-category/create' || $this->context->route == 'company-category/update' || $this->context->route == 'category-choices/index' || $this->context->route ==  'category-choices/create' || $this->context->route == 'category-choices/update')],
                            ],
                     ],
+                    [
+                        'label' => 'Onboarding Application',
+                        'icon' => 'fa fa-university',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'All New Application', 'icon' => 'fa fa-angle-right', 'url' => ['chapter-form/index'],'active' => ($this->context->route == 'ambs-onboarding/index')],
+                            ['label' => 'All Approved Application', 'icon' => 'fa fa-angle-right', 'url' => ['chapter-form/index'],'active' => ($this->context->route == 'ambs-onboarding/approve')],
+
+                           ],
+                    ],
 
                     /*['label' => 'Menu Management', 'icon' => 'fa fa-bars', 'url' => ['/menu'],'active' => ($this->context->route == 'admin/menu/index'),],
 
