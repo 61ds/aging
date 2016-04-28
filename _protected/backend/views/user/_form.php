@@ -7,6 +7,9 @@ use yii\widgets\ActiveForm;
 /* @var $user common\models\User */
 /* @var $form yii\widgets\ActiveForm */
 /* @var $role common\rbac\models\Role; */
+$roles = $user->roleList;
+unset($roles['ambassador']);
+
 ?>
 <div class="user-form">
 
@@ -24,7 +27,7 @@ use yii\widgets\ActiveForm;
             ?>       
         <?php endif ?>
 
-        <?= $form->field($role, 'item_name')->dropDownList($user->roleList) ?>
+        <?= $form->field($role, 'item_name')->dropDownList($roles) ?>
 
         <?= $form->field($user, 'status')->dropDownList($user->statusList) ?>
 

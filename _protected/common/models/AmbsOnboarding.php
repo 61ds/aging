@@ -52,7 +52,7 @@ use yii\db\ActiveRecord;
  * @property States $bankState
  * @property Countries $bankCountry
  */
-class AmbsOnboarding extends \yii\db\ActiveRecord
+class AmbsOnboarding extends ActiveRecord
 {
     /**
      * @inheritdoc
@@ -69,7 +69,7 @@ class AmbsOnboarding extends \yii\db\ActiveRecord
     {
         return [
             [['first_name', 'last_name', 'email', 'country_code',  'phone_number', 'chapter', 'chapter_state', 'chapter_country', 'address', 'street_address', 'preferred_payment', 'address_state', 'address_country', 'address_zip', 'file'], 'required'],
-            [['country_code', 'area_code', 'phone_number', 'chapter', 'chapter_city', 'chapter_state', 'chapter_country', 'address_city', 'address_state', 'address_country', 'address_zip', 'preferred_payment', 'bank_city', 'bank_state', 'bank_country', 'bank_zip'], 'integer'],
+            [['country_code', 'area_code', 'phone_number', 'chapter', 'chapter_city', 'chapter_state', 'chapter_country', 'address_city', 'address_state', 'address_country', 'address_zip', 'preferred_payment', 'bank_city', 'bank_state', 'bank_country', 'bank_zip','approved','created_at','updated_at'], 'integer'],
             [['notes'], 'string'],
             [['email','paypal_email','chapter_email'], 'email'],
 
@@ -82,7 +82,18 @@ class AmbsOnboarding extends \yii\db\ActiveRecord
             [['email'], \frontend\validations\ClientSideValidator::className() ],
         ];
     }
-
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['created_at', 'updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                ],
+            ],
+        ];
+    }
     /**
      * @inheritdoc
      */
@@ -95,6 +106,7 @@ class AmbsOnboarding extends \yii\db\ActiveRecord
             'email' => Yii::t('app', 'Email'),
             'country_code' => Yii::t('app', 'Country Code'),
             'area_code' => Yii::t('app', 'Area Code'),
+            'approved' => Yii::t('app', 'Approved'),
             'phone_number' => Yii::t('app', 'Phone Number'),
             'chapter' => Yii::t('app', 'Chapter'),
             'chapter_city' => Yii::t('app', 'Chapter City'),

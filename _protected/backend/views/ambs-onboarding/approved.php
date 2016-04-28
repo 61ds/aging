@@ -48,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
 
-                             'twitter_handle',
+                            'twitter_handle',
                             // 'chapter_email:email',
                             // 'address',
                             // 'street_address',
@@ -88,8 +88,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
                             ['class' => 'yii\grid\ActionColumn',
                                 'header'=>'Actions',
+                                'buttons' => [
+                                    'view' =>function ($url, $model, $key) {
+                                        $options = array_merge([
+                                            'title' => Yii::t('yii', 'View'),
+                                            'aria-label' => Yii::t('yii', 'View'),
+                                            'data-pjax' => '0',
+                                        ], []);
+                                        return Html::a('<span class="glyphicon glyphicon-folder-open"></span>', ['view-approved','id'=>$model->id], $options);
+                                    },
+                                ],
                                 'template' => '{view}',
-
                                 'contentOptions' => ['style' => 'width:160px;letter-spacing:10px;text-align:center'],
                             ],
                         ],

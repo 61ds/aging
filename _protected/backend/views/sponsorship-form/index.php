@@ -20,13 +20,28 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
+            ['class' => 'yii\grid\SerialColumn',
+                'header' => 'S.No.'],
+            [
+                'attribute' => 'sponsoring',
+                'value' =>  function ($model) {
+                    return $model->sponsorings->name;
+                },
+            ],
             'organization',
-            'first_name',
-            'last_name',
-            'title',
+            'agreed_amount',
+            [
+                'attribute' => 'fullname',
+                'value' =>  function ($model) {
+                    return $model->first_name ." ". $model->last_name;
+                },
+            ],
+            [
+                'attribute' => 'preferred_payment',
+                'value' =>  function ($model) {
+                    return $model->preferredPayment->name;
+                },
+            ],
             // 'email:email',
             // 'phone_country_code',
             // 'phone_area_code',

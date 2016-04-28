@@ -21,11 +21,37 @@ $this->params['breadcrumbs'][] = $this->title;
                         'filterModel' => $searchModel,
                         'columns' => [
                             ['class' => 'yii\grid\SerialColumn','header'=>'S.No.'],
-                            //'id',
-                            'first_name',
-                            'last_name',
-                            'job_title',
+                            [
+                                'format' => 'raw',
+                                'attribute' => 'choices',
+                                'value' =>  function ($model) {
+                                    $choices = "";
+                                    if($model->first_name)
+                                        $choices .= '1st:&nbsp;&nbsp;&nbsp;'. $model->firstChoice->name;
+                                    if($model->second_choice)
+                                        $choices .= '<br>2nd:&nbsp;&nbsp;'. $model->secondChoice->name;
+                                    if($model->third_choice)
+                                        $choices .= '<br>3rd:&nbsp;&nbsp;&nbsp;'. $model->thirdChoice->name;
+                                    return $choices;
+                                },
+                            ],
+                            'name',
+                            [
+                                'attribute' => 'fullname',
+                                'value' =>  function ($model) {
+                                    return $model->first_name ." ". $model->last_name;
+                                },
+                            ],
                             'email:email',
+                            'phone',
+                            [
+                                'attribute' => 'stage',
+                                'value' =>  function ($model) {
+                                    return $model->stage0->name;
+                                },
+                            ],
+
+                            'created_at:Date',
                             // 'phone',
                             // 'linkedin',
                             // 'twitter',

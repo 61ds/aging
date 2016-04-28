@@ -99,21 +99,26 @@ class UserController extends BackendController
                 $role->save();
                 if($id != 0){
                     $data = AmbsOnboarding::findOne($id);
+                    $data->updateAttributes(['approved' => 1]);
+
                     $ambas_model = new AmbassadorProfile;
 
                     foreach($data as $key => $value){
-                        if($key != "id")
+                        if($key != 'id' && $key != "approved" && $key != "created_at" && $key != "updated_at")
                             $ambas_model->$key =  $value;
                     }
                     $ambas_model->user_id =  $user->id;
                     $ambas_model->onboarding_id =  $data->id;
 
                     $ambas_model->save();
+
+
+
                 }
 
             }
             Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Ambassdor has been Created successfully!'));
-            return $this->redirect('user/index');
+            return $this->redirect(['update', 'id' => $user->id]);
         }
         else
         {
@@ -191,9 +196,10 @@ class UserController extends BackendController
             }            
 
             $user->save(false);
-            $role->save(false); 
-            
-            return $this->redirect(['view', 'id' => $user->id]);
+            $role->save(false);
+            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Profile updated successfully!'));
+
+            return $this->redirect(['update', 'id' => $user->id]);
         }
         else 
         {

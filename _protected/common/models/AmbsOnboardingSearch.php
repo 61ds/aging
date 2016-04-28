@@ -39,10 +39,10 @@ class AmbsOnboardingSearch extends AmbsOnboarding
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params,$approved = 0)
     {
         $query = AmbsOnboarding::find();
-
+        $query->where(['approved' => $approved]);
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
