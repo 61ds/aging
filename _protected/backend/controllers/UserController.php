@@ -136,9 +136,11 @@ class UserController extends BackendController
                 }
 
             }else{
+                $data = AmbsOnboarding::findOne($id);
                 return $this->render('create-ambassador', [
                     'user' => $user,
                     'role' => $role,
+                    'board' => $data,
                 ]);
             }
 
@@ -197,7 +199,7 @@ class UserController extends BackendController
         {
             if($role->item_name == "ambassador") {
                 if($id != 0){
-                    $data = AmbassadorProfile::find()->where(['user_id' =>  $user->id])->one();;
+                    $data = AmbassadorProfile::find()->where(['user_id' =>  $user->id])->one();
 
                     if($data){
                         $user->email =  $data->email;
