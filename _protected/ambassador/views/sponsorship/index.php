@@ -85,6 +85,7 @@ $gridColumns = [
                                 },
                             ],
                             [
+                                'label' => 'Preferred Payment Method',
                                 'attribute' => 'preferred_payment',
                                 'value' =>  function ($model) {
                                     return $model->preferredPayment->name;

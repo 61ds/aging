@@ -119,8 +119,8 @@ class SponsorshipForm extends \yii\db\ActiveRecord
             'event_date' => 'Event date (optional)',
             'notes' => 'Notes about the sponsorship (specific instructions, requirements etc)',
             'preferred_payment' => 'Preferred form of payment',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Submitted On',
+            'updated_at' => 'Last updated On',
             'sponsoring_other' => 'Sponsoring Other',
             'item_description' => 'Item Description',
         ];

@@ -85,7 +85,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             // 'bank_zip',
                             // 'paypal_email:email',
                             // 'check_to',
-
+                            'created_at:Date',
                             ['class' => 'yii\grid\ActionColumn',
                                 'header'=>'Actions',
                                 'buttons' => [

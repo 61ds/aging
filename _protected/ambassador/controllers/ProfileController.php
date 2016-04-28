@@ -7,6 +7,7 @@ use common\rbac\models\Role;
 use Yii;
 use yii\base\Model;
 use yii\web\NotFoundHttpException;
+use common\models\AmbassadorProfile;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -20,8 +21,10 @@ class ProfileController extends AmbassadorController
      */
     public function actionIndex()
     {
+        $data = AmbassadorProfile::find()->where(['user_id' => Yii::$app->user->id])->one();
         return $this->render('view', [
             'model' => $this->findModel(Yii::$app->user->id),
+            'board' => $data,
         ]);
     }
 
@@ -65,12 +68,24 @@ class ProfileController extends AmbassadorController
         }
         else 
         {
+            $profile = AmbassadorProfile::find()->where(['user_id'=>Yii::$app->user->id])->one();
             return $this->render('update', [
-                'user' => $user
+                'user' => $user,
+                'profile' => $profile
             ]);
         }
     }
 
+    public function actionUpdateProfile(){
+
+        $profile = AmbassadorProfile::find()->where(['user_id'=>Yii::$app->user->id])->one();
+        // load user data with role and validate them
+        if ($profile->load(Yii::$app->request->post()) && Model::validateMultiple([$profile])) {
+            $profile->save();
+        }
+        Yii::$app->session->setFlash('success','Profile updated successfully! .');
+        return $this->redirect(['index']);
+    }
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.

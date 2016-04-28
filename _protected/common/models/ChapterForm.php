@@ -151,8 +151,8 @@ class ChapterForm extends \yii\db\ActiveRecord
             'biggest_challenge' => 'What do you see as the biggest challenge in growing the Aging2.0 community in your area? ',
             'other_info' => 'Any other information that would be helpful for us to review your application?',
             'how_involved_other' => 'How Involved Other',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Submitted On',
+            'updated_at' => 'Last updated On',
         ];
     }
 

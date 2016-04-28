@@ -22,22 +22,31 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn','header' => 'S.No.'],
 
-            'first_name',
-            'last_name',
+            [
+                'attribute' => 'fullname',
+                'value' =>  function ($model) {
+                    return $model->first_name ." ". $model->last_name;
+                },
+            ],
             'title',
             'organization',
-            // 'email:email',
+             'email:email',
             // 'address',
             // 'street_address',
             // 'address_city',
             // 'address_state',
             // 'address_zip',
             // 'address_country',
-            // 'phone',
-            // 'personal_twitter',
-            // 'work_twitter',
+            [
+                'attribute' => 'Phone',
+                'value' =>  function ($model) {
+                    return $model->phone;
+                },
+            ],
+             'personal_twitter',
+             'work_twitter',
             // 'linkedin',
-            // 'skype',
+             'skype',
             // 'organization_website',
             // 'organization_descr:ntext',
             // 'personal_website',
@@ -60,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'biggest_challenge:ntext',
             // 'other_info:ntext',
             // 'how_involved_other',
-            // 'created_at',
+             'created_at:Date',
             // 'updated_at',
 
             ['class' => 'yii\grid\ActionColumn',

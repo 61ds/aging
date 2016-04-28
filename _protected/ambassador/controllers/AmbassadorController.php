@@ -34,7 +34,7 @@ class AmbassadorController extends Controller
                     ],
                     [
                         'controllers' => ['profile'],
-                        'actions' => ['index','update','change-password'],
+                        'actions' => ['index','update','change-password','update-profile'],
                         'allow' => true,
                         'roles' => ['ambassador'],
                     ],

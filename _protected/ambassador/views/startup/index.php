@@ -155,6 +155,7 @@ $gridColumns = [
                             ],
                             'name',
                             [
+                                'label' => 'Name',
                                 'attribute' => 'fullname',
                                 'value' =>  function ($model) {
                                     return $model->first_name ." ". $model->last_name;
@@ -163,14 +164,19 @@ $gridColumns = [
                             'email:email',
                             'phone',
 
-                            'descr:ntext',
                             [
+                                'label' => 'Company Description',
+                                'attribute' => 'descr',
+                            ],
+                            [
+                                'label' => 'Category',
                                 'attribute' => 'category',
                                 'value' =>  function ($model) {
                                     return $model->category0->name;
                                 },
                             ],
                             [
+                                'label' => 'What Stage?',
                                 'attribute' => 'stage',
                                 'value' =>  function ($model) {
                                     return $model->stage0->name;

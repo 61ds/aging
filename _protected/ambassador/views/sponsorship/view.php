@@ -10,53 +10,77 @@ $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Sponsorship Forms', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="sponsorship-form-view">
+<div class="startup-form-index">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="box-body table-responsive">
+                    <p>
+                        <?= Html::a('Back', ['index'], ['class' => 'btn btn-primary']) ?>
 
-    <h1><?= Html::encode($this->title) ?></h1>
+                    </p>
 
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+                    <?= DetailView::widget([
+                        'model' => $model,
+                        'attributes' => [
+                            'organization',
+                            'first_name',
+                            'last_name',
+                            'title',
+                            'email:email',
+                            'phone_country_code',
+                            'phone_area_code',
+                            'phone_number',
+                            'address',
+                            'street_address',
+                            'address_zip',
+                            [
+                                'attribute'=>'address_city',
+                                'value'=>$model->addressCity->name,
+                            ],
+                            [
+                                'attribute'=>'address_state',
+                                'value'=>$model->addressState->name,
+                            ],
+                            [
+                                'attribute'=>'address_country',
+                                'value'=>$model->addressCountry->name,
+                            ],
+                            [
+                                'attribute'=>'logo',
+                                'format' => 'html',
+                                'value'=> Html::img(Yii::$app->params['baseurl'].'/uploads/thumbs/sponsor/images/'.$model->logo),
+                            ],
+                            'website',
+                            'twitter',
+                            'facebook',
+                            'summary:ntext',
+                            [
+                                'attribute'=>'sponsoring',
+                                'value' => $model->getSponsoring($model->sponsoring)
+                            ],
+                            [
+                                'attribute'=>'sponsoring_other',
+                                'value' => $model->getSponsoringOther($model->sponsoring_other)
+                            ],
+                            'item_description',
+                            'agreed_amount',
+                            'event_date:date',
+                            'notes:ntext',
+                            [
+                                'label' => 'Preferred Payment Method',
+                                'attribute'=>'preferred_payment',
+                                'value' => $model->getPaymentMethod($model->preferred_payment)
+                            ],
+                            'created_at:date',
+                            'updated_at:date',
+                        ],
+                    ]) ?>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'organization',
-            'first_name',
-            'last_name',
-            'title',
-            'email:email',
-            'phone_country_code',
-            'phone_area_code',
-            'phone_number',
-            'address',
-            'street_address',
-            'address_city',
-            'address_state',
-            'address_country',
-            'address_zip',
-            'logo',
-            'website',
-            'twitter',
-            'facebook',
-            'summary:ntext',
-            'sponsoring',
-            'agreed_amount',
-            'event_date',
-            'notes:ntext',
-            'preferred_payment',
-            'created_at',
-            'updated_at',
-            'sponsoring_other',
-        ],
-    ]) ?>
 
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

@@ -135,6 +135,8 @@ class AmbsOnboarding extends ActiveRecord
             'bank_zip' => Yii::t('app', 'Zip'),
             'paypal_email' => Yii::t('app', 'Paypal Email'),
             'check_to' => Yii::t('app', 'Check To'),
+            'created_at' => 'Submitted On',
+            'updated_at' => 'Last updated On',
         ];
     }
 

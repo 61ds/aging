@@ -1,7 +1,7 @@
 <?php
 
 namespace common\models;
-
+use yii\helpers\ArrayHelper;
 use Yii;
 
 /**
@@ -217,4 +217,30 @@ class AmbassadorProfile extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Cities::className(), ['id' => 'bank_city']);
     }
+
+    public function getCities(){
+        $cities = Cities::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($cities,'id','name');
+    }
+
+    //get all states
+    public function getStates()
+    {
+        $states = States::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($states,'id','name');
+    }
+
+    //get all countries
+    public function getCountries()
+    {
+        $countries = Countries::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($countries,'id','name');
+    }
+    public function getChapters()
+    {
+        $spo_pay = Chapters::find()->where(['status' => 1])->orderBy('name')->all();
+        return ArrayHelper::map($spo_pay,'id','name');
+    }
+
+
 }

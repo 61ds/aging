@@ -505,15 +505,16 @@ class SiteController extends Controller
                 $model->headshot =  $image_name;
 
             }
-            if($resume)
+
+            if($resume != '')
             {
                 $name = time();
-                $size = Yii::$app->params['folders']['size'];
-                $main_folder = "chapter/images";
-                $image_name= $this->uploadImage($resume,$name,$main_folder,$size);
-                $model->resume =  $image_name;
-
+                $main_folder = 'chapter/resume';
+                $file_name= $this->uploadFile($resume,$name,$main_folder);
+                $model->resume = $file_name;
             }
+
+
             $model->how_involved = serialize($model->how_involved);
             if ($model->save()) {
                 Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Form has been Submitted successfully!'));

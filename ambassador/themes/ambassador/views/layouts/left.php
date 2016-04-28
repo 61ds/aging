@@ -20,14 +20,14 @@
             [
                 'options' => ['class' => 'sidebar-menu'],
                 'items' => [
-                    ['label' => 'All Startups', 'icon' => 'fa fa-angle-right', 'url' => ['startup/index'],'active' => ($this->context->route == 'startup-form/index')],
+                    ['label' => 'All Startups', 'icon' => 'fa fa-angle-right', 'url' => ['startup/index'],'active' => ($this->context->route == 'startup/index' || $this->context->route == 'startup/view' )],
 
-                    ['label' => 'All Sponsorships', 'icon' => 'fa fa-angle-right', 'url' => ['sponsorship/index'],'active' => ($this->context->route == 'startup-form/index')],
+                    ['label' => 'All Sponsorships', 'icon' => 'fa fa-angle-right', 'url' => ['sponsorship/index'],'active' => ($this->context->route == 'sponsorship/index' || $this->context->route == 'sponsorship/view')],
 
-                    ['label' => 'All Revenues', 'icon' => 'fa fa-angle-right', 'url' => ['revenues/index'],'active' => ($this->context->route == 'startup-form/index')],
+                    ['label' => 'All Revenues', 'icon' => 'fa fa-angle-right', 'url' => ['revenues/index'],'active' => ($this->context->route == 'revenues/index' || $this->context->route == 'revenues/view')],
 
-                    ['label' => 'My profile', 'icon' => 'fa fa-angle-right', 'url' => ['profile/index'],'active' => ($this->context->route == 'startup-form/index')],
-                    ['label' => 'Change password', 'icon' => 'fa fa-angle-right', 'url' => ['profile/change-password']],
+                    ['label' => 'My profile', 'icon' => 'fa fa-angle-right', 'url' => ['profile/index'],'active' => ($this->context->route == 'profile/index' || $this->context->route == 'profile/update' )],
+                    ['label' => 'Change password', 'icon' => 'fa fa-angle-right', 'url' => ['profile/change-password'],'active' => ($this->context->route == 'profile/change-password')],
 
                 ],
 

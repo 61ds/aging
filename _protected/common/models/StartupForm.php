@@ -175,8 +175,8 @@ class StartupForm extends ActiveRecord
             'hear_other' => 'Please Describe',
             'technology' => 'Type of technology used (pick up to 3)',
             'interested_in_joining' => 'Are you interested in joining the Aging2.0 Alliance? (www.aging2.com/alliance)',
-            'created_at' => 'Created At',
-            'updated_at' => 'Updated At',
+            'created_at' => 'Submitted On',
+            'updated_at' => 'Last updated On',
         ];
     }
 

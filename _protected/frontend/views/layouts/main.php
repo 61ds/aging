@@ -36,25 +36,10 @@ AppAsset::register($this);
             // everyone can see Home page
             $menuItems[] = ['label' => Yii::t('app', 'Home'), 'url' => ['/site/index']];
 
-            // we do not need to display Article/index, About and Contact pages to editor+ roles
-            if (!Yii::$app->user->can('editor')) 
-            {
-                $menuItems[] = ['label' => Yii::t('app', 'Articles'), 'url' => ['/article/index']];
-                $menuItems[] = ['label' => Yii::t('app', 'About'), 'url' => ['/site/about']];
-                $menuItems[] = ['label' => Yii::t('app', 'Contact'), 'url' => ['/site/contact']];
-            }
-
-            // display Article admin page to editor+ roles
-            if (Yii::$app->user->can('editor'))
-            {
-                $menuItems[] = ['label' => Yii::t('app', 'Articles'), 'url' => ['/article/admin']];
-            }            
-            
             // display Signup and Login pages to guests of the site
-            if (Yii::$app->user->isGuest) 
+            if (Yii::$app->user->isGuest)
             {
-                $menuItems[] = ['label' => Yii::t('app', 'Signup'), 'url' => ['/site/signup']];
-                $menuItems[] = ['label' => Yii::t('app', 'Login'), 'url' => ['/site/login']];
+
             }
             // display Logout to all logged in users
             else 
