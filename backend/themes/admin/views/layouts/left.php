@@ -34,9 +34,8 @@
                         'icon' => 'fa fa-book',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'All Application', 'icon' => 'fa fa-angle-right', 'url' => ['chapter-form/index'],'active' => ($this->context->route == 'chapter-form/index')],
                             ['label' => 'All Chapters', 'icon' => 'fa fa-angle-right', 'url' => ['chapters/index'],'active' => ($this->context->route == 'chapters/index')],
-                            ['label' => 'Add New Chapter', 'icon' => 'fa fa-angle-right', 'url' => ['chapters/create']],
+                            ['label' => 'Add New Chapter', 'icon' => 'fa fa-angle-right', 'url' => ['chapters/create'],'active' => ($this->context->route == 'chapters/create')],
                             ['label' => 'Chapter Roles', 'icon' => 'fa fa-angle-right', 'url' => ['chapter-roles/index'] ,'active' => ($this->context->route == 'chapter-roles/index' || $this->context->route == 'chapter-roles/create' || $this->context->route == 'chapter-roles/update')],
                             ['label' => 'Web Experience Levels', 'icon' => 'fa fa-angle-right', 'url' => ['web-experience/index'] ,'active' => ($this->context->route == 'web-experience/index' || $this->context->route == 'web-experience/create' || $this->context->route == 'web-experience/update')],
                         ],
@@ -58,7 +57,7 @@
                         'url' => '#',
                         'items' => [
                             ['label' => 'All Startups', 'icon' => 'fa fa-angle-right', 'url' => ['startup-form/index'],'active' => ($this->context->route == 'startup-form/index')],
-                            ['label' => 'Startup Stages', 'icon' => 'fa fa-angle-right', 'url' => ['company-stage/index']],
+                            ['label' => 'Startup Stages', 'icon' => 'fa fa-angle-right', 'url' => ['company-stage/index'],'active' => ($this->context->route == 'company-stage/index')],
                             ['label' => 'Startup Categories', 'icon' => 'fa fa-angle-right', 'url' => ['company-category/index'] ,'active' => ($this->context->route == 'company-category/index' || $this->context->route == 'company-category/create' || $this->context->route == 'company-category/update' || $this->context->route == 'category-choices/index' || $this->context->route ==  'category-choices/create' || $this->context->route == 'category-choices/update')],
                             ['label' => 'Startup Technology', 'icon' => 'fa fa-angle-right', 'url' => ['company-technology/index'] ,'active' => ($this->context->route == 'company-technology/index' || $this->context->route == 'company-technology/create' || $this->context->route == 'company-technology/update')],
                             ['label' => 'Startup Strategies', 'icon' => 'fa fa-angle-right', 'url' => ['company-strategic/index'] ,'active' => ($this->context->route == 'company-strategic/index' || $this->context->route == 'company-strategic/create' || $this->context->route == 'company-strategic/update')],
@@ -71,10 +70,18 @@
                         'icon' => 'fa fa-university',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'All SponsorShip', 'icon' => 'fa fa-angle-right', 'url' => ['sponsorship-form/index'],'active' => ($this->context->route == 'startup-form/index')],
-                            ['label' => 'Sponsoring', 'icon' => 'fa fa-angle-right', 'url' => ['sponsor/index']],
-                            ['label' => 'Payment Type', 'icon' => 'fa fa-angle-right', 'url' => ['sponsor-payment/index'] ,'active' => ($this->context->route == 'company-category/index' || $this->context->route == 'company-category/create' || $this->context->route == 'company-category/update' || $this->context->route == 'category-choices/index' || $this->context->route ==  'category-choices/create' || $this->context->route == 'category-choices/update')],
-                           ],
+                            ['label' => 'All SponsorShip', 'icon' => 'fa fa-angle-right', 'url' => ['sponsorship-form/index'],'active' => ($this->context->route == 'sponsorship-form/index')],
+                            ['label' => 'Sponsoring', 'icon' => 'fa fa-angle-right', 'url' => ['sponsor/index'],'active' => ($this->context->route == 'sponsor/index')],
+                            ['label' => 'Payment Type', 'icon' => 'fa fa-angle-right', 'url' => ['sponsor-payment/index'] ,'active' => ($this->context->route == 'sponsor-payment/index')],
+                        ],
+                    ],
+                    [
+                        'label' => 'Chapter Application',
+                        'icon' => 'fa fa-university',
+                        'url' => '#',
+                        'items' => [
+                            ['label' => 'All Applications', 'icon' => 'fa fa-angle-right', 'url' => ['chapter-form/index'],'active' => ($this->context->route == 'chapter-form/index')],
+                             ],
                     ],
 
                     [
