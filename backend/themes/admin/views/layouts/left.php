@@ -90,8 +90,8 @@
                         'icon' => 'fa fa-university',
                         'url' => '#',
                         'items' => [
-                            ['label' => 'All New Application', 'icon' => 'fa fa-angle-right', 'url' => ['chapter-form/index'],'active' => ($this->context->route == 'ambs-onboarding/index')],
-                            ['label' => 'All Approved Application', 'icon' => 'fa fa-angle-right', 'url' => ['chapter-form/index'],'active' => ($this->context->route == 'ambs-onboarding/approve')],
+                            ['label' => 'All New Application', 'icon' => 'fa fa-angle-right', 'url' => ['ambs-onboarding/index'],'active' => ($this->context->route == 'ambs-onboarding/index')],
+                            ['label' => 'All Approved Application', 'icon' => 'fa fa-angle-right', 'url' => ['ambs-onboarding/approve'],'active' => ($this->context->route == 'ambs-onboarding/approve')],
 
                            ],
                     ],

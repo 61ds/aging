@@ -4,6 +4,7 @@ namespace backend\controllers;
 use common\models\User;
 use common\models\UserSearch;
 use common\models\AmbsOnboarding;
+use common\models\AmbassadorProfile;
 use common\rbac\models\Role;
 use Yii;
 use yii\base\Model;
@@ -80,6 +81,7 @@ class UserController extends BackendController
             ]);
         }
     }
+
     public function actionCreateAmbassador($id = 0)
     {   $user = new User(['scenario' => 'create']);
         $role = new Role();
@@ -95,21 +97,43 @@ class UserController extends BackendController
             {
                 $role->user_id = $user->getId();
                 $role->save();
-            }
+                if($id != 0){
+                    $data = AmbsOnboarding::findOne($id);
+                    $ambas_model = new AmbassadorProfile;
 
-            return $this->redirect('index');
+                    foreach($data as $key => $value){
+                        if($key != "id")
+                            $ambas_model->$key =  $value;
+                    }
+                    $ambas_model->user_id =  $user->id;
+                    $ambas_model->onboarding_id =  $data->id;
+
+                    $ambas_model->save();
+                }
+
+            }
+            Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Ambassdor has been Created successfully!'));
+            return $this->redirect('user/index');
         }
         else
         {
             if($id != 0){
                 $data = AmbsOnboarding::findOne($id);
-                $user->email =  $data->email;
-                $user->chapter_id =  $data->chapter;
-                return $this->render('create-ambassador', [
-                    'user' => $user,
-                    'role' => $role,
-                    'board' => $data,
-                ]);
+
+                if($data){
+                    $user->email =  $data->email;
+                    $user->chapter_id =  $data->chapter;
+                    return $this->render('create-ambassador', [
+                        'user' => $user,
+                        'role' => $role,
+                        'board' => $data,
+                    ]);
+                }else{
+                    return $this->render('create-ambassador', [
+                        'user' => $user,
+                        'role' => $role,
+                    ]);
+                }
 
             }else{
                 return $this->render('create-ambassador', [
@@ -171,10 +195,34 @@ class UserController extends BackendController
         }
         else 
         {
-            return $this->render('update', [
-                'user' => $user,
-                'role' => $role,
-            ]);
+            if($role->item_name == "ambassador") {
+                if($id != 0){
+                    $data = AmbassadorProfile::find()->where(['user_id' =>  $user->id])->one();;
+
+                    if($data){
+                        $user->email =  $data->email;
+                        $user->chapter_id =  $data->chapter;
+                        return $this->render('updateambassador', [
+                            'user' => $user,
+                            'role' => $role,
+                            'board' => $data,
+                        ]);
+                    }else{
+                        return $this->render('create-ambassador', [
+                            'user' => $user,
+                            'role' => $role,
+                        ]);
+                    }
+
+                }
+
+            }else {
+
+                return $this->render('update', [
+                    'user' => $user,
+                    'role' => $role,
+                ]);
+            }
         }
     }
 

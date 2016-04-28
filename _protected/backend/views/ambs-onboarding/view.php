@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model common\models\AmbsOnboarding */
 
-$this->title = $model->id;
+$this->title = "Ambassdor Onboarding Application";
 $this->params['breadcrumbs'][] = ['label' => 'Ambs Onboardings', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'first_name',
             'last_name',
             'email:email',

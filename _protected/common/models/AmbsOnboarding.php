@@ -141,6 +141,10 @@ class AmbsOnboarding extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Cities::className(), ['id' => 'address_city']);
     }
+    public function getAmbassdor()
+    {
+        return $this->hasOne(Cities::className(), ['id' => 'ambassdor_id']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery

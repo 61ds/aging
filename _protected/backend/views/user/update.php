@@ -10,9 +10,7 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Users'), 'url' => ['
 $this->params['breadcrumbs'][] = ['label' => $user->username, 'url' => ['view', 'id' => $user->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
-<div class="user-update">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="col-lg-5 well bs-component">
 
@@ -23,4 +21,7 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 
     </div>
 
-</div>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+    $(".field-role-item_name").remove();
+</script>

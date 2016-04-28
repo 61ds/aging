@@ -60,15 +60,17 @@ $this->params['breadcrumbs'][] = $this->title;
                         // buttons
                         ['class' => 'yii\grid\ActionColumn',
                         'header' => "Menu",
-                        'template' => '{view} {update} {delete}',
+                        'template' => '{update} {delete}',
                             'buttons' => [
-                                'view' => function ($url, $model, $key) {
-                                    return Html::a('', $url, ['title'=>'View user',
-                                        'class'=>'glyphicon glyphicon-eye-open']);
-                                },
+
                                 'update' => function ($url, $model, $key) {
-                                    return Html::a('', $url, ['title'=>'Manage user',
-                                        'class'=>'glyphicon glyphicon-user']);
+                                   if($model->roleName == "ambassador"){
+                                       return Html::a('', $url, ['title'=>'Manage user',
+                                           'class'=>'glyphicon glyphicon-user']);
+                                   }else{
+                                       return Html::a('', $url, ['title'=>'Manage user',
+                                           'class'=>'glyphicon glyphicon-pencil']);
+                                   }
                                 },
                                 'delete' => function ($url, $model, $key) {
                                     return Html::a('', $url,
