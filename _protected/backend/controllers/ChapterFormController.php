@@ -93,8 +93,8 @@ class ChapterFormController extends Controller
     public function actionOnboarding($id)
     {
         $model = $this->findModel($id);
-        $model->onboarding_status = 1;
-        if ($model->save()) {
+
+        if ($model->updateAttributes(['onboarding_status' => 1])) {
             $body = 'Congratulations on being approved to run an Aging2.0 Chapter! Please complete this form which includes the License Agreement and financial information so that we can ensure that you receive Chapter revenues. Please review the Chapter rules here: http://j.mp/a2chapter-groundrules';
             $subject = "Onboarding form Aging2.0 Chapter";
             $name = 'Aging2.0 Chapter';
@@ -104,6 +104,7 @@ class ChapterFormController extends Controller
             }
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
+
             return $this->render('update', [
                 'model' => $model,
             ]);

@@ -25,13 +25,18 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'format' => 'raw',
                                 'attribute' => 'choices',
                                 'value' =>  function ($model) {
-                                    $choices = "";
-                                    if($model->first_name)
-                                        $choices .= '1st:&nbsp;&nbsp;&nbsp;'. $model->firstChoice->name;
-                                    if($model->second_choice)
-                                        $choices .= '<br>2nd:&nbsp;&nbsp;'. $model->secondChoice->name;
-                                    if($model->third_choice)
-                                        $choices .= '<br>3rd:&nbsp;&nbsp;&nbsp;'. $model->thirdChoice->name;
+									$choices = "";
+									if($model->first_choice != ''){
+										
+										if($model->first_name)
+											$choices .= '1st:&nbsp;&nbsp;&nbsp;'. $model->firstChoice->name;
+										if($model->second_choice)
+											$choices .= '<br>2nd:&nbsp;&nbsp;'. $model->secondChoice->name;
+										if($model->third_choice)
+											$choices .= '<br>3rd:&nbsp;&nbsp;&nbsp;'. $model->thirdChoice->name;
+									}else{
+										$choices .= 'Not applied';
+									}
                                     return $choices;
                                 },
                             ],

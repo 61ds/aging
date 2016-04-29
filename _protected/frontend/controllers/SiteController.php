@@ -25,6 +25,7 @@ use yii\web\Controller;
 use yii\web\UploadedFile;
 
 use common\traits\ImageUploadTrait;
+use common\traits\FileUploadTrait;
 
 /**
  * Site controller.
@@ -34,6 +35,7 @@ use common\traits\ImageUploadTrait;
 class SiteController extends Controller
 {
     use ImageUploadTrait;
+    use FileUploadTrait;
     /**
      * Returns a list of behaviors that this component should behave as.
      *
@@ -415,15 +417,15 @@ class SiteController extends Controller
         if(Yii::$app->request->post() && $model->load(Yii::$app->request->post())) {
             $logo = UploadedFile::getInstance($model, 'file');
 
-            if($logo)
-            {
-                $name = time();
-                $size = Yii::$app->params['folders']['size'];
-                $main_folder = "onborading/images";
-                $image_name= $this->uploadImage($logo,$name,$main_folder,$size);
-                $model->file =  $image_name;
+				if($logo)
+				{
+					$name = time();
+					$size = Yii::$app->params['folders']['size'];
+					$main_folder = "onborading/docs";
+					$image_name= $this->uploadFileDocs($logo,$name,$main_folder,$size);
+					$model->file =  $image_name;
 
-            }
+				}
                 if( $model->preferred_payment == 3){
                 $model->account_name = "";
                 $model->bank_name = "";
@@ -445,6 +447,7 @@ class SiteController extends Controller
                 $model->paypal_email = "";
                 $model->check_to = "";
             }
+			
            // echo"<pre>";print_r($model);die;
             if ($model->save()) {
                 Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Form has been Submitted successfully!'));
@@ -510,12 +513,13 @@ class SiteController extends Controller
             {
                 $name = time();
                 $main_folder = 'chapter/resume';
-                $file_name= $this->uploadFile($resume,$name,$main_folder);
+                $file_name= $this->uploadFileDocs($resume,$name,$main_folder,$size);
                 $model->resume = $file_name;
             }
 
 
             $model->how_involved = serialize($model->how_involved);
+			
             if ($model->save()) {
                 Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Form has been Submitted successfully!'));
                 return $this->redirect(['index']);
@@ -578,7 +582,6 @@ class SiteController extends Controller
             $model->strategic_priority = serialize($model->strategic_priority);
             $model->pitch_city = serialize($model->pitch_city);
             $model->category_choice = serialize($model->category_choice);
-
             if ($model->save()) {
                 Yii::$app->getSession()->setFlash('success', Yii::t('app', 'Page has been updated successfully!'));
                 return $this->redirect(['index']);

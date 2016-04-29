@@ -249,9 +249,10 @@ class UserController extends BackendController
         $data = AmbassadorProfile::find()->where(['user_id'=>$id])->one();
 
         $data1 = AmbsOnboarding::findOne($data->onboarding_id);
-        $data1->updateAttributes(['approved' => 0]);
-        $data->delete();
-
+		if($data1){
+			$data1->updateAttributes(['approved' => 0]);
+			$data->delete();
+		}
         $this->findModel($id)->delete();
 
         // delete this user's role from auth_assignment table

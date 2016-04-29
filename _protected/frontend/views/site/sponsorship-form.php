@@ -55,9 +55,9 @@ $this->registerJs("
 
                 <?= $form->field($model, 'email')->textInput(['placeholder'=>'ex: myname@example.com','maxlength' => true]) ?>
                 <h3>Contact telephone</h3>
-                <?= $form->field($model, 'phone_country_code')->textInput(['placeholder'=>'Country Code','maxlength' => true])->label(false); ?>
-                <?= $form->field($model, 'phone_area_code')->textInput(['placeholder'=>'Area Code','maxlength' => true])->label(false) ?>
-                <?= $form->field($model, 'phone_number')->textInput(['placeholder'=>'Phone Number','maxlength' => true])->label(false) ?>
+                <?= $form->field($model, 'phone_country_code')->textInput(['placeholder'=>'Country Code','maxlength' => true]); ?>
+                <?= $form->field($model, 'phone_area_code')->textInput(['placeholder'=>'Area Code','maxlength' => true]) ?>
+                <?= $form->field($model, 'phone_number')->textInput(['placeholder'=>'Phone Number','maxlength' => true]) ?>
                 <hr>
                 <h3>Address</h3>
                 <hr/>
@@ -76,7 +76,7 @@ $this->registerJs("
                             });'
 
                     ]
-                )->label(false)
+                )
                 ?>
 
                 <?= $form->field($model, 'address_state')->dropDownList(
@@ -90,7 +90,7 @@ $this->registerJs("
                                 $( "select#city" ).html( data );
                             });'
                     ]
-                )->label(false)
+                )
                 ?>
                 <?= $form->field($model, 'address_city')->dropDownList(
                     array(),
@@ -99,7 +99,7 @@ $this->registerJs("
                         'class'=>'form-control select2',
                         'id'=>'city',
                     ]
-                )->label(false)
+                )
                 ?>
 
                 <?= $form->field($model, 'address_zip')->textInput(['maxlength' => true]) ?>

@@ -129,7 +129,7 @@ $this->registerJs("
                             });'
 
         ]
-    )->label(false)
+    )
     ?>
 
     <?= $form->field($model, 'chapter_state')->dropDownList(
@@ -143,7 +143,7 @@ $this->registerJs("
                                 $( "select#chapter_city" ).html( data );
                             });'
         ]
-    )->label(false)
+    )
     ?>
     <?= $form->field($model, 'chapter_city')->dropDownList(
         array(),
@@ -152,7 +152,7 @@ $this->registerJs("
             'class'=>'form-control select2',
             'id'=>'chapter_city',
         ]
-    )->label(false)
+    )
     ?>
 
     <?= $form->field($model, 'twitter_handle')->textInput(['maxlength' => true]) ?>
@@ -175,7 +175,7 @@ $this->registerJs("
                             });'
 
         ]
-    )->label(false)
+    )
     ?>
 
     <?= $form->field($model, 'address_state')->dropDownList(
@@ -189,7 +189,7 @@ $this->registerJs("
                                 $( "select#address_city" ).html( data );
                             });'
         ]
-    )->label(false)
+    )
     ?>
     <?= $form->field($model, 'address_city')->dropDownList(
         array(),
@@ -198,7 +198,7 @@ $this->registerJs("
             'class'=>'form-control select2',
             'id'=>'address_city',
         ]
-    )->label(false)
+    )
     ?>
 
 
@@ -267,7 +267,7 @@ $this->registerJs("
                             });'
 
             ]
-        )->label(false)
+        )
         ?>
 
         <?= $form->field($model, 'bank_state')->dropDownList(
@@ -281,7 +281,7 @@ $this->registerJs("
                                 $( "select#bank_city" ).html( data );
                             });'
             ]
-        )->label(false)
+        )
         ?>
         <?= $form->field($model, 'bank_city')->dropDownList(
             array(),
@@ -290,7 +290,7 @@ $this->registerJs("
                 'class'=>'form-control select2',
                 'id'=>'bank_city',
             ]
-        )->label(false)
+        )
         ?>
 
         <?= $form->field($model, 'bank_zip')->textInput() ?>

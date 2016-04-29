@@ -73,7 +73,7 @@ $this->registerJs("
                             });'
 
                     ]
-                )->label(false)
+                )
                 ?>
 
                 <?= $form->field($model, 'address_state')->dropDownList(
@@ -87,7 +87,7 @@ $this->registerJs("
                                 $( "select#city" ).html( data );
                             });'
                     ]
-                )->label(false)
+                )
                 ?>
                 <?= $form->field($model, 'address_city')->dropDownList(
                     array(),
@@ -96,7 +96,7 @@ $this->registerJs("
                         'class'=>'form-control select2',
                         'id'=>'city',
                     ]
-                )->label(false)
+                )
                 ?>
                 <?= $form->field($model, 'address_zip')->textInput(["placeholder"=>"Postal / Zip Code",'maxlength' => true]) ?>
 
@@ -155,7 +155,7 @@ $this->registerJs("
                             });'
 
                     ]
-                )->label(false)
+                )
                 ?>
 
                 <?= $form->field($model, 'chapter_state')->dropDownList(
@@ -169,7 +169,7 @@ $this->registerJs("
                                 $( "select#chapter_city" ).html( data );
                             });'
                     ]
-                )->label(false)
+                )
                 ?>
                 <?= $form->field($model, 'chapter_city')->dropDownList(
                     array(),
@@ -178,7 +178,7 @@ $this->registerJs("
                         'class'=>'form-control select2',
                         'id'=>'chapter_city',
                     ]
-                )->label(false)
+                )
                 ?>
                 <?= $form->field($model, 'location_notes')->textarea(['id'=>'location_notes','rows' => 6])?>
                 <?= $form->field($model, 'why_get_involved')->textarea(['id'=>'location_notes','rows' => 6])?>
@@ -195,11 +195,11 @@ $this->registerJs("
 
                 <h4>How would you like to be involved?</h4>
                 <hr>
-                <?= $form->field($model, 'how_involved[]')->checkboxList($model->howInvolved)->label(false) ?>
+                <?= $form->field($model, 'how_involved[]')->checkboxList($model->howInvolved) ?>
                 <hr>
                 <h4>How much experience in using web-based community tools (such as Eventbrite, Wordpress etc) </h4>
                 <hr>
-                <?= $form->field($model, 'experience_web')->radioList($model->webExp)->label(false) ?>
+                <?= $form->field($model, 'experience_web')->radioList($model->webExp) ?>
 
                 <h2>3. Partnerships and Collaborations</h2>
                 <hr/>
